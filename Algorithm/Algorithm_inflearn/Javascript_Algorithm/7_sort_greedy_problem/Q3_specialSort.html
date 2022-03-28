@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Sort</title>
+</head>
+
+<body>
+    <p>
+        N개의 정수가 입력되면 당신은 입력된 값을 정렬해야 한다.
+        음의 정수는 앞쪽에 양의정수는 뒷쪽에 있어야 한다. 또한 양의정수와 음의정수의 순서에는 변함이 없어야 한다.
+    </p>
+    <script>
+        function solution(arr) {
+            let answer = arr;
+            const len = arr.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len - 1; j++) {
+                    if (arr[j] > 0 && arr[j + 1] < 0) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                    }
+                    console.log('res',arr);
+                }
+            }
+            return answer;
+        }
+
+        let arr = [1, 2, 3, -3, -2, 5, 6, -6];
+        console.log(solution(arr));
+    </script>
+</body>
+
+</html>

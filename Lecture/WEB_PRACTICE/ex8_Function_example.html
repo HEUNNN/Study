@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Function</h1>
+    <h2>Basic</h2>
+    <ul>
+      <script type="text/javascript">
+        function two(){
+          document.write("<li>2-1</li>");
+          document.write("<li>2-2</li>");
+        }
+        document.write("<li>1</li>");
+        two();
+        document.write("<li>3</li>");
+        two();
+      </script>
+    </ul>
+    <h2>Parameter & Argument</h2>
+    <script type="text/javascript">
+      function sum(a,b){
+        document.write(a + "와 " + b + "의 합은 " + (a + b) + "이다. </br>");
+      }
+      sum(2,3);
+    </script>
+    <h2>Return</h2>
+    <h5>return = 반환값</h5>
+    <script type="text/javascript">
+      function sum_return(left, right){
+        return left + right;
+      }
+      document.write(sum_return(3,4));
+      document.write('<div style="color:red">' + sum_return(4,7) + '</div></br>');
+    </script>
+  </body>
+</html>

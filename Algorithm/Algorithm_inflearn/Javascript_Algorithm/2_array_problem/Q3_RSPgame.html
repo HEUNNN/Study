@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 게임</title>
+</head>
+
+<body>
+    <p>A, B 두 사람이 가위바위보 게임을 합니다. 총 N번의 게임을 하여 A가 이기면 A를 출력하고,
+        B가 이기면 B를 출력합니다. 비길 경우에는 D를 출력합니다.
+        가위, 바위, 보의 정보는 1:가위, 2:바위, 3:보로 정하겠습니다</p>
+    <script>
+        //나의 답안1
+        /*
+        function solution(a, b) {
+            let answer = "";
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] - b[i] === -2 || a[i] - b[i] === 1) {
+                    //A 승리
+                    answer += 'A';
+                } else if (a[i] - b[i] === 0) {
+                    //무승부
+                    answer += 'D';
+                } else if (a[i] - b[i] === 2 || a[i] - b[i] === -1) {
+                    //B 승리
+                    answer += 'B';
+                }
+            }
+
+            return answer;
+        }
+        */
+        //나의 답안2
+        function solution(a, b) {
+            let answer = "";
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] - b[i] === -2 || a[i] - b[i] === 1) {
+                    //A 승리
+                    answer += 'A';
+                } else if (a[i] - b[i] === 0) {
+                    //무승부
+                    answer += 'D';
+                } else {
+                    //B 승리
+                    answer += 'B';
+                }
+            }
+
+            return answer;
+        }
+
+        let a = [2, 3, 3, 1, 3];
+        let b = [1, 1, 2, 2, 3];
+        console.log(solution(a, b));
+    </script>
+</body>
+
+</html>

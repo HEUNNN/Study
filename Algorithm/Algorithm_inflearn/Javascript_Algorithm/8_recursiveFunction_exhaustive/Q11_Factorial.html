@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>팩토리얼</title>
+  </head>
+  <body>
+    <p>
+      자연수 N을 입력하면 N!값을 구하세요. N! = n*(n-1)*(n-2)*.....*2*1입니다.
+      만약 N=5라면 5!=5*4*3*2*1=120입니다.
+    </p>
+    <script>
+      function solution(n) {
+        let answer;
+        function DFS(n) {
+          if (n === 1) {
+            return 1;
+          } else {
+            return n * DFS(n - 1);
+          }
+        }
+        answer = DFS(n);
+        return answer;
+      }
+      console.log(solution(5));
+      /*answer = DFS(5) = 5 * DFS(4) = 5 * 4 * DFS(3) = 5 * 4 * 3 * DFS(2)
+        = 5 * 4 * 3 * 2 * DFS(1) = 5 * 4 * 3 * 2 * 1*/
+    </script>
+  </body>
+</html>

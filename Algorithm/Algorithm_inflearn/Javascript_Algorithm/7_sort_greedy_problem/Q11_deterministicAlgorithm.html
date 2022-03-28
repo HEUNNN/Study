@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결정 알고리즘: 뮤직비디오 </title>
+</head>
+
+<body>
+    <script>
+
+        function count(songs, capacity) {
+            let cnt = 1, sum = 0;
+            for (let j = 0; j < songs.length; j++) {
+                sum += songs[j];
+                if (sum > capacity) {
+                    sum = songs[j];
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
+
+        function solution(m, songs) {
+            let answer;
+            let copyArr = JSON.parse(JSON.stringify(songs));
+            let lt = copyArr.sort((a, b) => { return a - b; })[copyArr.length - 1];
+            let rt = 0;
+
+            for (let x of songs) {
+                rt += x;
+            }
+            while (lt <= rt) {
+                let mid = Math.floor((lt + rt) / 2);
+                if (count(songs, mid) <= m) {
+                    answer = mid;
+                    rt = mid - 1;
+                } else { //cnt가 m보다 크면 lt를 키워서 mid 값을 높여 다시 계산
+                    lt = mid + 1;
+                }
+                console.log("lt: ", lt, "rt: ",rt);
+            }
+
+            return answer;
+        }
+
+        let arr = [1, 2, 9, 4, 5, 6, 7, 8, 3];
+        console.log(solution(3, arr));
+    </script>
+</body>
+
+</html>

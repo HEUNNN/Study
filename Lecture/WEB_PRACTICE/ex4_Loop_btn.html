@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1><a href="ex1_Conditional_Statements.html">WEB</a></h1>
+    <h2><a href="ex2_Toggle_btn.html">Toggle_btn_WEB</a></h2>
+    <p><b>반복문</b>을 활용하여 버튼을 눌렀을때 WEB 링크의 색이 바탕색마다 연하게 보이는 현상을 해결하기.<br>Day or Night 로 바뀔때 마다 WEB 링크의 색도 변경되도록 하면 됨. *배열과 반복문을 활용할 것이다.</p>
+    <input type="button" value="Night" onclick="
+    var target = document.querySelector('body');
+    if(this.value === 'Day'){
+      target.style.backgroundColor = 'white';
+      target.style.color = 'black';
+      this.value = 'Night';
+
+      var links = document.querySelectorAll('a');
+      var i = 0;
+      while(i<links.length){
+        links[i].style.color = 'blue';
+        i = i + 1;
+      }
+
+    }
+    else{
+      target.style.backgroundColor = 'black';
+      target.style.color = 'white';
+      this.value = 'Day';
+
+      var links = document.querySelectorAll('a');
+      var i = 0;
+      while(i<links.length){
+        links[i].style.color = 'skyblue';
+        i = i + 1;
+      }
+    }">
+    <script type="text/javascript">
+      var links = document.querySelectorAll('a');
+      document.write("</br>" + "</br>" + "'a' tag의 개수: " + links.length);
+      document.write("</br>" + "</br>" + "tag a의 개수는 document.querySelectorAll('a')를 사용하여 구할 수 있다.")
+    </script>
+
+  </body>
+</html>

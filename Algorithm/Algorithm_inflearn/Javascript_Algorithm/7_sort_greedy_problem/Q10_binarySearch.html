@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이분 검색</title>
+</head>
+
+<body>
+    <p>
+        이분검색: 검색할 범위를 반으로 줄여가며 찾아가는 검색 <br>
+        -> 찾고 싶은 데이타(키 값), 시작 위치에 대한 값, 종료 위치에 대한 값, 중간 위치에 대한 값이 필요함 <br>
+        -> 중간 위치를 찾을때 (시작 위치 + 종료 위치) / 2 의 결과가 중간 위치 값이 됨 <br>
+        -> 이 중간 위치의 값을 키 값(찾을 데이터)과 비교하여 같다면 탐색 종료, 작다면 왼쪽 데이터를 다시 검사, 크다면 오른쪽 데이터를 다시 검사
+    </p>
+    <script>
+        function solution(target, arr) {
+            let answer;
+            arr.sort((a, b) => {
+                return a - b;
+            })
+            let lt = 0;
+            let rt = arr.length - 1;
+            while (lt <= rt) {
+                let mid = Math.floor((lt + rt) / 2);
+                if (target === arr[mid]) {
+                    answer = mid + 1;
+                    break;
+                } else if (target < arr[mid]) {
+                    rt = mid - 1;
+                } else if (target > arr[mid]) {
+                    lt = mid + 1;
+                }
+            }
+            console.log(arr);
+            return answer;
+        }
+
+        let arr = [23, 87, 65, 12, 57, 32, 99, 81];
+        console.log(solution(32, arr));
+    </script>
+</body>
+
+</html>

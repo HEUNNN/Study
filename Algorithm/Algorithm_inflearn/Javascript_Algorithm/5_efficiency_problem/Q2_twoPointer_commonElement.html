@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공통 원소 찾기</title>
+</head>
+
+<body>
+    <p>A, B 두 개의 집합이 주어지면 두 집합의 공통 원소를 추출하여 오름차순으로 출력하는 프로
+        그램을 작성하세요.</p>
+    <script>
+        //나의 답안1
+
+        function solution(arr1, arr2) {
+            let answer = [];
+            let n = arr1.length;
+            let m = arr2.length;
+            let p1 = 0;
+            let p2 = 0;
+            while (p1 < n) { //p1을 기준으로 잡았기 때문에 (p1 < n && p2 < m) 하면 p2 < m에 의해 while문 벗어나게 될 수 있음
+                if (arr1[p1] !== arr2[p2] && p2 < m) {
+                    p2++;
+                } else if (arr1[p1] === arr2[p2] && p2 < m) {
+                    answer.push(arr1[p1++]);
+                    p2 = 0;
+                } else if (p2 > m - 1) {
+                    p1++;
+                    p2 = 0;
+                }
+            }
+            return answer.sort((a, b) => a - b);
+        }
+
+        //강의 답안
+        /*
+        function solution(arr1, arr2) {
+            let answer = [];
+            arr1.sort((a, b) => a - b);
+            arr2.sort((a, b) => a - b);
+            let p1 = p2 = 0;
+            while (p1 < arr1.length && p2 < arr2.length) {
+                if (arr1[p1] === arr2[p2]) {
+                    answer.push(arr1[p1++]);
+                    p2++;
+                } else if (arr1[p1] > arr2[p2]) { //정렬했기 때문에 arr1[p1]가 크면 p2를 +1해서 또 비교하기
+                    p2++;
+                } else {
+                    p1++;
+                }
+            }
+            return answer;
+        }
+        */
+        let a = [2, 3, 4, 9, 6];
+        let b = [9, 4, 7, 2];
+        console.log(solution(a, b));
+    </script>
+</body>
+
+</html>

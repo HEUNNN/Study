@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>조합 경우의 수</title>
+  </head>
+  <body>
+    <p>
+      nCr = n-1Cr-1 + n-1Cr 재귀를 이용하여 조합수를 계산하는 프로그램을
+      작성하세요.
+    </p>
+    <script>
+      function solution(n, r) {
+        let answer;
+        let memo = Array.from(Array(35), () => Array(35).fill(0)); //memoization
+        function DFS(n, r) {
+          if (memo[n][r] > 0) {
+            return memo[n][r];
+          }
+          if (r === 0 || r === n) {
+            return 1;
+          } else {
+            return (memo[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+          }
+        }
+        answer = DFS(n, r);
+        console.log(memo);
+        return answer;
+      }
+
+      console.log(solution(5, 3));
+    </script>
+  </body>
+</html>

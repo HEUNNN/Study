@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>격자판 최대 합</title>
+</head>
+
+<body>
+    <p>N*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선의 합 중 가 장 큰 합을 출력합니다.</p>
+
+    <script>
+        //나의 답안
+        /*
+        function solution(arr) {
+            let answer = Number.MIN_SAFE_INTEGER;
+            let sumDiagonal1 = 0;
+            let sumDiagonal2 = 0;
+            let array = [];
+            //각 행의 합 = 세로
+            for (let i = 0; i < arr.length; i++) {
+                let sum = 0;
+                for (let j = 0; j < arr.length; j++) {
+                    sum += arr[j][i]; //각 행마다 정해진 열의 값을 더하기 위함
+                };
+                array.push(sum);
+            };
+            //각 열의 합 = 가로
+            arr.forEach((row, ri) => {
+                array.push(row.reduce((acc, curr) => acc + curr));
+            });
+            //대각선의 합
+            arr.forEach((row, ri) => {
+                row.forEach((cell, ci) => {
+                    if (ri === ci) {
+                        sumDiagonal1 += arr[ri][ci];
+                    }
+                });
+            });
+            array.push(sumDiagonal1);
+            for (let k = 0; k < arr.length; k++) {
+                sumDiagonal2 += arr[k][arr.length - 1 - k]
+            }
+            console.log(array);
+            for (let z = 0; z < array.length; z++) {
+                if (array[z] > answer) {
+                    answer = array[z];
+                }
+            }
+
+            return answer;
+        }
+        */
+        //강의 답안
+
+        function solution(arr) {
+            let answer = Number.MIN_SAFE_INTEGER;
+            let n = arr.length;
+            for (let i = 0; i < n; i++) {
+                let sum1 = sum2 = 0;
+                for (let j = 0; j < n; j++) {
+                    sum1 += arr[i][j]; //가로 1줄의 합
+                    sum2 += arr[j][i];
+                }
+                answer = Math.max(answer, sum1, sum2); //answer, sum1, sum2에서 최댓값 찾는 메서드
+            }
+            sum1 = sum2 = 0;
+            for (let i = 0; i < n; i++) {
+                sum1 += arr[i][i]
+                sum2 += arr[i][n - i - 1];
+                answer = Math.max(answer, sum1, sum2);
+            }
+            return answer;
+        }
+
+        let arr = [[10, 13, 10, 12, 15],
+        [12, 39, 30, 23, 11],
+        [11, 25, 50, 53, 15],
+        [19, 27, 29, 37, 27],
+        [19, 13, 30, 13, 19]];
+        console.log(solution(arr));
+    </script>
+</body>
+
+</html>

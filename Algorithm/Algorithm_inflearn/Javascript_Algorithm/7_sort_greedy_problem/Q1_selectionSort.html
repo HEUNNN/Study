@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택정렬</title>
+</head>
+
+<body>
+    <p>
+        N개의 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 선택정렬입니다.
+    </p>
+    <script>
+        function solution(arr) {
+            let answer = arr; //얕은 복사 arr 수정시 answer도 바뀜
+            for (let i = 0; i < arr.length; i++) {
+                let min = Number.MAX_SAFE_INTEGER;
+                let tmp;
+                for (let j = i; j < arr.length; j++) {
+                    if (min > arr[j]) {
+                        min = arr[j];
+                    }
+                }
+                [arr[arr.indexOf(min)], arr[i]] = [arr[i], arr[arr.indexOf(min)]];
+                //arr[arr.indexOf(min)] = arr[i];
+                //arr[i] = min;
+            }
+
+            return answer;
+        }
+        //강의 답
+        /*
+        function solution(arr) {
+            let answer = arr;
+            for (let i = 0; i < arr.length; i++) {
+                let idx = i;
+                for (let j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < arr[idx]) {
+                        idx = j;
+                    }
+                    [arr[i], arr[idx]] = [arr[idx], arr[i]];
+                }
+            }
+            return answer;
+        }
+        */
+        let arr = [11, 5, 13, 23, 7, 15];
+        console.log(solution(arr));
+    </script>
+</body>
+
+</html>

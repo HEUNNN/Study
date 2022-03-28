@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등수 구하기</title>
+</head>
+
+<body>
+    <p>N(1<=N<=100)명의 학생의 국어점수가 입력되면 각 학생의 등수를 입력된 순서대로 출력하는 프로그램을 작성하세요.</p>
+    <script>
+        //나의 답안 -> 동점자 처리가 부족함.
+        /*
+        function solution(arr) {
+            let n = arr.length;
+            let copyArray = arr.slice().sort(function (a, b) { return b - a; });   //배열 깊은 복사 후 정렬
+            //let answer1 = Array(arr.length).fill();
+            let answer = [];
+            for (let i = 0; i < arr.length; i++) {
+                answer[arr.indexOf(copyArray[i])] = i + 1;
+            }
+            return answer;
+
+        }
+        */
+        //강의 답안
+        
+        function solution(arr){
+            let answer = Array(arr.length).fill(1); //[1, 1, 1, 1, 1]
+            //let answer1 = Array.from({length:arr.length}, ()=>1); //[1, 1, 1, 1, 1]
+            //console.log(answer1);
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < arr.length; j++) {
+                    if (arr[i] < arr[j]) {
+                        answer[i] += 1;
+                    }
+                }
+            }
+            return answer;
+        }
+        
+        let arr = [87, 89, 92, 100, 76];
+        console.log(solution(arr));
+    </script>
+</body>
+
+</html>

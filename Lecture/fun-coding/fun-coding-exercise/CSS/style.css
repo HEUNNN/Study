@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+body {
+    margin: 0 auto; /*페이지가 특정 사이즈 이상이 되면 모든 요소를 가운데 위치하도록 하기 위함*/
+    color: rgb(51, 51, 51);
+}
+
+a {
+    all: unset;
+}
+
+a:link { /*가상 클래스 선택자*/
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+}
+
+a:visited {
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+}
+
+a:active {
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+}
+
+a:hover { /*마우스가 올라갔을때*/
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+} 
+
+.inner { /*inner class는 화면 가운데 정렬되고 width가 1200px가 넘으면 1200px를 100%로 잡고 더 이상 늘어나지 않는 class*/
+    width: 100%;
+    height: 100%;
+    margin: 0 auto; /* margin: 세로방향  가로방향   *center 정렬  */
+    padding: 0 2rem;
+    overflow: hidden; /* hidden이라는 속성은 padding 값에는 적용 X */
+}
+
+header {
+    width: 100%;
+    height: 60px;
+    background-color: #f9fce0;
+    position: fixed;
+    top: 0;
+    left: 0; /*왼쪽 최상단에 고정*/
+    z-index: 1000; /*스크롤을 내려도 다른 요소를 덮으면서 최상단에 위치하게 함*/
+}
+.head-container {  
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    /*flex container에 들어있는 flex item들은 가로 방향으로 배치되고,
+      자신에게 설정된 width만큼만 차지함 -> 마치 inline 요소 처럼
+      height는 container 높이 만큼 늘어남
+      */
+    justify-content: space-between; /*수평 정렬 방식 정하는 코드*/
+    align-items: center; /*수직 정렬 방식 정하는 코드*/
+
+}
+.head-container .head-brand { /*head-container class의 자식 중 head-brand class를 가진 것을 지칭*/
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.head-container .head-blog {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.head-container .head-brand a:hover {
+    color: #2186c4;
+    cursor: pointer;
+}
+.head-container .head-blog a:hover {
+    color: #2186c4;
+    cursor: pointer;
+}
+
+section {
+    width: 100%;
+    background-color: white;
+    position: relative;
+}
+
+.main {
+    height: 360px;
+    background-image: url("/Users/leehyeeun/Desktop/Actual_test/img/student.jpeg");
+    background-size: cover; 
+    /*화면의 크기가 커지더라도 모자란 부분을 원본 사진을 늘려서라도 채움,
+      defaul값으로 설정되어 있을때는 사진길이보다 화면이 크면 사진이 반복됨*/
+      background-position: center 10%;
+      background-repeat: no-repeat;
+    z-index: 1;
+}
+.main-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(47, 48, 89);
+    opacity: 0.8; /*투명도*/
+    z-index: 2;
+    margin-top: 60px; 
+    /*header가 position이 fixed라서 문서의 흐름에서 벗어나 있어서,
+      section이 header의 heigth를 무시하고 자신의 위치를 설정하기 때문에 margin-top을 header의 height만큼 설정*/
+}
+
+.title-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.title { 
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    padding-bottom: 0.8rem;
+}
+
+.message {
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: white;
+    line-height: 2rem;
+}
+
+.skill-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.skill {
+    width: 25%; /* skill box가 4개 정도 들어갈 예정이라 25% -> 1/4 */
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 9px;
+    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    transition: 0.4s;
+}
+.skill:hover {
+    transform: translate(0, -5px);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin: 0 10px;
+}
+
+.skill-title { 
+    display: flex;
+    flex-direction: column; /*세로로 flex 시키기*/
+    align-content: center;
+}
+.skill-name {
+    font-weight: bold;
+    color: #545e6f;
+    margin-bottom: 0.2rem;
+}
+.skill-usage {
+    font-size: 0.9rem;
+    color: #545e6f;
+}
+
+.python-style {
+    color: #2186c4;
+}
+.chart-style {
+    color: #ff8066;
+}
+.ai-style {
+    color: #f7df1e;
+}
+.vuejs-style{
+    color: #2e7d32;
+}
+
+.roadmap-container {
+    width: 100%;
+    margin-top: 2rem;
+}
+.roadmap-title-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.roadmap-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #545e6f;
+}
+.slide-next {
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: #cfd8dc;
+}
+.slide-prev {
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: rgb(47, 48, 89);
+}
+
+.slide-prev-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(-2px);
+}
+
+.slide-next-hover:hover {
+    transition: transform 0.5s;
+    transform: translateX(-2px);
+}
+
+.class-list {
+    display: flex;
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0; /*list tag의 defaul margin-top:16px 인데 1rem 함으로써 top 부분은 16px로 두고, 나머지 margin은 0으로 초기화*/
+    overflow: none;
+}
+.class-card {
+    width: 240px;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    border-radius: 8px;
+    margin: 0 10px;
+    transition: 0.4s;
+    flex-shrink: 0;
+}
+.class-card:hover {
+    box-shadow: 10px 10px 10px 0px rgba(25, 43, 70, 0.2);
+    transform: translate(0, -5px);
+}
+.class-img {
+    max-width: 240px; /*부모의 width에 100% 맞춤, IE 때문에 width -> maxwidth로 변경*/
+    border-radius: 8px 8px 0 0;
+}
+
+.class-container {
+    width: 100%;
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.class-skill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.class-type {
+    font-size: 0.9rem;
+    color: #949393;
+}
+
+.class-format {
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #0d47a1;
+    padding: 0.2rem;
+}
+
+.class-description {
+    width: 100%; /*text-overflow 설정하기 위해서는 width 설정 필요*/
+    margin-top: 1rem;
+    color: #545e6f;
+}
+.class-description:hover {
+    color: #095280; 
+}
+
+/*class-title, class-detail 각각에 color가 정의 되어 있으면 class-description:hover로 새로운 색상을
+  적용하여도 적용되지 않음, 따라서 class-title, class-detail에 color를 상속(inherit)하여 hover 로 정한 색상이 적용되도록 함
+*/
+
+.class-title {
+    font-weight: bold;
+    color: inherit;
+    width: 100%; /*text-overflow 설정하기 위해서는 width 설정 필요*/
+    white-space: nowrap; /*자동 줄바꿈 방지 설정*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.class-detail {
+    font-size: 0.9rem;
+    color: inherit;
+    line-height: 1.5rem;
+}
+.roadmap-description {
+    visibility: visible;
+}
+
+li a:hover {
+    cursor: pointer;
+}
+
+footer {
+    border-top: 1px solid #e4e4e4;
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+.footer-message {
+    font-weight: bold;
+    color: #545e6f;
+    margin: 0.3rem 0.5rem;
+}
+
+.footer-contact {
+    color: #545e6f;
+    margin: 0 0.5rem;
+}
+
+.footer-copyright {
+    color: #545e6f;
+    font-size: 0.7rem;
+    margin: 1rem 0.5rem;
+}
+/*media query: 단말기의 유형과 어떤 특성이나 수치에 따라 웹사이트나 앱의 스타일을 수정할 때 사용
+-> HTML 요소에 media 특성을 사용해 특정 매체만 가리키게 함
+*/
+
+#backtotop {
+    background-color: rgb(47, 48, 89);
+    width: 40px; /*width와 heigth가 같을때 width 혹은 height의 값의 1/2을 border-radius로 설정하면 원이 됨*/
+    height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    position: fixed; /*posiiton fixed 하면 위치 값이 필요함*/
+    bottom: 30px;
+    right: 30px;
+    transition-property: background-color, opacity, visibility;
+    transition-duration: 0.3s, 0.5s, 0.5s;
+    opacity: 0;
+    visibility: hidden; /*처음에는 보이지 않음, 동작하면 보일 것*/
+    z-index: 999;
+}
+
+/* 아이콘 적용 방법
+    1. ::after (요소 뒤에 content 추가) 해당 가상 요소에서, content:"폰트 어썸 유니코드"를 넣고,
+    font-family: FontAwecome 이라고 넣으면 이미지를 넣을 수 있음
+    */
+#backtotop::after {
+    content: "\f077"; /*chevron-up icon의 유니 코드*/
+    font-family: FontAwesome;
+    font-size: 1.5rem;
+    line-height: 40px; /*line-heigth값을 height 갑과 똑같이 하면 center에 놓여짐*/
+    color: white;
+}
+
+#backtotop.show {
+    opacity: 1;
+    visibility: visible;
+    background-color: rgb(47, 48, 89);
+}
+#backtotop.show:hover {
+    cursor: pointer;
+    background-color: #095280;
+}
+
+/* drag 할 수 있는 아이템임을 나타내는 표시를 포인터로 변경함 */
+ul li img:hover {
+    cursor: grab;
+}
+
+/* dragging 중인 상태에서 잡는 표시를 포인터로 변경함 */
+ul li img:active {
+    cursor: grabbing;
+}
+
+@media only screen and (min-width: 1200px){ /*조건 ->  1200px 보다 커질 때*/
+    .inner {
+        max-width: 1200px; /*반응형 웹페이지를 위한 설정*/
+    }
+}
+
+@media only screen and (max-width: 950px){ /* width가 980px이하면 작아지면 */
+    .skill-container {
+        display: none !important;
+
+    }
+}
+@media only screen and (max-width: 650px){ /* width가 980px이하면 작아지면 */
+    .roadmap-description {
+        visibility: hidden; /*특정 길이보다 작아지면 아예 보이지 않도록 설정*/
+    }
+}

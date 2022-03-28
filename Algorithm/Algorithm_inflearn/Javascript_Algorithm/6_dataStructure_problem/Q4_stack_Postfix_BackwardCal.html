@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후위 연산</title>
+</head>
+
+<body>
+    <p>후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.
+        만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 12입니다.
+    </p>
+    <script>
+        //나의 답
+
+        function solution(s) {
+            let answer;
+            let stack = [];
+            for (let x of s) {
+                if (!isNaN(x)) {
+                    stack.push(Number(x));
+                } else if (x === '+') {
+                    let res = stack[stack.length - 2] + stack[stack.length - 1];
+                    stack.pop();
+                    stack.pop();
+                    stack.push(Number(res));
+                } else if (x === '-') {
+                    let res = stack[stack.length - 2] - stack[stack.length - 1];
+                    stack.pop();
+                    stack.pop();
+                    stack.push(Number(res));
+                } else if (x === '*') {
+                    let res = stack[stack.length - 2] * stack[stack.length - 1];
+                    stack.pop();
+                    stack.pop();
+                    stack.push(Number(res));
+                } else if (x === '/') {
+                    let res = stack[stack.length - 2] / stack[stack.length - 1];
+                    stack.pop();
+                    stack.pop();
+                    stack.push(Number(res));
+                }
+            }
+            answer = stack[0];
+            return answer;
+        }
+
+        //강의 답
+        /*
+        function solution(s) {
+            let answer;
+            let stack = [];
+            for (let x of s) {
+                if (!isNaN(x)) {
+                    stack.push(Number(x));
+                } else {
+                    let rt = stack.pop();
+                    let lt = stack.pop();
+                    if (x === '+') stack.push(lt + rt);
+                    else if (x === '-') stack.push(lt - rt);
+                    else if (x === '*') stack.push(lt * rt);
+                    else if (x === '/') stack.push(lt / rt);
+                }
+            }
+            return answer = stack[0];
+        }
+        */
+
+        let str = "352+*9-"; //답: 12
+        let str1 = "34+9*3-6/" //답: 10
+        let str2 = "35-" //답: -2
+        console.log(solution(str2));
+    </script>
+</body>
+
+</html>
