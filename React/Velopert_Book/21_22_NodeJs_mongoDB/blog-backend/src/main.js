@@ -14,7 +14,7 @@ const { PORT, MONGO_URI } = process.env;
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    console.log('Connexted to MongoDB');
+    console.log('Connected to MongoDB');
   })
   .catch((e) => {
     console.error(e);
