@@ -1,5 +1,6 @@
 import Post from '../../models/post'; //model
 import mongoose from 'mongoose';
+import Joi from 'joi';
 
 //id 검증을 위한 미들웨어
 const { ObjectId } = mongoose.Types;
@@ -14,6 +15,21 @@ export const checkObjectId = (ctx, next) => {
 
 /* POST /api/posts */
 export const write = async (ctx) => {
+  const schema = Joi.object().keys({
+    // 객체가 다음 필드를 가지고 있음을 검증
+    title: Joi.string().required(), //required()가 있으면 필수 항목
+    body: Joi.string().required(),
+    tags: Joi.array().items(Joi.string()).required(), //문자로 이루어진 배열
+  });
+
+  //검증하고 나서 검증 실패인 경우 에러 처리
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
   //REST API의 Request Body는 ctx.request.body에서 조회할 수 있다.
   const { title, body, tags } = ctx.request.body;
   const post = new Post({
@@ -66,6 +82,21 @@ export const remove = async (ctx) => {
 };
 
 export const update = async (ctx) => {
+  const schema = Joi.object().keys({
+    // 객체의 필드 type이 지켜지는지 검증
+    title: Joi.string(),
+    body: Joi.string(),
+    tags: Joi.array().items(Joi.string()), //문자로 이루어진 배열
+  });
+
+  //검증하고 나서 검증 실패인 경우 에러 처리
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
   const { id } = ctx.params;
   try {
     const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
