@@ -1,4 +1,16 @@
 import Post from '../../models/post'; //model
+import mongoose from 'mongoose';
+
+//id 검증을 위한 미들웨어
+const { ObjectId } = mongoose.Types;
+export const checkObjectId = (ctx, next) => {
+  const { id } = ctx.params;
+  if (!ObjectId.isValid(id)) {
+    ctx.status = 400; //bad request
+    return;
+  }
+  return next(); //미들웨어에서 next()를 안해주면 다음으로 안넘어가진다.
+};
 
 /* POST /api/posts */
 export const write = async (ctx) => {
