@@ -46,6 +46,7 @@ export const register = async (ctx) => {
 
     //Token
     const token = user.generateToken();
+    //생성한 토큰을 쿠키에 담아서 사용
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, //7일
       httpOnly: true,
@@ -84,6 +85,7 @@ export const login = async (ctx) => {
 
     //Token
     const token = user.generateToken();
+    //생성한 토큰을 쿠키에 담아서 사용
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, //7일
       httpOnly: true,
