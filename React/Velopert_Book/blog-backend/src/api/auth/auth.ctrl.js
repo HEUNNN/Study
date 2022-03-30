@@ -18,7 +18,7 @@ export const register = async (ctx) => {
   });
   const result = schema.validate(ctx.request.body);
   if (result.error) {
-    ctx.status = 404;
+    ctx.status = 400;
     ctx.body = result.error;
     return;
   }

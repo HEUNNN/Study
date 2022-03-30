@@ -8,6 +8,9 @@ auth.post('/register', authCtrl.register);
 auth.post('/login', authCtrl.login);
 auth.get('/check', authCtrl.check);
 auth.post('/logout', authCtrl.logout);
+auth.get('/test', () => {
+  console.log(1);
+});
 
 export default auth;
 // auth 라우터를 api 라우터에 적용
