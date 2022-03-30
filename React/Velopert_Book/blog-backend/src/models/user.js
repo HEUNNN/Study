@@ -20,5 +20,11 @@ UserSchema.statics.findByUsername = function (username) {
   return this.findOne({ username });
 };
 
+UserSchema.methods.serialize = function () {
+  const data = this.toJSON(); // this는 모델을 사용하여 생성한 문서 인스턴스를 의미
+  delete data.hashedPassword;
+  return data;
+};
+
 const User = mongoose.model('User', UserSchema);
 export default User;
