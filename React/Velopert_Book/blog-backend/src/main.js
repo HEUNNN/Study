@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import createFakeData from './createFakeData';
 
 import api from './api';
+import jwtMiddleware from './lib/jwtMiddelware';
 
 const app = new Koa();
 const router = new Router();
@@ -26,6 +27,7 @@ router.use('/api', api.routes()); //api 라우트 적용
 
 // 라우터 적용 전에 bodyparser 적용
 app.use(bodyParser());
+app.use(jwtMiddleware); // token 검증 미들웨어
 
 app.use(router.routes()).use(router.allowedMethods());
 
