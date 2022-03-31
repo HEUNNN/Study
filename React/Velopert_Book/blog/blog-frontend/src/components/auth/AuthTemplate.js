@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import palette from '../../lib/palette';
+import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 /**
  * 회원가입/로그인 페이지의 레이아웃을 담당하는 컴포넌트이다.
@@ -37,6 +37,8 @@ const WhiteBox = styled.div`
 	border-radius: 2px;
 `;
 const AuthTemplate = ({ children }) => {
+	//AuthTemplate 컴포넌트 태그 사이에 전달되는 문자열이나 컴포넌트 등을 AuthTemplate 내부에서 보여주기 위해
+	//props.children 혹은 { children } 선언 후 children 을 사용한다.
 	return (
 		<AuthTemplateBlock>
 			<WhiteBox>
@@ -44,6 +46,7 @@ const AuthTemplate = ({ children }) => {
 					<Link to="/">REACTERS</Link>
 				</div>
 				{children}
+				{/* props.children 대신에 <AuthForm /> 컴포넌트가 직접들어가도 똑같다. LoginPage 에서 <AuthTemplate> 태그 사이에 <authForm/> 을 넘겨주기 때문*/}
 			</WhiteBox>
 		</AuthTemplateBlock>
 	);
