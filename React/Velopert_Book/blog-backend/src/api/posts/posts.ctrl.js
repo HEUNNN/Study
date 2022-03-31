@@ -4,13 +4,33 @@ import Joi from 'joi';
 
 //id 검증을 위한 미들웨어
 const { ObjectId } = mongoose.Types;
-export const checkObjectId = (ctx, next) => {
+export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
     ctx.status = 400; //bad request
     return;
   }
-  return next(); //미들웨어에서 next()를 안해주면 다음으로 안넘어가진다.
+  try {
+    const post = await Post.findById(id);
+    //포스트가 존재하지 않을 때
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.state.post = post;
+    return next();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+//checkOwnPost 미들웨어
+export const checkOwnPost = (ctx, next) => {
+  const { user, post } = ctx.state;
+  if (post.user._id.toString() !== user._id) {
+    ctx.status = 403;
+    return;
+  }
+  return next();
 };
 
 /* POST /api/posts */
@@ -79,17 +99,7 @@ export const list = async (ctx) => {
 
 /* GET /api/posts/:id */
 export const read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const post = await Post.findById(id).exec();
-    if (!post) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = post;
-  } catch (e) {
-    ctx.throw(e);
-  }
+  ctx.body = ctx.state.post;
 };
 
 /* DELETE /api/posts/:id */
