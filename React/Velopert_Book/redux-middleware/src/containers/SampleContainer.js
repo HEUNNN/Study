@@ -5,12 +5,12 @@ import { getPost, getUsers } from "../modules/sample";
 
 const SampleContainer = () => {
   const dispatch = useDispatch();
-  const { loading, post, users } = useSelector((state) => state.sample);
+  const { post, users } = useSelector((state) => state.sample);
+  const { loading } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getPost(1));
     dispatch(getUsers(1));
   }, [getPost, getUsers]);
-  console.log(getPost(1));
 
   return (
     <Sample
