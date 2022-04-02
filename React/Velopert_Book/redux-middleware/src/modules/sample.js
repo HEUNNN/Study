@@ -1,5 +1,6 @@
 import { handleActions } from "redux-actions";
 import * as api from "../lib/api";
+import { call, put, takeLatest } from "redux-saga/effects";
 //액션 타입 설정
 const GET_POST = "sample/GET_POST";
 const GET_POST_SUCCESS = "sample/GET_POST_SUCCESS";
