@@ -5,6 +5,14 @@ import produce from 'immer';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
+const REGISTER = 'auth/REGISTER';
+const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
+const REGISTER_FAILURE = 'auth/REGISTER_FILURE';
+
+const LOGIN = 'auth/LOGIN';
+const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'auth/LOGIN_FILURE';
+
 //액션 생성 함수 정의
 export const changeField = createAction(
 	CHANGE_FIELD,
@@ -32,10 +40,13 @@ const initialState = {
 
 const auth = handleActions(
 	{
-		[CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
-			produce(state, (draft) => {
-				draft[form][key] = value; // state.login.username을 변경함
-			}),
+		[CHANGE_FIELD]: (state, action) => ({
+			...state,
+			[action.payload.form]: {
+				...state[action.payload.form],
+				[action.payload.key]: action.payload.value,
+			},
+		}),
 		[INITIALIZE_FORM]: (state, { payload: form }) => ({
 			...state,
 			[form]: initialState[form],
