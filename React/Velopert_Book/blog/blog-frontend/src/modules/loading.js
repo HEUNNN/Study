@@ -1,7 +1,5 @@
-import {
-	createAction,
-	handleActions,
-} from '../../node_modules/redux-actions/lib/index';
+//loading 리덕스 모듈
+import { createAction, handleActions } from 'redux-actions';
 
 const START_LOADING = 'loading/START_LOADING';
 const FINISH_LOADING = 'loading/FINISH_LOADING';
@@ -10,7 +8,7 @@ export const startLoading = createAction(
 	START_LOADING,
 	(requestType) => requestType,
 ); // 요청을 위한 액션 타입을 payload로 설정
-export const finshLoading = createAction(
+export const finishLoading = createAction(
 	FINISH_LOADING,
 	(requestType) => requestType,
 );

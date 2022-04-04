@@ -60,7 +60,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
 	return (
 		<AuthFormBlock>
 			<h3>{text}</h3>
-			<form>
+			<form onSubmit={onSubmit}>
 				<StyledInput
 					autoComplete="username"
 					name="username"
@@ -83,7 +83,6 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
 						placeholder="비밀번호 확인"
 						type="password"
 						onChange={onChange}
-						onSubmit={onsubmit}
 					/>
 				)}
 				<ButtonWithMarginTop cyan fullwidth>
