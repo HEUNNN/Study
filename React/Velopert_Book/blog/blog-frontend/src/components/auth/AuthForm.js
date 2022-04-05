@@ -55,7 +55,17 @@ const textMap = {
 	login: '로그인',
 	register: '회원가입',
 };
-const AuthForm = ({ type, form, onChange, onSubmit }) => {
+
+/**
+ * 회원 인증 에러시 메시지를 보여주는 UI
+ */
+const ErrorMessage = styled.div`
+	color: red;
+	text-align: center;
+	font-size: 0.875rem;
+	margin-top: 1rem;
+`;
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
 	const text = textMap[type];
 	return (
 		<AuthFormBlock>
@@ -85,6 +95,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
 						onChange={onChange}
 					/>
 				)}
+				<ErrorMessage>{error}</ErrorMessage>
 				<ButtonWithMarginTop cyan fullwidth>
 					{text}
 				</ButtonWithMarginTop>

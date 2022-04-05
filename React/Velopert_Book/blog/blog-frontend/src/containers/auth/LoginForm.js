@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
@@ -11,6 +11,8 @@ const LoginForm = () => {
 	const { auth, authError } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.user);
 	const navigate = useNavigate();
+	//에러를 관리하는 state는 LoginForm 컨테이너에서 관리하여 프레젠테이셔널 컴포넌트에 넘겨준다.
+	const [error, setError] = useState(null);
 
 	// 인풋 변경 이벤트 핸들러
 	const onChange = (e) => {
@@ -41,6 +43,7 @@ const LoginForm = () => {
 		if (authError) {
 			console.log('오류 발생');
 			console.log(authError);
+			setError('로그인 실패!');
 			return;
 		}
 		if (auth) {
@@ -61,6 +64,7 @@ const LoginForm = () => {
 			form={form}
 			onChange={onChange}
 			onSubmit={onSubmit}
+			error={error}
 		/>
 	);
 };

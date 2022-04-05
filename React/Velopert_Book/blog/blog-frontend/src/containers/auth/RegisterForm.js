@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
@@ -15,6 +15,7 @@ const RegisterForm = () => {
 	}));
 
 	const navigate = useNavigate();
+	const [error, setError] = useState(null); // 에러 관리 state
 
 	// 인풋 변경 이벤트 핸들러
 	const onChange = (e) => {
@@ -34,8 +35,14 @@ const RegisterForm = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const { username, password, passwordConfirm } = form;
+		if ([username, password, passwordConfirm].includes('')) {
+			//하나라도 입력이 안되었다면
+			setError('빈 칸을 모두 채우세요!');
+			return;
+		}
 		if (password !== passwordConfirm) {
 			//오류 처리
+			setError('비밀번호가 일치하지 않습니다.');
 			return;
 		}
 		dispatch(register({ username, password }));
@@ -50,7 +57,15 @@ const RegisterForm = () => {
 		if (authError) {
 			console.log('오류 발생');
 			console.log(authError);
-			return;
+			if (authError.response.status === 409) {
+				//계정명이 이미 존재할 때
+				setError('이미 존재하는 계정명입니다.');
+				return;
+			} else {
+				// 기타 이유
+				setError('회원가입 실패');
+				return;
+			}
 		}
 		if (auth) {
 			console.log('회원가입 성공');
@@ -80,6 +95,7 @@ const RegisterForm = () => {
 			form={form}
 			onChange={onChange}
 			onSubmit={onSubmit}
+			error={error}
 		/>
 	);
 };
