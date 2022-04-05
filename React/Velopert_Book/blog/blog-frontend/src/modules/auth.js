@@ -31,8 +31,9 @@ export const changeField = createAction(
 );
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
-//API 요청을 보내고 응답을 받아 온 상태를 관리하기 위한 액션 생성 함수
+//API 요청에 필요한 정보를 payload 에 담은 액션을 발생시키는 액션 생성 함수
 export const register = createAction(REGISTER, ({ username, password }) => ({
+	// 컨테이너에서 위 액션 생성 함수를 디스패치하고, 액션 객체가 생성된다. 이 액션 객체를 createRequestSaga에서 action으로 사용한다.
 	username,
 	password,
 }));
@@ -42,11 +43,12 @@ export const login = createAction(LOGIN, ({ username, password }) => ({
 }));
 
 //사가 생성
-const registerSaga = createRequestSaga(REGISTER, authAPI.register);
+const registerSaga = createRequestSaga(REGISTER, authAPI.register); //REGISTER = 'auth/REGISTER'
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
-	yield takeLatest(REGISTER, registerSaga);
-	yield takeLatest(LOGIN, loginSaga);
+	// 제너레이터 함수로 action을 모니터링 하다 감지되면 특정 작업을 실행한다.
+	yield takeLatest(REGISTER, registerSaga); // 특정 작업: registerSaga
+	yield takeLatest(LOGIN, loginSaga); // 특정 작업: loginSaga
 }
 //리듀서 정의
 // 초기값 미리 설정해줘야 한다.
