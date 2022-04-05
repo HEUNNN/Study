@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
 import { changeField, initializeForm, login } from '../../modules/auth';
+import { check } from '../../modules/user';
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
 	const form = useSelector((state) => state.auth.login);
 	const { auth, authError } = useSelector((state) => state.auth);
+	const { user } = useSelector((state) => state.user);
+	const navigate = useNavigate();
 
 	// 인풋 변경 이벤트 핸들러
 	const onChange = (e) => {
@@ -42,8 +46,15 @@ const LoginForm = () => {
 		if (auth) {
 			console.log('로그인 성공');
 			console.log(auth);
+			dispatch(check());
 		}
-	}, [auth, authError]);
+	}, [auth, authError, dispatch]);
+
+	useEffect(() => {
+		if (user) {
+			navigate('/');
+		}
+	}, [navigate, user]);
 	return (
 		<AuthForm
 			type="login"

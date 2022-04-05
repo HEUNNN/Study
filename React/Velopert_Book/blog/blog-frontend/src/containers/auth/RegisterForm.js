@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
 import { changeField, initializeForm, register } from '../../modules/auth';
 import { check } from '../../modules/user';
@@ -12,6 +13,8 @@ const RegisterForm = () => {
 		authError: auth.authError,
 		user: user.user,
 	}));
+
+	const navigate = useNavigate();
 
 	// 인풋 변경 이벤트 핸들러
 	const onChange = (e) => {
@@ -63,6 +66,13 @@ const RegisterForm = () => {
 			console.log(user);
 		}
 	}, [user]);
+
+	//user 값이 잘 설정되었는지 확인
+	useEffect(() => {
+		if (user) {
+			navigate('/'); //홈 화면으로 이동
+		}
+	}, [navigate, user]);
 
 	return (
 		<AuthForm
