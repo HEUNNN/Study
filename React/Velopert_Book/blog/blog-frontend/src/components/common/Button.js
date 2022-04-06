@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const buttonStyle = css`
 	border: none;
 	border-radius: 4px;
-	font-size: 1rem;
+	font-size: 1rem; /* 1rem = 16px */
 	font-weight: bold;
 	padding: 0.25rem 1rem; /* Link를 버튼처럼 보이게 해준다. */
 	color: white;
