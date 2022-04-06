@@ -63,7 +63,7 @@ const TagListBlock = styled.div`
 // React.memo를 사용하여 tag 값이 바뀔 때만 리렌더링되도록 처리
 const TagItem = React.memo(({ tag, onRemove }) => (
 	<Tag onClick={() => onRemove(tag)}>#{tag}</Tag>
-)); // props로 전달받은 tag를 onRemove의 파라미터로 사용
+)); // props로 전달받은 tag를 onRemove의 파라미터로 사용, onRemove(tag)를 바로 onClick에 넣어주면 안됨
 
 // React.memo를 사용하여 tags 값이 바뀔 때만 리렌더링되도록 처리
 const TagList = React.memo(({ tags, onRemove }) => (
