@@ -43,7 +43,7 @@ const AuthTemplate = ({ children }) => {
 		<AuthTemplateBlock>
 			<WhiteBox>
 				<div className="logo-area">
-					<Link to="/">REACTERS</Link>
+					<Link to="/">BLOG</Link>
 				</div>
 				{children}
 				{/* props.children 대신에 <AuthForm /> 컴포넌트가 직접들어가도 똑같다. LoginPage 에서 <AuthTemplate> 태그 사이에 <authForm/> 을 넘겨주기 때문*/}
