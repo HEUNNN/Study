@@ -70,7 +70,7 @@ const RegisterForm = () => {
 		if (auth) {
 			console.log('회원가입 성공');
 			console.log(auth);
-			dispatch(check());
+			dispatch(check()); // user 리덕스 모듈의 user 상태값을 받아오기 위함
 		}
 	}, [auth, authError, dispatch]); // 리덕스 state의 authError, auth 값이 변할 때 마다 console 메시지 출력
 
@@ -84,6 +84,7 @@ const RegisterForm = () => {
 
 	useEffect(() => {
 		if (user) {
+			// 회원 가입 후 로그인 완료
 			navigate('/'); //홈 화면으로 이동
 			try {
 				localStorage.setItem('user', JSON.stringify(user));

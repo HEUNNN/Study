@@ -25,7 +25,7 @@ function loadUser() {
 		store.dispatch(tempSetUser(JSON.parse(user)));
 		store.dispatch(check());
 	} catch (e) {
-		console.log('localStorage is not wordking');
+		console.log('localStorage is not working');
 	}
 }
 
