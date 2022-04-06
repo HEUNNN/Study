@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
 
 const ResponsiveBlock = styled.div`
 	padding-left: 1rem;
 	padding-right: 1rem;
 	width: 1024px;
 	margin: 0 auto; /* 중앙 정렬 */
-	background: ${palette.gray[2]};
 
 	/* 브라우저 크기에 따라 가로 사이즈 변경 */
 	@media (max-width: 1024px) {
