@@ -77,12 +77,11 @@ const RegisterForm = () => {
 	//user 값이 잘 설정되었는지 확인
 	useEffect(() => {
 		if (user) {
-			console.log('checkAPI 성공');
+			console.log('checkAPI 성공, 로그인 상태가 되었음');
 			console.log(user);
 		}
 	}, [user]);
 
-	//user 값이 잘 설정되었는지 확인
 	useEffect(() => {
 		if (user) {
 			navigate('/'); //홈 화면으로 이동

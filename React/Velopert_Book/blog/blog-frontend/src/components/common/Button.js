@@ -1,12 +1,13 @@
 import palette from '../../lib/styles/palette';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const StyledButton = styled.button`
+const buttonStyle = css`
 	border: none;
 	border-radius: 4px;
 	font-size: 1rem;
 	font-weight: bold;
-	padding: 0.25rem 1rem;
+	padding: 0.25rem 1rem; /* Link를 버튼처럼 보이게 해준다. */
 	color: white;
 	outline: none;
 	cursor: pointer;
@@ -31,5 +32,19 @@ const StyledButton = styled.button`
 			}
 		`}
 `;
-const Button = (props) => <StyledButton {...props} />;
+const StyledLink = styled(Link)`
+	${buttonStyle}
+`;
+const StyledButton = styled.button`
+	${buttonStyle}
+`;
+
+const Button = (props) => {
+	console.log(props.to);
+	return props.to ? (
+		<StyledLink {...props} cyan={props.cyan ? 1 : 0} />
+	) : (
+		<StyledButton {...props} />
+	);
+};
 export default Button;

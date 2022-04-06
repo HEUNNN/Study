@@ -95,7 +95,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
 						onChange={onChange}
 					/>
 				)}
-				<ErrorMessage>{error}</ErrorMessage>
+				{error && <ErrorMessage>{error}</ErrorMessage>}
 				<ButtonWithMarginTop cyan fullwidth>
 					{text}
 				</ButtonWithMarginTop>
