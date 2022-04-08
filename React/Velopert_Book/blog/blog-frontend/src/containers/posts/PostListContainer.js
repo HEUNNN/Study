@@ -1,4 +1,4 @@
-import PostList from '../../components/post/PostList';
+import PostList from '../../components/posts/PostList';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -6,7 +6,8 @@ import { useSearchParams } from '../../../node_modules/react-router-dom/index';
 import { listPosts } from '../../modules/posts';
 
 const PostListContainer = () => {
-	const [searchParams] = useSearchParams();
+	const { username } = useParams();
+	const [searchParams] = useSearchParams(); // useSearchParams()는 query string  '?name=XX'와 같은것, useParams()는 posts/:id 에서 id 와 같은 파라미터
 	const dispatch = useDispatch();
 	const { posts, error, loading, user } = useSelector(
 		({ posts, loading, user }) => ({
@@ -24,6 +25,7 @@ const PostListContainer = () => {
 		console.log(page);
 		dispatch(listPosts({ tag, username, page }));
 	}, [dispatch, searchParams]);
+
 	return (
 		<PostList
 			loading={loading}

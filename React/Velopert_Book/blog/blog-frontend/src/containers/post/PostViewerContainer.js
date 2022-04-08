@@ -7,7 +7,6 @@ import { useParams } from '../../../node_modules/react-router-dom/index';
 const PostViewerContainer = () => {
 	// 처음 마운트될 때 포스트 읽기 API 요청
 	const { postId } = useParams();
-
 	const dispatch = useDispatch();
 	const { post, error, loading } = useSelector(({ post, loading }) => ({
 		// post = state.post, loading = state.loading

@@ -15,7 +15,7 @@ export default function createRequestSaga(type, requestApi) {
 		yield put(startLoading(type)); // 로딩 시작
 		try {
 			const response = yield call(requestApi, action.payload);
-			yield put({ type: SUCCESS, payload: response.data }); // dispatch와 같은 역할 put
+			yield put({ type: SUCCESS, payload: response.data, meta: response }); // dispatch와 같은 역할 put
 			//console.log(response.data); //{username: 'myid', _id: '624b010317c18bd6b6dd38be', __v: 0}
 		} catch (e) {
 			yield put({ type: FAILURE, payload: e, error: true });

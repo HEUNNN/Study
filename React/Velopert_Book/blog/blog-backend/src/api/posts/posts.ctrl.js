@@ -70,6 +70,7 @@ export const write = async (ctx) => {
 
   //검증하고 나서 검증 실패인 경우 에러 처리
   const result = schema.validate(ctx.request.body);
+
   if (result.error) {
     ctx.status = 400;
     ctx.body = result.error;
@@ -110,7 +111,7 @@ export const list = async (ctx) => {
     return;
   }
   const { tag, username } = ctx.query;
-  // tag, username 값이 유효하면 객체 않에 넣고, 그렇지 않으면 넣지 않음
+  // tag, username 값이 유효하면 객체 안에 넣고, 그렇지 않으면 넣지 않음
   const query = {
     ...(username ? { 'user.username': username } : {}),
     ...(tag ? { tags: tag } : {}),
