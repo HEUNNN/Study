@@ -5,7 +5,6 @@ import { createAction } from 'redux-actions';
 import * as authAPI from '../lib/api/auth';
 import { takeLatest, call } from 'redux-saga/effects';
 import { handleActions } from 'redux-actions';
-import { callExpression } from '../../../../../../../../Library/Caches/typescript/4.6/node_modules/@babel/types/lib/index';
 
 //액션 타입 정의
 const TEMP_SET_USER = 'user/TEMP_SET_USER'; // 새로고침 이후 임시 로그인 처리

@@ -66,7 +66,7 @@ export const write = async (ctx) => {
   }
 };
 
-/* GET /api/post?susername=&tag=&page= */
+/* GET /api/posts?username=&tag=&page= */
 export const list = async (ctx) => {
   // query는 문자열이기 때문에 숫자로 변환해주어야 한다.
   // 값이 주어지지 않았다면 1을 기본으로 사용한다.
