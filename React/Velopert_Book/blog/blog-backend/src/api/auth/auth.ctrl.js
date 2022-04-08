@@ -22,9 +22,10 @@ export const register = async (ctx) => {
     ctx.body = result.error;
     return;
   }
-  //Requst Body 검증 끝
+  // Requst Body 검증 끝
 
-  //User 모델을 사용하여 Request Body 값을 반영한 user 문서 인스턴스 만들기
+  // User 모델을 사용하여 Request Body 값을 반영한 user 문서 인스턴스 만들기
+  // request body는 Postman이나 frontend 단에서 API 요청시 보내주는 data
   const { username, password } = ctx.request.body;
   try {
     //username이 이미 존재하는지 확인
@@ -81,6 +82,8 @@ export const login = async (ctx) => {
       ctx.status = 401;
       return;
     }
+
+    // 응답할 데이터에서 hashedPassword 필드 제거
     ctx.body = user.serialize();
 
     //Token
