@@ -18,3 +18,6 @@ export const listPosts = ({ page, username, tag }) =>
 //axios.get 함수의 두 번째 파라미터에 params를 설정하면 쿼리 값 설정이 자동으로 된다.
 // client는 axios의 인스턴스
 //listPosts API를 호출할 때 파라미터로 값을 넣어주면 /api/posts?username=tester&page=2 와 같은 주소를 만들어 호출한다.
+
+export const updatePost = ({ id, title, body, tags }) =>
+	client.patch(`/api/posts/${id}`, { title, body, tags });
