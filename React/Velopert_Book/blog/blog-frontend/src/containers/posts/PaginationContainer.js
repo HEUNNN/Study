@@ -10,9 +10,9 @@ const PaginationContainer = () => {
 	const page = parseInt(searchParams.get('page')) || 1;
 
 	const { lastPage, posts, loading } = useSelector(({ posts, loading }) => ({
-		lastPage: posts.lastPage,
+		lastPage: posts.lastPage, // posts는 state(rootReducer state).posts
 		posts: posts.posts,
-		loading: loading['posts/LIST_POSTS'],
+		loading: loading['posts/LIST_POSTS'], // loading은 state.loading
 	}));
 	if (!posts || loading) {
 		return null;
