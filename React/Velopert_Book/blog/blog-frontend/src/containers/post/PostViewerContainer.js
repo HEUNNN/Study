@@ -8,6 +8,7 @@ import {
 } from '../../../node_modules/react-router-dom/index';
 import PostActionButtons from '../../components/post/PostActionButtons';
 import { setOriginalPost } from '../../modules/write';
+import { removePost } from '../../lib/api/posts';
 
 const PostViewerContainer = () => {
 	// 처음 마운트될 때 포스트 읽기 API 요청
@@ -37,12 +38,23 @@ const PostViewerContainer = () => {
 		navigate('/write');
 	};
 	const ownPost = (user && user._id) === (post && post.user._id);
+
+	const onRemove = async () => {
+		try {
+			await removePost(postId);
+			navigate('/');
+		} catch (e) {
+			console.log(e);
+		}
+	};
 	return (
 		<PostViewer
 			post={post}
 			error={error}
 			loading={loading}
-			actionButtons={ownPost && <PostActionButtons onEdit={onEdit} />}
+			actionButtons={
+				ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+			}
 		/>
 	);
 };
