@@ -50,7 +50,7 @@ const Header = ({ user, onLogout }) => {
 					{user ? (
 						<div className="right">
 							<UserInfo>{user.username}</UserInfo>
-							<Button to="/logout" onClick={onLogout}>
+							<Button to="/" onClick={onLogout}>
 								로그아웃
 							</Button>
 						</div>
