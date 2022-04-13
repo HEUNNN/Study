@@ -1,4 +1,4 @@
-public class TCP06 {
+public class TPC06 {
     public static void main(String[] args) {
         // 메서드의 매개변수 전달기법(parameter passing)
         // 1. Call By Value(값 전달 기법) -> 기억공간 개별
