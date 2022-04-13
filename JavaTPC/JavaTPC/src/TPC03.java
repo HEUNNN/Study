@@ -1,4 +1,4 @@
-import kr.bit.Book;
+import kr.bit.BookDTO;
 import kr.bit.PersonVO;
 
 public class TPC03 {
@@ -8,8 +8,8 @@ public class TPC03 {
         int a; // 변수 선언
 
         // 책 1권을 저장하기 위한 변수를 선언하시오. -> UDDT(class로 만들어야 함)  *class: 새로운 자료형을 모델링하는 도구
-        Book b; // Book 이라는 자료형, b는 변수이다. 변수에는 1개의 데이터만 저장한다.
-        b=new Book(); // 생성자를 사용하여 인스턴스 변수(=객체 변수)를 생성한다. 변수에는 생성한 객체의 메모리 주소가 할당된다.
+        BookDTO b; // Book 이라는 자료형, b는 변수이다. 변수에는 1개의 데이터만 저장한다.
+        b=new BookDTO(); // 생성자를 사용하여 인스턴스 변수(=객체 변수)를 생성한다. 변수에는 생성한 객체의 메모리 주소가 할당된다.
         b.title="Java Book";
         b.price=15000;
         b.company="Hansol";
