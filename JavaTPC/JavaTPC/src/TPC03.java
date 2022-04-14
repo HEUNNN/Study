@@ -1,5 +1,5 @@
-import kr.bit.BookDTO;
-import kr.bit.PersonVO;
+import kr.UDDT.BookDTO;
+import kr.UDDT.PersonVO;
 
 public class TPC03 {
     public static void main(String[] args) {

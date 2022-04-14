@@ -1,4 +1,4 @@
-package kr.bit;
+package kr.UDDT;
 
 public class PersonVO {  // Person class 설계 -> 객체를 생성해야 실제 메모리에 객체(인스턴스)가 만들어진다.
     public String name; // 상태정보 = 속성 = 멤버변수

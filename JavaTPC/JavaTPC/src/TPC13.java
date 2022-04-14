@@ -1,4 +1,4 @@
-import kr.bit.Print;
+import kr.UDDT.Print;
 
 public class TPC13 {
     public static void main(String[] args) {

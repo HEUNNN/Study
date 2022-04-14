@@ -1,4 +1,4 @@
-import kr.bit.BookVO;
+import kr.UDDT.BookVO;
 
 public class TPC12 {
     public static void main(String[] args) {

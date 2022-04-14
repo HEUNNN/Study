@@ -1,4 +1,4 @@
-package kr.bit;
+package kr.UDDT;
 
 public class Print {
     private Print(){ // private 생성자 메서드

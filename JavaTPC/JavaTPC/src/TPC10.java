@@ -1,4 +1,4 @@
-import kr.bit.BookDTO;
+import kr.UDDT.BookDTO;
 
 public class TPC10 {
     public static void main(String[] args) {
