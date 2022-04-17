@@ -1,6 +1,6 @@
 import com.google.gson.Gson;
-import kr.UDDT.BookVO;
-import kr.UDDT.MyUtil;
+import kr.TPC.BookVO;
+import kr.TPC.MyUtil;
 import java.lang.*; // * 는 전체를 뜻함, java.lang.String을 하나하나 import 하기 번거롭기 때문
 // import java.lang.*;은 default package로 생략되어 있다.
 public class TPC19 {

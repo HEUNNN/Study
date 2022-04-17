@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 
 public class Overload {
     // class 내에 메서드를 만들 때는 public (static) void/String/int.. methodName() {} 형식으로 만든다.

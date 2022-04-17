@@ -1,5 +1,5 @@
-import kr.UDDT.BookDTO;
-import kr.UDDT.PersonVO;
+import kr.TPC.BookDTO;
+import kr.TPC.PersonVO;
 
 public class TPC03 {
     public static void main(String[] args) {

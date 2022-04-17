@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 
 public class MovieVO {
     private String title;

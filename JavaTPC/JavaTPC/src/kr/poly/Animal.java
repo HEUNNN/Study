@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.poly;
 public class Animal {
     // Dog, Cat의 공통 부분을 Animal(부모)로 옮김
     public Animal() {

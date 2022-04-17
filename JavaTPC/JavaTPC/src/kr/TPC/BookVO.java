@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 // 책(Object)를 class로 설계 -> 제목, 가격, 출판사, 페이지 수
 public class BookVO {
     public String title;

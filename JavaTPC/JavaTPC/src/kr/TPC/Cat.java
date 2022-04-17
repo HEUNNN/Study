@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 
 public class Cat extends Animal{
     public void night(){

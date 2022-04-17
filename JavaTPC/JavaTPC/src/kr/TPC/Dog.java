@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 
 public class Dog extends Animal {
     // 이름, 나이, 종: 객체의 상태 정보

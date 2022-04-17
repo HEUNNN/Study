@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 // 잘 설계한 class
 public class MemberVO {
     private String name; // 정보은닉 -> Private

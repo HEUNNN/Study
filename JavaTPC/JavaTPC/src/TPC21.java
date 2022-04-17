@@ -1,6 +1,6 @@
-import kr.UDDT.Animal;
-import kr.UDDT.Cat;
-import kr.UDDT.Dog;
+import kr.TPC.Animal;
+import kr.TPC.Cat;
+import kr.TPC.Dog;
 
 public class TPC21 {
     public static void main(String[] args) {

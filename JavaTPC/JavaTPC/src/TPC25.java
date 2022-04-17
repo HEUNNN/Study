@@ -1,6 +1,6 @@
-import kr.UDDT.Animal;
-import kr.UDDT.Cat;
-import kr.UDDT.Dog;
+import kr.TPC.Animal;
+import kr.TPC.Cat;
+import kr.TPC.Dog;
 
 public class TPC25 {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class TPC25 {
 
         display(ani);
     }
-    public static void display(Animal[] arr){ // 다형성 배열 
+    public static void display(Animal[] arr){ // 다형성 배열
         for (int i = 0; i < arr.length; i++) {
             arr[i].eat();
             if(arr[i] instanceof Cat){

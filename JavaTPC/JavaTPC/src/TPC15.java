@@ -1,4 +1,4 @@
-import kr.UDDT.MemberVO;
+import kr.TPC.MemberVO;
 
 public class TPC15 {
     public static void main(String[] args) {

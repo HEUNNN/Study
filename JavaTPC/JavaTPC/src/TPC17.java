@@ -1,4 +1,4 @@
-import kr.UDDT.MovieVO;
+import kr.TPC.MovieVO;
 
 public class TPC17 {
     public static void main(String[] args) {

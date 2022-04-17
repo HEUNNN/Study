@@ -1,4 +1,4 @@
-package kr.UDDT;
+package kr.TPC;
 
 public class Print {
     private Print(){ // private 생성자 메서드
