@@ -17,7 +17,7 @@ public class TPC14 {
         BookDTO dto; // dto = object(객체 변수), 아직 구체적으로 데이터를 가리키고 있지 않다.
         dto=new BookDTO(title, price, company, page); // dto = instance, 구체적인 메모리의 기억공간(실체)를 가리키고 있다.
         // 개별로 된 4개의 데이터가 dto로 하나로 묶어짐
-        // 하나로 묶은 dto를 다른 메서드로 이동
+        // 하나로 묶은 dto를 다른 메서드로 이동,
         bookPrint(dto);
     }
     public static void bookPrint(BookDTO dto) {
