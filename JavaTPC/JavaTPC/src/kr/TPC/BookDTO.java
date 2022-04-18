@@ -18,4 +18,9 @@ public class BookDTO { // 객체 정의, 설계
         this.company = company;
         this.page = page;
     }
+
+    @Override
+    public String toString() {
+        return "[title: " + title + ", price: " + price + ", company: " + company + ", page: " + page + "]";
+    }
 }
