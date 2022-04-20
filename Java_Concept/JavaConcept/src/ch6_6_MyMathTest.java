@@ -20,6 +20,10 @@ public class ch6_6_MyMathTest {
             return a * b;
         }
         double divide(double a, double b) {
+            if(b == 0) {
+                System.out.println("0으로 나눌 수 없다.");
+                return 0;
+            }
             return a / b;
         }
     }
