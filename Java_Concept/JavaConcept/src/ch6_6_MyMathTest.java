@@ -6,7 +6,7 @@ public class ch6_6_MyMathTest {
         long res2 = mm.subtract(5L, 3L);
         long res3 = mm.multiply(5L, 3L);
         double res4 = mm.divide(5L, 3L);
-
+        mm.printAdd(5L,3L);
         System.out.printf("Add res: %d, Subtract res: %d, Multiply res: %d, Divide res: %f", res1, res2, res3, res4);
     }
     public static class MyMath {
@@ -25,6 +25,10 @@ public class ch6_6_MyMathTest {
                 return 0;
             }
             return a / b;
+        }
+        public void printAdd(long a, long b) {
+            long res = add(a, b);
+            System.out.println(res);
         }
     }
 }
