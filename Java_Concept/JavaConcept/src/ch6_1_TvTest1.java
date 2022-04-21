@@ -1,6 +1,6 @@
 import ch6_class.Tv;
 
-public class ch6_1_TvTest {
+public class ch6_1_TvTest1 {
     public static void main(String[] args) {
         Tv t = new Tv();
         System.out.println("Current Channel: " + t.channel);
