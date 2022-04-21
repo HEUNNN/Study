@@ -1,4 +1,4 @@
-package CH7;
+package ch7;
 // Overloading VS Overrriding
 public class Parent {
     public void parrentMethod() {

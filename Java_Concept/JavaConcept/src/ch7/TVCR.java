@@ -1,6 +1,6 @@
-package CH7;
+package ch7;
 
-import CH7_Class.Tv;
+import ch7_class.Tv;
 
 public class TVCR extends Tv {
     VCR vcr = new VCR();

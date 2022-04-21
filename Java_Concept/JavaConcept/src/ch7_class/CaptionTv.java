@@ -1,4 +1,4 @@
-package CH7_Class;
+package ch7_class;
 
 public class CaptionTv extends Tv{
     public boolean caption;

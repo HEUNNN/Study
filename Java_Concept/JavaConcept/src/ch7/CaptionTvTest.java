@@ -1,6 +1,6 @@
-package CH7;
+package ch7;
 
-import CH7_Class.CaptionTv;
+import ch7_class.CaptionTv;
 
 public class CaptionTvTest {
     public static void main(String[] args) {

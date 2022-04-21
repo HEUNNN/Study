@@ -1,4 +1,4 @@
-package CH7_Class;
+package ch7_class;
 
 public class PointOverride extends Point2{
     public int z;

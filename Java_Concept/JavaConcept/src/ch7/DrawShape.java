@@ -1,4 +1,4 @@
-package CH7;
+package ch7;
 import java.lang.Override;
 
 public class DrawShape {

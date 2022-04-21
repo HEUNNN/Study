@@ -1,6 +1,6 @@
-package CH7;
+package ch7;
 
-import CH7_Class.PointOverride;
+import ch7_class.PointOverride;
 
 public class Override {
     public static void main(String[] args) {
