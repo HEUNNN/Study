@@ -1,4 +1,5 @@
 package CH7;
+import java.lang.Override;
 
 public class DrawShape {
     public static void main(String[] args) {
@@ -31,6 +32,9 @@ class Point {
 }
 class Shape {
     public String color = "black";
+    public Shape() {
+        super();
+    }
     public void draw() {
         System.out.printf("[color = %s ]%n", color);
     }
@@ -57,6 +61,7 @@ class Triangle extends Shape{
     public Triangle(Point[] p) {
         this.p = p; // Triangle 멤버변수 p에 Point[] p 를 대입한다. = 포함관계
     }
+
     @Override
     public void draw() {
         System.out.printf("[p1 = %s, p2 = %s, p3 = %s, color = %s]%n", p[0].GetXY(), p[1].GetXY(), p[2].GetXY(), color);
