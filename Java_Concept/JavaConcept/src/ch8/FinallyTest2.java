@@ -19,5 +19,5 @@ public class FinallyTest2 {
 }
 /*
  * try 블럭에서 return 문이 실행되는 경우에도 finally 블럭의 문장들이 먼저 실행된 후에, 현재 실행 중인 메서드를 종료한다.
- * catch 블럭의 문장 수행 중에 return 문을 만나도 finally 블럭의 문장들은 수행된다.
+ * catch 블럭의 문장 수행 중에 return 문을 만나도 finally 블럭의 문장들은 수행된다.      
  */
