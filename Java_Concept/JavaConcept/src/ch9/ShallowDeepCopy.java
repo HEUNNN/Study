@@ -34,6 +34,7 @@ class Circle implements Cloneable {
             obj = super.clone(); // 조상인 Object의 clone()을 호출한다.
         } catch (CloneNotSupportedException ce) { }
         return (Circle)obj;
+        // clone()은 단순히 객체에 저장된 값을 그대로 복제할 뿐, 객체가 참조하고 있는 객체까지 복제하지는 않는다.
     }
     public Circle deepCopy() {
         // 깊은 복사 메서드
