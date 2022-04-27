@@ -21,7 +21,7 @@ public class MyStack extends Vector {
         if(len  == 0) {
             throw new EmptyStackException();
         }else {
-            return elementAt(size() - 1); // 배열의 마지막 요소를 반환한다.
+            return elementAt(size() - 1); // 배열의 마지막 요소를 반환한다. = get과 동작 방식이 동일
         }
     }
     public boolean empty() { // Stack instance = si , si.empty() 하면 si.size() == 0 인지에 대해 true or false 반환
