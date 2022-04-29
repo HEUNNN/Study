@@ -29,6 +29,9 @@ class Box<T> {
     public String toString() {
         return list.toString();
     }
+    public ArrayList<T> getList() {
+        return list;
+    }
 }
 class Fruit implements Eatable {
     public String toString() {

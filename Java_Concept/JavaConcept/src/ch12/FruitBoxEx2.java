@@ -7,7 +7,7 @@ public class FruitBoxEx2 {
         FruitBox2<Apple> appleBox2 = new FruitBox2<>();
         FruitBox2<Grape> grapeBox2 = new FruitBox2<>();
 //        FruitBox2<Toy> toyBox2 = new FruitBox2<Toy>(); //Toy class는 Fruit class의 자손도 아니고, Etable 인터페이스를 구현한것도 아니라서 오류 발생
-        
+
         fruitBox2.add(new Fruit());
         fruitBox2.add(new Apple());
         fruitBox2.add(new Grape());
