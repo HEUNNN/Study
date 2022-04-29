@@ -30,7 +30,7 @@ class Box<T> {
         return list.toString();
     }
 }
-class Fruit {
+class Fruit implements Eatable {
     public String toString() {
         return "Fruit";
     }
