@@ -4,7 +4,7 @@ package ch14;
 interface MyFunction {
     void run();
 }
-public class LanbdaEx1 {
+public class LambdaEx1 {
     static void execute(MyFunction f) { // 매개변수 타입이 MyFunction인 메서드
         f.run();
     }
@@ -24,6 +24,8 @@ public class LanbdaEx1 {
                 System.out.println("f2.run()");
             }
         };
+
+        // f1 == f2
 
         MyFunction f3 = getMyFunction();
 
