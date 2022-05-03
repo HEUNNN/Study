@@ -28,7 +28,7 @@ public class LambdaEx5 {
     static <T> void printEvenNum(Predicate<T> p, Consumer<T> c, List<T> list) {
         System.out.print("[");
         for (T i : list) {
-            if(p.test(i)) {
+            if(p.test(i)) { // p.test(i)는 true or false를 반환함
                 c.accept(i);
             }
         }
