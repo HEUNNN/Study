@@ -2,36 +2,41 @@ package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MemoryMemberRepository implements MemberRepository{
-    // 자바의 정석 공부하고 다시 할 것
-    // save 할 공간 -> MAP인 store 생성
-    private static Map<Long, Member> store = new HashMap<>(); // Key, Value의 타입인 Long, Member
-    private static long sequence = 0L; // key 값을 자동으로 생성해준다.
+  // 회원 객체의 저장소
+
+    private static Map<Long, Member> store = new HashMap<>(); // Map<Long, Member> type의 store 참조변수 생성
+    private static long sequence = 0L; // key값인 id를 생성해준다.
 
     @Override
-    public Member save(Member member) { // 이름은 이미 넘어온 상태, 시스템에서 정해주는 id 값만 정해주면 된다.
-        member.setId(++sequence);
-        store.put(member.getId(), member); // Map에 저장
-        return member; // Member
+    public Member save(Member member) { // save method의 파라미터로 Member 인스턴스가 들어온다.
+        member.setId(++sequence); // Member class의 setter -> setId()
+        store.put(member.getId(), member);
+        return member;
     }
 
     @Override
     public Optional<Member> findById(Long id) {
-        return Optional.ofNullable((store.get(id))); // id 가 Null일 수 있으니 감싸준다.
+        return Optional.ofNullable(store.get(id));
+        // Optional.of(), Optional.ofNullable() 은 Optional 객체를 생성한다.
     }
 
     @Override
     public Optional<Member> findByName(String name) {
-        return Optional.empty();
+        return store.values().stream()
+                .filter(member -> member.getName().equals(name))
+                .findAny(); // Optional로 반환이 된다.
     }
 
     @Override
     public List<Member> findAll() {
-        return null;
+        return new ArrayList<Member>(store.values());
+    }
+
+    // Test 시 사용할 clear method
+    public void clearStore() {
+        store.clear();
     }
 }
