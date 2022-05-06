@@ -9,8 +9,12 @@ import java.util.Optional;
 
 public class MemberService {
     // 회원 서비스를 만들기 위해서는 member repository가 필요
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    // MemberRepository 는 Interface이고 이 Interface를 implement(구현)한 것이 MemoryMemberRepository이다.
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+// MemberRepository 는 Interface이고 이 Interface를 implement(구현)한 것이 MemoryMemberRepository이다.
 
     // 회원 가입
     public Long join(Member member) {
@@ -24,7 +28,7 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName()) // Optional<Member> type 반환
                         .ifPresent(m -> {
-                            throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+                            throw new IllegalStateException("이미 존재하는 회원입니다.");
                         });
     }
 
