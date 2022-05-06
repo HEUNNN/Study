@@ -13,7 +13,7 @@ public class MemberController {
 
     // controller는 component scanning으로 빈과 연결할 수 밖에 없다.
     @Autowired
-    public MemberController(MemberService memberService)  { // 생성자 주입: Dependency Injection(의존 관계 주입)을 생성자를 통해서 한다.
+    public MemberController(MemberService memberService) { // 생성자 주입: Dependency Injection(의존 관계 주입)을 생성자를 통해서 한다.
         this.memberService = memberService;
     }
 
@@ -21,6 +21,7 @@ public class MemberController {
     public String createForm() {
         return "members/createMemberForm";
     }
+
     @PostMapping("/members/new")
     public String create(MemberForm form) {
         Member member = new Member();
