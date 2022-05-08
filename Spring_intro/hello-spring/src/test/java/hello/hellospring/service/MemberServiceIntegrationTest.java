@@ -10,11 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.Assertions.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-// @Transactional
+@Transactional
 
 class MemberServiceIntegrationTest {
     @Autowired
@@ -48,10 +50,8 @@ class MemberServiceIntegrationTest {
         // when
         memberService.join(member1);
         // try-catch 대신 사용
-        IllegalStateException e = Assertions.assertThrows(IllegalStateException.class, () -> memberService.join(member2));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-
-
         // then
     }
 
