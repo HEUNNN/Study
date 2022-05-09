@@ -1,6 +1,6 @@
 package hello.core.order;
 
-public class Order { // 주문서 -> Member domain 객체와 같은 역할
+public class Order { // 주문서(주문 엔티티) -> Member entity 객체와 같은 역할
     private Long memberId;
     private String itemName;
     private int itemPrice;

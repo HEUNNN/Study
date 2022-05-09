@@ -10,9 +10,9 @@ public class OrderServiceImpl implements OrderService{
     // 주문 서비스 구현체의 역할
 
     // 1. 회원 저장소 구현체에 회원을 조회
-    MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
     // 2. 할인 정책 구현체에 할인적용을 조회
-    DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
