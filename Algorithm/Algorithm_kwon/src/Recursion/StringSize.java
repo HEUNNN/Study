@@ -17,7 +17,7 @@ public class StringSize {
              * 1. substring(int index)일 경우
              *    0번에서 index-1까지 잘라내고 남은 문자열을 return
              * 2. substring(int beginIndex, int endIndex)일 경우
-             *    beginIndex를 포함한 위치에서부터 endIndex-1까지 잘라내고 남은 문자열을 return
+             *    beginIndex를 포함한 위치에서부터 endIndex-1까지 잘라낸 문자열을 return
              * */
         }
     }
