@@ -16,6 +16,6 @@ public class AutoAppConfigTest {
 
         MemberService memberService = ac.getBean(MemberService.class);
         assertThat(memberService).isInstanceOf(MemberService.class); // 설정 정보로 AutoAppConfig.class를 넘겨줬을 때 잘 동작하는지 확인
-        
+
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
+        basePackages = "hello.core",
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class) //ComponentScan은 수동으로 등록하는 건데 @Configuration이 붙은 AppConfig가 자동으로 등록되면 안된다.
 )
 public class AutoAppConfig {
