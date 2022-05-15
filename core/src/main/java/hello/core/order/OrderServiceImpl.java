@@ -30,4 +30,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     // 주문 생성 서비스가 주문(Order)을 생성하여 반환한다.
+
+    //Test 용도
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }
