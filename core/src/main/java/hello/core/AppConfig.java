@@ -21,18 +21,19 @@ public class AppConfig {
         return new MemberServiceImpl(memberRepository());
     }
 
-    @Bean
-    public MemberRepository memberRepository() {
-        // 호출 로그
-        System.out.println("AppConfig.memberRepository");
-        return new MemoryMemberRepository();
-    }
 
     @Bean
     public OrderService orderService() {
         // 호출 로그
         System.out.println("AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+        // 호출 로그
+        System.out.println("AppConfig.memberRepository");
+        return new MemoryMemberRepository();
     }
 
     @Bean
