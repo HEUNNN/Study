@@ -17,7 +17,7 @@ public class BeanLifeCycleTest {
 
     @Configuration
     static class lifeCycleConfig {
-        @Bean
+        @Bean(initMethod = "init", destroyMethod = "close") // destroyMethod = "close"를 생략해도 된다.
         public NetworkClient networkClient() { // networkClient() method가 호출 되고 반환된 결과가 bean으로 등록된다.
             NetworkClient nc = new NetworkClient();
             nc.setUrl("http://hello-spring.dev"); // 수정자 주입을 통한 DI
