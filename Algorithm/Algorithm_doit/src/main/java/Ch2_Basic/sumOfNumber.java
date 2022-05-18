@@ -1,0 +1,35 @@
+package Ch2_Basic;
+
+import java.util.Scanner;
+
+public class sumOfNumber {
+    // 백준 11720
+    // 숫자의 합 구하기
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        String num = sc.next();
+        char[] arr = num.toCharArray(); // toCharArray : String 을 Char array로 변환해주는 메서드. (String class의 method)
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i] - '0';
+        }
+        System.out.println(sum);
+//
+//        String sNum = "123";
+//        System.out.println("String 123을 int로 변환 후 + 10: " + (Integer.parseInt(sNum) + 10)); // 133
+//        System.out.println("String 123을 int로 변환하지 않고 + 10: " + (sNum + 10)); // 12310
+//
+//        char c = '1';
+//        int charToInt = c - '0';
+//        System.out.println("char 1을 int로 변환 후 + 10: " + (charToInt + 10)); // 11
+//        System.out.println("char 1을 int로 변환하지 않고 + 10: " + (c + 10)); // '1'에 대한 아스키 코드 값은 49이다. 그래서 49 + 10인 59가 나왔다.
+    }
+
+    /*
+    * String -> int (String은 문자열)
+    * Integer.parseInt("123")
+    * Char ->  int (Char은 문자 1개)
+    * 특정 문자에서 '0'을 빼준다.(아스키 코드를 활용한 것이다.)
+    * */
+}
