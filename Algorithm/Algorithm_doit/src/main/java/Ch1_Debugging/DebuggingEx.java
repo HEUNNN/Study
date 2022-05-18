@@ -1,4 +1,4 @@
-package Debugging;
+package Ch1_Debugging;
 
 import java.util.Scanner;
 
