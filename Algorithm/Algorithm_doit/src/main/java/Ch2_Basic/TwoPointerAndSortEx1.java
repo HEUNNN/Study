@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.stream.LongStream;
 
-public class SortEx1 {
+public class TwoPointerAndSortEx1 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int conversion(String str) {
         return Integer.parseInt(str);
