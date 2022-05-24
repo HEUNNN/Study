@@ -1,6 +1,6 @@
 package hello.servlet.web.servlet;
 
-import hello.servlet.domain.member.MemberRespository;
+import hello.servlet.domain.member.MemberRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "memberFormServlet", urlPatterns = "/servlet/members/new-form") // 회원 등록용 HTML폼을 서블릿을 통해 볼 수 있다.
 public class MemberFormServlet extends HttpServlet {
-    private MemberRespository memberRespository = MemberRespository.getInstance(); // Singlton 유지
+    private MemberRepository memberRepository = MemberRepository.getInstance(); // Singlton 유지
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

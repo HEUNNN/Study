@@ -1,7 +1,7 @@
 package hello.servlet.web.servlet;
 
 import hello.servlet.domain.member.Member;
-import hello.servlet.domain.member.MemberRespository;
+import hello.servlet.domain.member.MemberRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "memberSaveServlet", urlPatterns = "/servlet/members/save")
 public class MemberSaveServlet extends HttpServlet {
 
-    private MemberRespository memberRespository = MemberRespository.getInstance();
+    private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class MemberSaveServlet extends HttpServlet {
 
         // save
         Member member = new Member(username, age);
-        memberRespository.save(member);
+        memberRepository.save(member);
 
         // save된 내용 확인 → web에 html 응답으로 내려보냄
         response.setContentType("text/html");
