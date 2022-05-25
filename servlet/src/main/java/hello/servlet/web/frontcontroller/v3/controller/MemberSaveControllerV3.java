@@ -21,7 +21,7 @@ public class MemberSaveControllerV3 implements ControllerV3 {
 
 
         ModelView modelView = new ModelView("save-result");
-        modelView.getModel().put("member",member); // Map type인 model을 ModelView 인스턴스에서 get해서 member값을 put 한다.
+        modelView.getModel().put("member", member); // Map type인 model을 ModelView 인스턴스에서 get해서 member값을 put 한다.
 
         return modelView;
     }
