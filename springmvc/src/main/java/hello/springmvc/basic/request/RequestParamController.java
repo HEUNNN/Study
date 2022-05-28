@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,8 +72,38 @@ public class RequestParamController {
     @ResponseBody
     @RequestMapping("request-param-map")
     public String requestParamMap(@RequestParam Map<String , Object> paramMap) {
-        log.info("memberName = {}, memberAge = {}", paramMap.get("username"), paramMap.get("age"));
+        log.info("username = {}, age = {}", paramMap.get("username"), paramMap.get("age"));
         return "ok";
     }
 
+   /* @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@RequestParam String username, @RequestParam int age) {
+        HelloData helloData = new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);
+
+        log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+        // @Data가 @ToString도 지원하기 때문에 아래 코드도 가능하다
+        log.info("helloData = {}", helloData);
+        return "ok";
+    }*/
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    // @ModelAttribute 생략이 가능하다. 그런데 @RequestParam도 생략할 수 있으니 혼란이 발생할 수 있다.
+    // String, int, Integer와 같은 단순 타입은 @RequestParam이 생략되었다고 보고, 나머지는 @ModelAttribute 이 생략되었다고 본다.(내가 직접 만든 객체는 ModelAttribute 적용 가능하다.)
+    // 하지만 argument resolver로 지정해둔 타입은 @ModelAttribute 가 적용되지 않는다.
+    // argument resolver ex: HttpServletResponse 등..
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
 }
