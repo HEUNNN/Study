@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-@Controller // @ResController는 return 하는 string을 view로 찾지않고, string 그 자체를 바디에 담아서 내보낸다.
+@Controller // @RestController는 return 하는 string을 view로 찾지않고, string 그 자체를 바디에 담아서 내보낸다.
 @RequestMapping("/basic/items")
 //@RequiredArgsConstructor // final이 붙은 필드인 ItemRepository itemRepository를 넣은 생성자를 자동으로 만들어준다.
 public class BasicItemController {
