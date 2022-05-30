@@ -12,7 +12,7 @@ public class ItemRepository { // repository를 다루는 기능 제공인 저장
     private static long sequence = 0L;
 
     public Item save(Item item) {
-        item.setId(sequence++);
+        item.setId(++sequence);
         store.put(item.getId(), item);
         return item;
     }
