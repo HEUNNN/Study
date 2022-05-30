@@ -5,10 +5,7 @@ import hello.itemservice.domain.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -28,7 +25,7 @@ public class BasicItemController {
     }
 
     // 상품 목록 Controller
-    @GetMapping // /basic/items로 들어오는 GET request -> item 목록을 출력
+    @GetMapping // GET /basic/items url이 들어오면 호출되는 메서드이다.
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items); // model에 items라는 이름으로 List<Item> items를 저장한다. view에서는 items 이름으로 데이터를 꺼내서 사용한다.
@@ -49,10 +46,35 @@ public class BasicItemController {
     public String addForm() {
         return "basic/addForm";
     }
-    // 상품 등록 버튼 누를 때 실행되는 Controller
+
+    // 상품 등록 처리 V1 Controller
+    /*@PostMapping("/add")
+    public String addItemV1(@RequestParam("itemName") String itemName, // 이름이 같으면 생략 가능
+                       @RequestParam Integer price,
+                       @RequestParam Integer quantity,
+                       Model model) {
+        Item item = new Item();
+        item.setItemName(itemName);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+        Item savedItem = itemRepository.save(item);
+        model.addAttribute("item", savedItem);
+        return "basic/item";
+    }*/
+
+    // 상품 등록 처리 V2 Controller
+    /*@PostMapping("/add")
+    public String addItemV2(@ModelAttribute("item") Item item, Model model) {
+        itemRepository.save(item);
+        // mode.addAttribute("item", item); // @ModelAttribute 사용시 자동으로 추가되기 때문에 생략 가능하다.
+        return "basic/item";
+    }*/
+
+    // 상품 등록 처리 V3 Controller -> @ModelAttribute의 이름 생략
     @PostMapping("/add")
-    public String save() {
-        return "basic/addForm";
+    public String addItemV3(@ModelAttribute Item item) { // @ModelAttribute의 이름을 생략하면 모델에 저장될 때 클래스 명(앞글자를 소문자로 바꾼)을 사용한다. 
+        itemRepository.save(item);
+        return "basic/item";
     }
 
     // 테스트용 데이터 추가
