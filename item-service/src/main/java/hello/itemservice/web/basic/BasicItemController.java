@@ -28,7 +28,7 @@ public class BasicItemController {
     @GetMapping // /basic/items로 들어오는 GET request -> item 목록을 출력
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
-        model.addAttribute("items", items);
+        model.addAttribute("items", items); // model에 items라는 이름으로 List<Item> items를 저장한다. view에서는 items 이름으로 데이터를 꺼내서 사용한다.
         return "basic/items"; // basic/items에 해당하는 뷰를 반환한다는 의미이다.
     }
 
