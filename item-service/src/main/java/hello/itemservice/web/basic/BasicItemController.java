@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -71,11 +72,19 @@ public class BasicItemController {
     }*/
 
     // 상품 등록 처리 V3 Controller -> @ModelAttribute의 이름 생략
-    @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item) { // @ModelAttribute의 이름을 생략하면 모델에 저장될 때 클래스 명(앞글자를 소문자로 바꾼)을 사용한다.
         itemRepository.save(item);
-//        return "basic/item"; 
+//        return "basic/item";
          return "redirect:/basic/items/" + item.getId();
+    }
+
+    // 상품 등록 처리 V4 Controller -> 리다이렉트를 보낼때 tag를 붙여서 보낸다. 저장되었습니다와 같은 메시지를보여주기 위해서
+    @PostMapping("/add")
+    public String addItemV4(@ModelAttribute Item item, RedirectAttributes redirectAttributes) { // @ModelAttribute의 이름을 생략하면 모델에 저장될 때 클래스 명(앞글자를 소문자로 바꾼)을 사용한다.
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true); // "저장되었습니다." 메시지를 위한 flag
+        return "redirect:/basic/items/{itemId}";
     }
 
     // 상품 수정 폼 Controller
