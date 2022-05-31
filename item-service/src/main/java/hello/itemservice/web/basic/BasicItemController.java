@@ -74,7 +74,8 @@ public class BasicItemController {
     @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item) { // @ModelAttribute의 이름을 생략하면 모델에 저장될 때 클래스 명(앞글자를 소문자로 바꾼)을 사용한다.
         itemRepository.save(item);
-        return "basic/item";
+//        return "basic/item"; 
+         return "redirect:/basic/items/" + item.getId();
     }
 
     // 상품 수정 폼 Controller
