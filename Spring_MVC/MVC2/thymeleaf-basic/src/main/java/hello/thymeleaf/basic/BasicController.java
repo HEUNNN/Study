@@ -123,6 +123,13 @@ public class BasicController {
         return "basic/comments";
     }
 
+    // 블록
+    @GetMapping("/block")
+    public String block(Model model) {
+        addUsers(model);
+        return "basic/block";
+    }
+
     @Data
     static class User {
         private String username;
