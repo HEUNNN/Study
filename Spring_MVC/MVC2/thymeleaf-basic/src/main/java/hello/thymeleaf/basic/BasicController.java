@@ -97,7 +97,14 @@ public class BasicController {
         model.addAttribute("data", "Spring@");
         return "basic/operation";
     }
-   @Data
+
+    // 속성값 설정
+    @GetMapping("/attribute")
+    public String attribute() {
+        return "basic/attribute";
+    }
+
+    @Data
     static class User {
         private String username;
         private int age;
