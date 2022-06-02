@@ -130,6 +130,15 @@ public class BasicController {
         return "basic/block";
     }
 
+    // 자바스크립트 인라인
+    @GetMapping("/javascript")
+    public String javascript(Model model) {
+        model.addAttribute("user", new User("userA", 10)); // 단일 유저
+        addUsers(model);
+
+        return "basic/javascript";
+    }
+
     @Data
     static class User {
         private String username;
