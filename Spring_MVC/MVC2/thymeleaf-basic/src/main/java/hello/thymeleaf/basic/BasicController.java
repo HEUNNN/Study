@@ -116,6 +116,13 @@ public class BasicController {
         return "basic/condition";
     }
 
+    // 주석
+    @GetMapping("/comments")
+    public String comments(Model model) {
+        model.addAttribute("data", "Srping!");
+        return "basic/comments";
+    }
+
     @Data
     static class User {
         private String username;
