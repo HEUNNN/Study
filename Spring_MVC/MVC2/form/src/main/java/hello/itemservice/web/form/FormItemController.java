@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/form/items")
-@RequiredArgsConstructor
+@RequiredArgsConstructor // final 혹은 @NotNull 애노테이션이 붙은 필드의 생성자를 자동으로 생성해준다.
 public class FormItemController {
 
     private final ItemRepository itemRepository;
@@ -32,12 +32,17 @@ public class FormItemController {
     }
 
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("item", new Item());
         return "form/addForm";
     }
 
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+
+        // @ModelAttribute: POST 요청에 담겨온 파라미터 값을 특정 자바 객체에 매핑한다. 또 model 객체에 자동으로 addAttribute(item) 해준다.
+        // HTML Form에서 POST 방식의 파라미터 형식 데이터를 넘겨준다.
+
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
