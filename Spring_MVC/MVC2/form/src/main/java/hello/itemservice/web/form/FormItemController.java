@@ -2,6 +2,7 @@ package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,12 @@ public class FormItemController {
         return regions;
     }
 
+    // @ModelAttribute로 item type 라디오 버튼 만들기
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes() {
+        return ItemType.values(); // ENUM 의 모든 정보를 배열로 반환한다.
+    }
+
 
     @GetMapping("/add")
     public String addForm(Model model) {
@@ -69,6 +76,7 @@ public class FormItemController {
         // HTML Form에서 POST 방식의 파라미터 형식 데이터를 넘겨준다.
         log.info("item.getOpen={}", item.getOpen());
         log.info("item.getRegions={}", item.getRegions());
+        log.info("item.getItemType={}", item.getItemType());
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
