@@ -31,7 +31,7 @@
     </div>
     <div>
         <label for="price">가격</label>
-        <input type="text" id="price" name="price" class="form-control" value="10000" th:value="${item.price}" readonly>
+        <input type="text" id="price" th:field="${item.price}" class="form-control" value="10000" readonly>
     </div>
     <div>
         <label for="quantity">수량</label>
@@ -39,6 +39,15 @@
     </div>
 
     <hr class="my-4">
+
+    <!-- single checkbox -->
+    <div>판매 여부</div>
+    <div>
+        <div class="form-check">
+            <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col">
