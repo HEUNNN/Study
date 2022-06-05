@@ -1,10 +1,9 @@
-package Ch2_Basic;
+package Ch3_Basic;
 
 
 import java.io.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class FindMinValue {

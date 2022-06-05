@@ -1,4 +1,4 @@
-package Ch2_Basic;
+package Ch3_Basic;
 
 import java.io.BufferedReader;
 import java.io.IOException;

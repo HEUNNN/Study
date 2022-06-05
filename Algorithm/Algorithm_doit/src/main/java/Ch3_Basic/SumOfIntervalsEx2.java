@@ -1,10 +1,8 @@
-package Ch2_Basic;
+package Ch3_Basic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public class SumOfIntervalsEx2 {

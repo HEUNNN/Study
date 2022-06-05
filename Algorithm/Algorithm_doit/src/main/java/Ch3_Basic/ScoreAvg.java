@@ -1,7 +1,5 @@
-package Ch2_Basic;
+package Ch3_Basic;
 
-import java.util.Arrays;
-import java.util.OptionalInt;
 import java.util.Scanner;
 
 public class ScoreAvg {
