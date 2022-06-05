@@ -8,13 +8,12 @@ public class sumOfNumber {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        String num = sc.next();
-        char[] arr = num.toCharArray(); // toCharArray : String 을 Char array로 변환해주는 메서드. (String class의 method)
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i] - '0';
+        char[] arr = sc.next().toCharArray();
+        int result = 0;
+        for (char elem : arr) {
+            result += (elem - '0');
         }
-        System.out.println(sum);
+        System.out.println(result);
 //
 //        String sNum = "123"; // parseInt는 String인 숫자열을 정수형으로 변환할 때 사용한다.
 //        System.out.println("String 123을 int로 변환 후 + 10: " + (Integer.parseInt(sNum) + 10)); // 133
@@ -27,9 +26,9 @@ public class sumOfNumber {
     }
 
     /*
-    * String -> int (String은 문자열)
-    * Integer.parseInt("123")
-    * Char ->  int (Char은 문자 1개)
-    * 특정 문자에서 '0'을 빼준다.(아스키 코드를 활용한 것이다.)
-    * */
+     * String -> int (String은 문자열)
+     * Integer.parseInt("123")
+     * Char ->  int (Char은 문자 1개)
+     * 특정 문자에서 '0'을 빼준다.(아스키 코드를 활용한 것이다.)
+     * */
 }
