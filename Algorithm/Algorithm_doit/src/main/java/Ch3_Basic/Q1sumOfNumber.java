@@ -2,7 +2,7 @@ package Ch3_Basic;
 
 import java.util.Scanner;
 
-public class sumOfNumber {
+public class Q1sumOfNumber {
     // 백준 11720
     // 숫자의 합 구하기
     public static void main(String[] args) {
