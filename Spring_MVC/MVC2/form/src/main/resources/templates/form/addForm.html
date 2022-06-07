@@ -13,6 +13,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -73,9 +74,15 @@
             <div>배송 방식</div>
             <select th:field="*{deliveryCode}" class="form-select">
                 <option value="">==배송 방식 선택==</option>
+                <!-- ENUM이 아닌 Java 객체로 deliveryCodes 셀렉트 만들때 사용하는 option 태그 -->
+                <!--
                 <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
                         th:text="${deliveryCode.displayName}">FAST
                 </option>
+                -->
+                <!-- ENUM을 사용하여 deliveryCodes 셀렉트 만들 때 사용하는 option 태그 -->
+                <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.name()}"
+                        th:text="${deliveryCode.description}"></option>
             </select>
         </div>
 

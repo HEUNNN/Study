@@ -1,9 +1,6 @@
 package hello.itemservice.web.form;
 
-import hello.itemservice.domain.item.DeliveryCode;
-import hello.itemservice.domain.item.Item;
-import hello.itemservice.domain.item.ItemRepository;
-import hello.itemservice.domain.item.ItemType;
+import hello.itemservice.domain.item.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -52,7 +49,8 @@ public class FormItemController {
     }
 
     // @ModelAttribute로 deliberyCodes 셀렉트 박스 만들기
-    @ModelAttribute("deliveryCodes")
+
+/*    @ModelAttribute("deliveryCodes")
     public List<DeliveryCode> deliveryCodes() {
         List<DeliveryCode> deliveryCodes = new ArrayList<>();
         deliveryCodes.add(new DeliveryCode("FAST", "빠른 배송"));
@@ -60,6 +58,21 @@ public class FormItemController {
         deliveryCodes.add(new DeliveryCode("SLOW", "느린 배송"));
 
         return deliveryCodes;
+    }*/
+
+    // @ModelAttribute를 사용하면 deliveryCodes() 메서든느 컨트롤러가 호출 될 때마다 사용되므로 deliverCodes 객체도 매번 생성되기 때문에,
+    // 미리 생성해두고 재사용하도록 변경하였다.
+/*    List<DeliveryCode> deliveryCodes = DeliveryCode.add();
+
+    @ModelAttribute("deliveryCodes")
+    public List<DeliveryCode> deliveryCodes() {
+        return deliveryCodes;
+    }*/
+
+    // deliveryCodes 셀렉트 박스 ENUM으로 만들기
+    @ModelAttribute("deliveryCodes")
+    public DeliveryCodeEnum[] deliveryCodeEnums() {
+        return DeliveryCodeEnum.values();
     }
 
     @GetMapping("/add")
