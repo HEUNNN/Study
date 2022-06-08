@@ -171,6 +171,8 @@ public class ValidationItemControllerV2 {
         // 검증 로직 → 필드 단위 에러
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName", "required");
+            // bindingResult의 rejectValue를 사용함으로써 얻을 수 있는 messageCodes(검증 해야할 객체와 객체의 이름은 bindingResult에서 이미 알고 있다.)
+            // required.item.itemName, required.itemName, required.java.lang.String, required
         }
 
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
