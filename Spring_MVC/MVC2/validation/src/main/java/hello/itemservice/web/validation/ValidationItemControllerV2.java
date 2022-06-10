@@ -10,6 +10,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +25,12 @@ public class ValidationItemControllerV2 {
 
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator; // @RequiredArgsConstructor에 의해 private한 필드의 생성자가 생기고, 생성자 자동 주입이 된다.(생성자가 하나일 때는 @Autowired 생략 가능)
+
+    @InitBinder
+    public void init(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(itemValidator);
+    }
+
 
     @GetMapping
     public String items(Model model) {
@@ -164,6 +172,7 @@ public class ValidationItemControllerV2 {
 
 
     // BindingResult가 제공하는 rejectValue(), reject()를 사용하여 FieldError, ObjectError를 직접 생성하지 않고, 검증 오류를 다루기
+    // @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         log.info("objectName = {}", bindingResult.getObjectName());
@@ -205,12 +214,28 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+    // @PostMapping("/add")
     public String addItemV5(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         // ItemValidator를 가져와서 사용해야한다.
         itemValidator.validate(item, bindingResult);
 
+        // 검증 실패시 다시 입력 폼으로
+        if (bindingResult.hasErrors()) { // errors에 값이 있다면, 즉 오류가 발생했다는 것을 의미한다..
+            log.info("error = {}", bindingResult);
+            return "validation/v2/addForm";
+        }
+
+        // 검증 성공 로직
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        // addItemV5 랑 비교해보기
         // 검증 실패시 다시 입력 폼으로
         if (bindingResult.hasErrors()) { // errors에 값이 있다면, 즉 오류가 발생했다는 것을 의미한다..
             log.info("error = {}", bindingResult);
