@@ -22,7 +22,7 @@ public class Q11StackAscendingSeries {
         for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
-
+    
         Stack<Integer> stack = new Stack<>();
 
         int num = 1;
