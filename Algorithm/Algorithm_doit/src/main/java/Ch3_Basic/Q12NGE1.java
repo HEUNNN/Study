@@ -1,11 +1,10 @@
 package Ch3_Basic;
 
 import java.io.*;
-import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class Q12RightLeftMaxNumber {
+public class Q12NGE1 {
     // 백준 17298
     // 오큰수 구하기
     // Ai의 오큰수는 오른쪽에 있으면서 Ai보다 큰 수 중 가장 왼쪽에 있는 수를 의미한다. 오큰수가 없을 경우 오큰수는 -1이다. ( 가장 큰 수 아니다.)
