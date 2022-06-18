@@ -2,9 +2,9 @@ package hello.login.web.login;
 
 import hello.login.domain.login.LoginService;
 import hello.login.domain.member.Member;
+import hello.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -20,14 +21,16 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class LoginController {
     private final LoginService loginService;
+    private final SessionManager sessionManager; // sessionManager DI(의존성 주입)
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm loginForm) { // HTML form 형태의 HTTP 요청 파라미터 데이터를 @ModelAttribute를 사용하여 LoginForm에 매핑하다.
         return "login/loginForm";
     }
 
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
+    //    @PostMapping("/login")
+    // session을 적용하지 않고, cookie만 사용했다.
+    public String loginV1(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) { // 특정 필드의 문제가 아니다. 글로벌 오류이다.
             return "login/loginForm";
         }
@@ -52,9 +55,39 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @PostMapping("/logout") // loginHome.html에 보면 logout 버튼의 form의 method가 post 방식의 HTTP 요청을 보내온다.
-    public String logout(HttpServletResponse response) {
+    // SessionManager 적용하기
+    @PostMapping("/login")
+    public String loginV2(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) { // 특정 필드의 문제가 아니다. 글로벌 오류이다.
+            return "login/loginForm";
+        }
+
+        Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+        log.info("login ? {}", loginMember);
+
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞기 않습니다.");
+            return "login/loginForm";
+        }
+
+        // 로그인 성공 처리
+        // sessionManager를 통해 세션을 생성하고, 회원 데이터를 보관
+        sessionManager.createSession(loginMember, response);
+
+
+        return "redirect:/";
+    }
+
+    //    @PostMapping("/logout") // loginHome.html에 보면 logout 버튼의 form의 method가 post 방식의 HTTP 요청을 보내온다.
+    public String logoutV1(HttpServletResponse response) {
         expireCookie(response, "memberId");
+        return "redirect:/";
+    }
+
+    @PostMapping("/logout")
+    public String logoutV2(HttpServletRequest request) {
+        sessionManager.expire(request);
         return "redirect:/";
     }
 
