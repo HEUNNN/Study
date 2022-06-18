@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,7 +58,7 @@ public class HomeController {
 
     }
 
-    @GetMapping("/")
+    //    @GetMapping("/")
     public String homeLoginV3(HttpServletRequest request, Model model) { // HTTP request에서 sessionId cookie 꺼내기
 
         // 로그인 된 사용자인지 판단하는 로직
@@ -78,5 +78,18 @@ public class HomeController {
         model.addAttribute("member", loginMember);
         return "loginHome";
 
+    }
+
+    @GetMapping("/")
+    public String homeLoginV4(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+
+        // @SessionAttribute에서 session이 null인지, SessionConst.LOGIN_MEMBER 이름을 가진 java 객체 값이 session에 존재하는지 확인해준다.
+        // 세션에 회원 데이터가 없으면 home
+        if (loginMember == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", loginMember);
+        return "loginHome";
     }
 }
