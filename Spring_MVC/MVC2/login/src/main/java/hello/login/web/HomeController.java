@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -41,7 +42,7 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+    //    @GetMapping("/")
     public String homeLoginV2(HttpServletRequest request, Model model) { // HTTP request에서 sessionId cookie 꺼내기
 
         // 로그인 된 사용자인지 판단하는 로직
@@ -53,6 +54,28 @@ public class HomeController {
         }
 
         model.addAttribute("member", member);
+        return "loginHome";
+
+    }
+
+    @GetMapping("/")
+    public String homeLoginV3(HttpServletRequest request, Model model) { // HTTP request에서 sessionId cookie 꺼내기
+
+        // 로그인 된 사용자인지 판단하는 로직
+        HttpSession session = request.getSession(false);
+
+        if (session == null) {
+            return "home";
+        }
+
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        // 세션에 회원 데이터가 없으면 home
+        if (loginMember == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", loginMember);
         return "loginHome";
 
     }
