@@ -8,15 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @Controller
 @Slf4j
@@ -81,7 +80,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @PostMapping("/login")
+    //    @PostMapping("/login")
     public String loginV3(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) { // 특정 필드의 문제가 아니다. 글로벌 오류이다.
             return "login/loginForm";
@@ -103,6 +102,31 @@ public class LoginController {
 
 
         return "redirect:/";
+    }
+
+    @PostMapping("/login")
+    public String loginV4(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
+                          HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
+        if (bindingResult.hasErrors()) { // 특정 필드의 문제가 아니다. 글로벌 오류이다.
+            return "login/loginForm";
+        }
+
+        Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+        log.info("login ? {}", loginMember);
+
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞기 않습니다.");
+            return "login/loginForm";
+        }
+
+        // 로그인 성공 처리
+        // 서블릿 HTTP 세션 사용 → HttpServletRequest 필요
+        HttpSession session = request.getSession(); // 세션이 있으면 있는 세션을 반환하고, 없으면 신규 세션을 반환한다.
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember); // 세션에 로그인 회원 정보 보관
+
+
+        return "redirect:" + redirectURL;
     }
 
     //    @PostMapping("/logout") // loginHome.html에 보면 logout 버튼의 form의 method가 post 방식의 HTTP 요청을 보내온다.
