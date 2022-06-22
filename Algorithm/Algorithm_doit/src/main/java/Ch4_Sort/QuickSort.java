@@ -19,7 +19,6 @@ public class QuickSort {
         if (lo >= hi) { // ???
             return;
         }
-        System.out.println("lo: " + lo + ", hi: " + hi);
 
         int pivotIdx = partition(arr, lo, hi);
 
@@ -35,7 +34,7 @@ public class QuickSort {
         while (lo < hi) {
 
             while (arr[hi] > pivot && lo < hi) {
-                hi--; // 이 while문과 아래의 while문의 자리가 바귀면 안된다.
+                hi--; // 이 while문과 아래의 while문의 자리가 바뀌면 안된다.
             }
 
             while (arr[lo] <= pivot && lo < hi) {
