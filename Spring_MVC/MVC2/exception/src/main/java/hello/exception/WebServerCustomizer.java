@@ -6,8 +6,9 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class WebServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
+    // 서블릿을 사용한 오류 처리
 
     @Override
     public void customize(ConfigurableWebServerFactory factory) {
