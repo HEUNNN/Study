@@ -18,6 +18,11 @@ public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
                 return new ModelAndView();
             }
+/*            if (ex instanceof RuntimeException) { // /error-ex 도 400 에러로 응답된다.
+                log.info("RuntimeException reslover to 400");
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
+                return new ModelAndView();
+            }*/
 
         } catch (IOException e) {
             log.info("resolver ex", e);
