@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Q15BubbleSort {
+public class Q15BubbleSortEx1 {
     // 백준 2750
     // N개의 수가 주어졌을 때 이를 오름차순으로 정렬한다.
     public static void main(String[] args) throws IOException {
