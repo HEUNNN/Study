@@ -3,11 +3,14 @@ package Ch4_Sort;
 
 public class QuickSort {
     public static void main(String[] args) {
-        int[] arr = {5, 3, 8, 9, 2, 4, 7};
+//        int[] arr = {5, 3, 8, 9, 2, 4, 7};
+        int[] arr = {5, 7, 3, 8, 1, 9};
         sort(arr);
 
+        System.out.println();
+        System.out.print("answer: ");
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+            System.out.print(arr[i] + " ");
         }
     }
 
@@ -41,9 +44,12 @@ public class QuickSort {
                 lo++;
             }
             swap(arr, lo, hi);
+            print(arr, null);
+
         }
 
-        swap(arr, start, lo);
+        swap(arr, start, lo); // start: pivot의 index
+        print(arr, "swap");
         return lo;
     }
 
@@ -51,5 +57,15 @@ public class QuickSort {
         int tmp = arr[idx1];
         arr[idx1] = arr[idx2];
         arr[idx2] = tmp;
+    }
+    private static void print(int[] a, String msg) {
+        int N = a.length;
+        if (msg != null) {
+            System.out.print(msg + ": ");
+        }
+        for (int i = 0; i < N; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.println();
     }
 }
