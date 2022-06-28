@@ -6,24 +6,14 @@ import java.util.Queue;
 
 public class Q22RadixSortVer2 {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int max_size = 5;
+        int[] arr = {100, 2343, 1, 23, 345, 17, 89};
 
-        int N = Integer.parseInt(br.readLine());
-        int[] arr = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
+        radixSort(arr, max_size);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
         }
-        br.close();
-
-        radixSort(arr, 5);
-        for (int i = 0; i < N; i++) {
-            bw.write(arr[i] + "\n");
-        }
-
-        bw.flush();
-        bw.close();
-
 
     }
 
