@@ -19,7 +19,7 @@ public class Q22RadixSortVer1 {
         br.close();
         radixSort(arr, 5);
         for (int i = 0; i < N; i++) {
-            bw.write(arr[i] +"\n");
+            bw.write(arr[i] + "\n");
         }
         bw.flush();
         bw.close();
@@ -34,7 +34,7 @@ public class Q22RadixSortVer1 {
             int[] bucket = new int[10];
 
             for (int i = 0; i < a.length; i++) {
-                int idx =( a[i] / jarisu) % 10;
+                int idx = (a[i] / jarisu) % 10;
                 bucket[idx]++;
             }
 
@@ -43,7 +43,7 @@ public class Q22RadixSortVer1 {
             }
 
             for (int i = a.length - 1; i >= 0; i--) {
-                int idx =( a[i] / jarisu) % 10;
+                int idx = (a[i] / jarisu) % 10;
                 output[bucket[idx] - 1] = a[i];
                 bucket[idx]--;
             }
