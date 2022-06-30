@@ -41,7 +41,10 @@ public class Q25DfsEx1 {
         for (int i = 0; i < N; i++) {
             if (!visited[i]) {
                 DFS(i, 1);
-                if (arrive) break; // arrive가 true라서 DFS에서 return 이 됐으면 해당 if 문 break하고 if(arrive)로 넘어간다.
+                if (arrive) {
+                    System.out.println("i: " + i);
+                    break;
+                } // arrive가 true라서 DFS에서 return 이 됐으면 해당 if 문 break하고 if(arrive)로 넘어간다.
             }
         }
         if (arrive) {
