@@ -3,10 +3,13 @@ package jpabook.jpashop.domain;
 import jpabook.jpashop.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class OrderItem {
 
     @Id
@@ -19,10 +22,31 @@ public class OrderItem {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name ="order_id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
 
+    //==생성 메서드==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        // 아이템이 주문되면 재고를 감소시켜야 한다.
+        item.removeStock(count);
+
+        return orderItem;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        getItem().addStock(count); // 여기는 왜 getCount() 가 아닐까?
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
