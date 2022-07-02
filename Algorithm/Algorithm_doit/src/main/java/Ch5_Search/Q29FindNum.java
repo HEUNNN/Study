@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 public class Q29FindNum {
 
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine()); // 데이터의 개수
@@ -25,6 +26,10 @@ public class Q29FindNum {
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < F; i++) {
+            int target = Integer.parseInt(st.nextToken());
+            binarySearch(arr, 0, N - 1, target);
+        }
+        /*for (int i = 0; i < F; i++) {
 
             int start = 0;
             int end = N - 1;
@@ -51,6 +56,25 @@ public class Q29FindNum {
             } else {
                 System.out.println("0");
             }
+        }*/
+    }
+
+    private static void binarySearch(int[] array, int s, int e, int target) {
+
+        // 재귀 사용 O
+        if (s > e) {
+            System.out.println("0");
+            return;
+        }
+
+        int mid = (s + e) / 2;
+        if (array[mid] < target) {
+            binarySearch(array, mid + 1, e, target);
+        } else if (array[mid] == target) {
+            System.out.println("1");
+            return;
+        } else {
+            binarySearch(array, s, mid - 1, target);
         }
     }
 }
