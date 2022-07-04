@@ -29,7 +29,7 @@ public class Q31FindNum {
             } else {
                 s = mid + 1;
             }
-            
+
         }
 
         System.out.println(s);
