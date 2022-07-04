@@ -71,7 +71,7 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String update(@ModelAttribute("form") BookForm form) {
+    public String update(@ModelAttribute("form") BookForm form) { // @ModelAttribute 생략 가능
 
         // @ModelAttribute(): 파라미터 값을 특정 자바 객체에 매핑
 
