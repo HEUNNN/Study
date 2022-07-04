@@ -71,11 +71,11 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String update(@ModelAttribute("form") BookForm form) { // @ModelAttribute 생략 가능
+    public String update(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) { // @ModelAttribute 생략 가능
 
         // @ModelAttribute(): 파라미터 값을 특정 자바 객체에 매핑
 
-        Book book = new Book();
+/*        Book book = new Book();
 
         book.setId(form.getId());
         book.setName(form.getName());
@@ -84,7 +84,9 @@ public class ItemController {
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book);
+        itemService.saveItem(book);*/
+
+        itemService.update(itemId, form.getName(), form.getPrice(), form.getStockQuantity()); // 변경 감지 사용
         return "redirect:/items";
     }
 
