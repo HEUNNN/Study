@@ -19,35 +19,14 @@ public class JpaMain {
 
         try {
 
-            Member newMember = new Member();
-            newMember.setId(10L);
-            newMember.setName("apple");
-            // newMember는 비영속 상태
+            // 새로 EntityManager가 생성되었다.
+            // 이미 저장되어 있는 member 정보를 총 2회 조회한다.
+            Member findMember1 = em.find(Member.class, 101L); // 1회차 조회시에는 쿼리를 사용하여 DB에서 id가 101인 데이터를 찾아온다. 그 후 1차 캐시에 데이터 저장한다.
+            Member findMember2 = em.find(Member.class, 101L); // 2회차 조회시에는 쿼리를 사용하지 않고, 1차 캐시에서 바로 데이터를 찾아온다.
 
-            System.out.println("===Before===");
-            em.persist(newMember);
-            System.out.println("===After===");
-            // newMember는 영속 상태 → 엔티티 매니저에 들어 있는 영속성 컨텍스트라는 곳에서 newMember를 이제부터 관리한다는 뜻이다.
-            // 이때 DB에 저장되는 것이 아니다. DB에 저장되는지(쿼리가 날아가는지) 확인하기 위해 Before, After 출력
+            System.out.println(findMember1 == findMember2); // 동일성 비교
 
-
-            // 이미 저장되어 있는 id: 1, name: HelloA 인 member 데이터를 수정하기
-            Member findMember1 = em.find(Member.class, 1L);
-//            Member findMember2 = em.find(Member.class, 3L); // id가 1L인 데이터 찾기/**/
-
-            findMember1.setName("lee");
-            // 수정 후에 em.persist() 안해도 된다. → Java Collection 처럼 사용할 수 있도록 JPA가 기능하기 때문이다.
-
-            // 삭제
-            // em.remove(findMember2);
-
-            // JPQL로 전체 회원 검색
-            List<Member> memberList = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList(); // JPA 는 테이블 입장
-
-            for (Member member : memberList) {
-                System.out.println("id: " + member.getId() + ", name: " + member.getName());
-            }
+            findMember1.setName("appleeee!"); // 엔티티 수정 , DirtyCheck 변경 감지 기능으로 엔티티 수정이 쉽게 된다. 
 
             tx.commit();
         } catch (Exception e) {
