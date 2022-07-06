@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // Auto ? default
+    @GeneratedValue(strategy = GenerationType.AUTO) // Auto는 default
     @Column(name = "MEMBER_ID")
     private Long id;
 
