@@ -17,6 +17,11 @@ public class JpaMain {
         tx.begin(); // database transaction 시작
 
         try {
+            Member member = new Member();
+            member.setUsername("UserA");
+
+            em.persist(member);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

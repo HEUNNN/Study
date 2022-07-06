@@ -1,31 +1,38 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
+//@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
+@TableGenerator(name = "MEMBER_SEQ_GENERATOR", table = "MY_SEQUENCES", pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
 public class Member {
 
-    @Id // PK 매핑
+
+    @Id // 기본키 매핑
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
+
 
     @Column(name = "name", nullable = false)
     private String username; // 객체에서는 username으로 쓰고, DB에서는 column 명을 name으로 한다.
 
-    private Integer age; // DB에서 Integer와 가장 유사한 것으로 선택된다.
-
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    @Lob
-    private String description;
-
     public Member() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
