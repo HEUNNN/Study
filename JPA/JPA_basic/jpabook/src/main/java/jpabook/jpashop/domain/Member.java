@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -10,6 +12,18 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto는 default
     @Column(name = "MEMBER_ID")
     private Long id;
+
+    // Member와 Order 양방향 매핑 해보기, Member가 1이고 연관관계 주인은 N인 Order의 member 필드이다.
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     private String name;
 
