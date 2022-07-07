@@ -44,6 +44,13 @@ public class Q38FindPrimeNumber2 {
                 }
                 tmp *= arr[i];
             }
+
+/*            while (Math.pow((double) arr[i], (double) num) <= (double) M) { // 시간 초과
+                if (Math.pow((double) arr[i], (double) num) >= (double) N) {
+                    cnt++;
+                    num++;
+                }
+            }*/
         }
 
         System.out.println(cnt);
