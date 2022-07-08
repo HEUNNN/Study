@@ -40,6 +40,9 @@ public class JpaMain {
             Movie findMovie = em.find(Movie.class, movie.getId());
             System.out.println("findMovie = " + findMovie);
 
+            Item findItem = em.find(Item.class, book.getId());
+            System.out.println(findItem);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

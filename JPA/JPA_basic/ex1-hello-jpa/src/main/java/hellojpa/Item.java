@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "DTYPE")
-public class Item {
+public abstract class Item {
 
     @Id
     @GeneratedValue
