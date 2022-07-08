@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jpabook.jpashop.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Category {
+public class Category extends BaseEntity{
 
     @Id
     @GeneratedValue
