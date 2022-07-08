@@ -25,7 +25,14 @@ public class JpaMain {
             movie.setName("바람과 함께 사라지다.");
             movie.setPrice(10000);
 
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
+            book.setPrice(30000);
+            book.setIsbn("192371");
+
             em.persist(movie);
+            em.persist(book);
 
             em.flush(); // SQL 쿼리 보내서 DB에 저장
             em.clear(); // 1차 캐시 clear
