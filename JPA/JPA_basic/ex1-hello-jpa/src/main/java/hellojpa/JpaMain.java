@@ -22,32 +22,32 @@ public class JpaMain {
 
         try {
 
+            Team team = new Team();
+            team.setName("team1");
             Member member = new Member();
             member.setUsername("hello");
+            member.setTeam(team);
 
+            em.persist(team);
             em.persist(member);
 
             em.flush();
             em.clear();
 
-            Member findMember1 = em.getReference(Member.class, member.getId()); // proxy
-            System.out.println("findMember1 is proxy: " + findMember1.getClass());
+            Member findMember1 = em.find(Member.class, member.getId());
+            System.out.println("find member class = " + findMember1.getClass());
 
-            // 준영속 상태
-            em.detach(findMember1);
+            Team findTeam = findMember1.getTeam();
+            System.out.println("team class = " + findTeam.getClass());
 
-            String username = findMember1.getUsername();// proxy (강제) 호출 → 초기화
-            System.out.println(username);
-
-            // 프록시 확인
-            boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember1);
-
-            // 프록시 강제 초기화
-            Hibernate.initialize(findMember1);
-
+            // proxy로 가져온 team을 초기화 → 쿼리가 생긴다.
+            System.out.println("team 초기화 start");
+            String teamName = findTeam.getName();
+            System.out.println(findTeam.getClass());
 
             tx.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();
