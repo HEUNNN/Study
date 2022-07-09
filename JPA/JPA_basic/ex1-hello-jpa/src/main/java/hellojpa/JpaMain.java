@@ -22,28 +22,21 @@ public class JpaMain {
 
         try {
 
-            Team team = new Team();
-            team.setName("team1");
-            Member member = new Member();
-            member.setUsername("hello");
-            member.setTeam(team);
+            // 영속성 전이: CASCADE
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            em.persist(team);
-            em.persist(member);
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             em.flush();
             em.clear();
 
-            Member findMember1 = em.find(Member.class, member.getId());
-            System.out.println("find member class = " + findMember1.getClass());
-
-            Team findTeam = findMember1.getTeam();
-            System.out.println("team class = " + findTeam.getClass());
-
-            // proxy로 가져온 team을 초기화 → 쿼리가 생긴다.
-            System.out.println("team 초기화 start");
-            String teamName = findTeam.getName();
-            System.out.println(findTeam.getClass());
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildren().remove(0);
 
             tx.commit();
         } catch (Exception e) {
