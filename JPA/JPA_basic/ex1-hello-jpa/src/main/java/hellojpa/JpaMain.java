@@ -22,21 +22,12 @@ public class JpaMain {
 
         try {
 
-            // 영속성 전이: CASCADE
-            Child child1 = new Child();
-            Child child2 = new Child();
+            Member member = new Member();
+            member.setUsername("hello");
+            member.setHomeAddress(new Address("Busan", "gil", "2384"));
+            member.setWorkPeriod(new Period());
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildren().remove(0);
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
@@ -46,14 +37,5 @@ public class JpaMain {
             em.close();
         }
         emf.close();
-    }
-
-    private static void printMemberAndTeam(Member member) {
-
-        String username = member.getUsername();
-        String teamName = member.getTeam().getName();
-
-        System.out.println("userName: " + username + ", teamName: " + teamName);
-
     }
 }
