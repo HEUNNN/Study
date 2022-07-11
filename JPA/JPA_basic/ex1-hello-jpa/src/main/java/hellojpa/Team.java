@@ -18,8 +18,8 @@ public class Team extends BaseEntity{
     private Long id;
     private String name;
 
-    // Member : Team = N : 1, Team 입장에서는 @OneToMany
+/*    // Member : Team = N : 1, Team 입장에서는 @OneToMany
     @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();*/
 
 }
