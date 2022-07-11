@@ -4,6 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class JpaMain {
@@ -18,7 +21,7 @@ public class JpaMain {
 
         try {
 
-            Member member1 = new Member();
+/*            Member member1 = new Member();
             member1.setUsername("member1");
             member1.setHomeAddress(new Address("busan", "gil", "12355"));
 
@@ -57,7 +60,29 @@ public class JpaMain {
 
             for (AddressEntity addressEntity : addressHistory) {
                 addressEntity.getAddress().setCity("ssss"); // 이렇게 밖에 못하나?
-            }
+            }*/
+
+            Member member = new Member();
+            member.setUsername("kim");
+
+            em.persist(member);
+
+            // JPQL
+
+/*            String jpql = "select m from Member m where m.username like '%kim%'";
+            List<Member> result = em.createQuery(jpql, Member.class).getResultList();*/
+
+            // Criteria → 쿼리를 코드로 작성
+            // Criteria 사용 준비
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> query = cb.createQuery(Member.class);
+
+            // 루트 클래스 (조회를 시작할 클래스)
+            Root<Member> m = query.from(Member.class);
+
+            // 쿼리 생성
+            CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"), "kim"));
+            List<Member> result = em.createQuery(cq).getResultList();
 
             tx.commit();
         } catch (Exception e) {
