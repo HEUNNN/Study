@@ -16,6 +16,9 @@ public class Delivery extends BaseEntity{
     private Long id;
 
 
+    @Embedded
+    private Address address;
+
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 

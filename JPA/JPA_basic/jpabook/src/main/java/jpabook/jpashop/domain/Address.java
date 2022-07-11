@@ -2,6 +2,7 @@ package jpabook.jpashop.domain;
 
 import lombok.Getter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -9,11 +10,20 @@ import java.util.Objects;
 @Getter
 public class Address {
 
+    // 값 타입으로 만들었을 때 Column의 길이도 각각 변경 가능
+    @Column(length = 10)
     private String city;
+    @Column(length = 20)
     private String street;
+    @Column(length = 5)
     private String zipcode;
 
-    public Address() {
+    // 값 타입으로 만들었을 때 의미있는 메서드를 만들어낼 수 있다.
+    public String fullAddress() {
+        return getCity() + " " + getStreet() + " " + getZipcode();
+    }
+
+   public Address() {
     }
 
     public Address(String city, String street, String zipcode) {
@@ -22,17 +32,19 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Address)) return false;
         Address address = (Address) o;
-        return Objects.equals(city, address.city) && Objects.equals(street, address.street) && Objects.equals(zipcode, address.zipcode);
+        // proxy일 때 getCity() getter를 사용하지 않고 직접 접근하면 문제가 생길 수 있다. 그래서 getter로 해야한다.
+        return Objects.equals(getCity(), address.getCity()) &&
+                Objects.equals(getStreet(), address.getStreet()) &&
+                Objects.equals(getZipcode(), address.getZipcode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(city, street, zipcode);
+        return Objects.hash(getCity(), getStreet(), getZipcode());
     }
 }
