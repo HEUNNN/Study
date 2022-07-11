@@ -47,7 +47,8 @@ public class Member {
 
     // 값 타입 컬렉션 대신, 엔티티 사용
     // 일대다 단방향 매핑
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    // 일대다 단방향은 일이 연관관계의 주인이다. Member : AddressEntity = 1 : N
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "MEMBER_ID")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
