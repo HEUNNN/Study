@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -29,9 +30,22 @@ public class AddressEntity { // 값 타입을 감싼 entity
     }
 
 
-    @Override
+/*    @Override
     public boolean equals(Object obj) {
         AddressEntity obj1 = (AddressEntity) obj;
         return this.id == obj1.getId();
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AddressEntity)) return false;
+        AddressEntity that = (AddressEntity) o;
+        return id == that.id && Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address);
     }
 }

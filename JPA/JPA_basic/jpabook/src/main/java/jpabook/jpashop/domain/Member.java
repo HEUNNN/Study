@@ -20,11 +20,6 @@ public class Member extends BaseEntity{
 
     private String name;
 
-    private String city;
-
-    private String street;
-
-    private String zipcode;
 
     // Member와 Order 양방향 매핑 해보기, Member가 1이고 연관관계 주인은 N인 Order의 member 필드이다.
     @OneToMany(mappedBy = "member")

@@ -31,8 +31,7 @@ public class JpaMain {
             member1.getFavoriteFoods().add("피자");
             member1.getFavoriteFoods().add("삼겹살");
 
-            AddressEntity addressEntity1 = new AddressEntity("부산", "진구", "12998");
-            member1.getAddressHistory().add(addressEntity1);
+            member1.getAddressHistory().add(new AddressEntity("부산", "진구", "12998"));
             member1.getAddressHistory().add(new AddressEntity("울산", "울주군", "129434"));
             member1.getAddressHistory().add(new AddressEntity("제주도", "뿡", "12334"));
 
@@ -54,10 +53,11 @@ public class JpaMain {
             findMember1.getFavoriteFoods().remove("치킨");
             findMember1.getFavoriteFoods().add("사탕");
 
-/*            findMember1.getAddressHistory().remove(addressEntity1.getId()); // AddressEntity의 id를 Long에서 int로 바꾸니까 됐음
-            em.persist(addressEntity1);
-            addressEntity1.getAddress().setCity("ss");
-            findMember1.getAddressHistory().add(addressEntity1);*/
+            List<AddressEntity> addressHistory = findMember1.getAddressHistory();
+
+            for (AddressEntity addressEntity : addressHistory) {
+                addressEntity.getAddress().setCity("ssss"); // 이렇게 밖에 못하나?
+            }
 
             tx.commit();
         } catch (Exception e) {
