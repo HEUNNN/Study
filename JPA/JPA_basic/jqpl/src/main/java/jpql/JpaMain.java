@@ -149,9 +149,6 @@ public class JpaMain {
                 System.out.println(m);
             }
 */
-            // 서브 쿼리
-
-            // JPQL 타입 표현
             Team team = new Team();
             team.setName("teamA");
             em.persist(team);
@@ -177,13 +174,24 @@ public class JpaMain {
 
             Member member3 = new Member();
             member3.setUsername("member3");
-            member3.setAge(30);
+            member3.setAge(70);
             member3.setTeam(team);
             member3.setType(MemberType.USER);
             em.persist(member3);
+
+            Member member4 = new Member();
+            member4.setUsername(null);
+            member4.setAge(4);
+            member4.setTeam(team2);
+            member4.setType(MemberType.USER);
+            em.persist(member4);
+
             em.flush();
             em.clear();
 
+
+            // JPQL 타입 표현
+/*
             String q = "select m.username, 'HELLO', TRUE  from Member m";
             String q2 = "select m.username, 'HELLO', TRUE  from Member m " +
                     "where m.type = :userType";
@@ -197,8 +205,31 @@ public class JpaMain {
                 System.out.println("objects = " + o[0]);
                 System.out.println("objects = " + o[1]);
                 System.out.println("objects = " + o[2]);
-            }
+            }*/
 
+            // CASE
+            // 기본 CASE 식
+            String caseQ1 =
+                    "select " +
+                    "        case when m.age <= 10 then '학생요금' " +
+                    "             when m.age >= 60 then '경로요금' " +
+                    "             else '일반요금' " +
+                    "        end " +
+                    "from Member m";
+
+            // COALESCE: 하나씩 조회해서 null이 아니면 반환한다.
+            String coaleseceQ1 = "select coalesce(m.username, '이름 없는 회원') from Member m";
+
+            // NULLIF: 두 값이 같으면 null 반환, 다르면 첫번째 값 반환
+            // 사용자의 이름이 'teamA'이면 null을 반환하고 나머지는 본인의 이름을 반환한다.
+            String nullifQ1 = "select NULLIF(m.username, 'teamA') from Member m";
+            List<String> resultList9 = em.createQuery(nullifQ1, String.class)
+                    .getResultList();
+
+
+            for (String s : resultList9) {
+                System.out.println("s = " + s);
+            }
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
