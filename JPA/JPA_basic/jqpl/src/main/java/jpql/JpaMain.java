@@ -1,6 +1,7 @@
 package jpql;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class JpaMain {
@@ -180,7 +181,7 @@ public class JpaMain {
             em.persist(member3);
 
             Member member4 = new Member();
-            member4.setUsername(null);
+            member4.setUsername(" banana ");
             member4.setAge(4);
             member4.setTeam(team2);
             member4.setType(MemberType.USER);
@@ -209,7 +210,7 @@ public class JpaMain {
 
             // CASE
             // 기본 CASE 식
-            String caseQ1 =
+/*            String caseQ1 =
                     "select " +
                     "        case when m.age <= 10 then '학생요금' " +
                     "             when m.age >= 60 then '경로요금' " +
@@ -229,7 +230,25 @@ public class JpaMain {
 
             for (String s : resultList9) {
                 System.out.println("s = " + s);
+            }*/
+            // JPQL 기본 함수
+
+            String concatQ = "select concat('a', 'b') from Member m";
+            String substringQ = "select substring(m.username, 2, 3) from Member m"; // 2번째 부터 3개를 잘라내라, teamA → eam
+            String trimQ = "select trim(m.username) from Member m"; // 좌우 공백 제거
+            String locateQ = "select locate('de', 'abcdefg') from Member m"; // 'de'가 'abcdefg' 에서 위치하는 곳의 시작지점 (index가 1부터 시작) → Integer Type으로 반환
+            String sizeQ = "select size(t.members) from Team t";
+
+            // 사용자 정의 함수 호출
+            String userFuncQ = "select function('group_concat', m.username) from Member m"; // member들의 이름을 한줄로 합쳐서 출력해주는 사용자 함수
+
+            List<String> resultList10 = em.createQuery(userFuncQ, String.class)
+                    .getResultList();
+
+            for (String s : resultList10) {
+                System.out.println("s = " + s);
             }
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
