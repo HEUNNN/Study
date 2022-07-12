@@ -27,6 +27,9 @@ public class Member {
         team.getMembers().add(this);
     }
 
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
+
     @Override
     public String toString() { // toString 만들 때 양방향은 지우는게 좋음 , Team
         return "Member{" +

@@ -99,6 +99,7 @@ public class JpaMain {
             }
 */
             // Join
+/*
             Team teamA = new Team();
             teamA.setName("teamA");
 
@@ -133,7 +134,7 @@ public class JpaMain {
             // ON - 조인 대상 필터링
             String onQuery1 = "select m from Member m join m.team t on t.name = 'teamA'";
             String onQuery2 = "select m from Member m left join m.team t on t.name = 'teamA'";
-            
+
             // ON - 연관관계 없는 엔티티 외부 조인
             String onQuery3 = "select m, t from Member m left join Team t on m.username = t.name"; // 특정 멤버의 이름과, 특정 팀의 이름이 같은지 확인한다.
 
@@ -146,6 +147,56 @@ public class JpaMain {
 
             for (Member m : resultList7) {
                 System.out.println(m);
+            }
+*/
+            // 서브 쿼리
+
+            // JPQL 타입 표현
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Team team2 = new Team();
+            team.setName("teamB");
+            em.persist(team2);
+
+            Member member1 = new Member();
+            member1.setUsername("teamA");
+            member1.setAge(10);
+            member1.setTeam(team);
+            member1.setType(MemberType.ADMIN);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            member2.setAge(20);
+            member2.setTeam(team2);
+            member2.setType(MemberType.USER);
+            em.persist(member2);
+
+
+            Member member3 = new Member();
+            member3.setUsername("member3");
+            member3.setAge(30);
+            member3.setTeam(team);
+            member3.setType(MemberType.USER);
+            em.persist(member3);
+            em.flush();
+            em.clear();
+
+            String q = "select m.username, 'HELLO', TRUE  from Member m";
+            String q2 = "select m.username, 'HELLO', TRUE  from Member m " +
+                    "where m.type = :userType";
+            System.out.println("===================================");
+            List<Object[]> resultList8 = em.createQuery(q2)
+                    .setParameter("userType", MemberType.ADMIN)
+                    .getResultList();
+            System.out.println("===================================");
+
+            for (Object[] o : resultList8) {
+                System.out.println("objects = " + o[0]);
+                System.out.println("objects = " + o[1]);
+                System.out.println("objects = " + o[2]);
             }
 
             tx.commit();
