@@ -21,7 +21,7 @@ public class JpaMain {
 
         try {
 
-/*            Member member1 = new Member();
+            Member member1 = new Member();
             member1.setUsername("member1");
             member1.setHomeAddress(new Address("busan", "gil", "12355"));
 
@@ -58,9 +58,16 @@ public class JpaMain {
 
             List<AddressEntity> addressHistory = findMember1.getAddressHistory();
 
-            for (AddressEntity addressEntity : addressHistory) {
-                addressEntity.getAddress().setCity("ssss"); // 이렇게 밖에 못하나?
+/*            for (AddressEntity addressEntity : addressHistory) {
+                if (addressEntity.getId() == 2) {
+                    String street = addressEntity.getAddress().getStreet();
+                    String zipcode = addressEntity.getAddress().getZipcode();
+                    addressEntity.setAddress(new Address("sss", street, zipcode));
+                }
             }*/
+
+            addressHistory.removeIf(addressEntity -> addressEntity.getId() == 2);
+            addressHistory.add(new AddressEntity("aa", "bb", "xx"));
 
             Member member = new Member();
             member.setUsername("kim");

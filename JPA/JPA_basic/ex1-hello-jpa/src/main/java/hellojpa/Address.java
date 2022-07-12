@@ -1,15 +1,13 @@
 package hellojpa;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
 @Getter
-@Setter
 @Embeddable
+@EqualsAndHashCode
 public class Address {
 
     private String city;
@@ -26,20 +24,16 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-    @Override
+/*    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Address)) return false;
         Address address = (Address) o;
-
-        return Objects.equals(city, address.city) &&
-                Objects.equals(street, address.street) &&
-                Objects.equals(zipcode, address.zipcode);
+        return Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getZipcode(), address.getZipcode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(city, street, zipcode);
-    }
+        return Objects.hash(getCity(), getStreet(), getZipcode());
+    }*/
 }
