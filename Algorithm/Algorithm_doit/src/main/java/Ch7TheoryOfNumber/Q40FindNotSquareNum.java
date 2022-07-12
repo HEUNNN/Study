@@ -10,39 +10,32 @@ public class Q40FindNotSquareNum {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        long MIN = Long.parseLong(st.nextToken());
-        long MAX = Long.parseLong(st.nextToken());
+        long min = Long.parseLong(st.nextToken());
+        long max = Long.parseLong(st.nextToken());
+        int length = (int) (max - min + 1);
+        boolean[] check = new boolean[length];
 
-        int length = (int) (MAX - MIN) + 1;
-
-        long[] arr = new long[length];
-
-        for (int i = 0; i < length; i++) {
-            arr[i] = i + MIN;
-        }
-
-
-        for (long i = 2; i * i <= MAX; i++) {
+        for (long i = 2; i * i <= max; i++) {
             long pow = i * i;
-            long start = MIN / pow; // 25
-            if (MIN % pow != 0) {
-                start++;
+            // pow * num 해서 min, max 사이에 들어가는 숫자의 개수를 count 하면된다.
+            // pow가 2 * 2, 즉 4일 때 곱해서 min과 같거나 클 수 있는 값을 구하였고, i++ 시키면서 구한다.
+            long startIdx = min / pow;
+            if (min % pow != 0) startIdx++; // 나머지가 있으면 1을 더해야 min 보다 큰 수를 탐색할 수 있다.
+
+            for (long j = startIdx; pow * j <= max; j++) {
+                check[(int) ((j * pow) - min)] = true;
             }
-            for (long j = start; j * pow <= MAX; j++) {
-                long realValue = j * pow; // 0 ->
-                int index = (int) (realValue - MIN);
-                arr[index] = 0;
-            }
+
         }
 
-        int result = 0;
+        int cnt = 0;
         for (int i = 0; i < length; i++) {
-            if (arr[i] != 0) {
-                result++;
+            if (!check[i]) {
+                cnt++;
             }
         }
 
-        System.out.println(result);
+        System.out.println(cnt);
 
     }
 }
