@@ -1,9 +1,6 @@
 package jpql;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class JpaMain {
@@ -17,10 +14,14 @@ public class JpaMain {
 
         try {
 
+/*
+
             Member member = new Member();
             member.setUsername("member1");
             member.setAge(10);
             em.persist(member);
+
+*/
 
 /*            TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
             // TypeQuery: 반환 타입이 명확할 때 사용
@@ -35,6 +36,9 @@ public class JpaMain {
             TypedQuery<Member> query3 = em.createQuery("select m from Member m where m.username = :username", Member.class);
             query3.setParameter("username", "member1");
             Member singleResult3 = query3.getSingleResult();*/
+
+/*
+
             em.flush();
             em.clear();
 
@@ -51,24 +55,47 @@ public class JpaMain {
             List resultList3 = em.createQuery("select distinct m.username, m.age from Member m").getResultList();
 
             // 쿼리 타입으로 여러 값 조회
-/*
             Object o = resultList3.get(0);
             Object[] result = (Object[]) o;
             System.out.println("username = " + result[0]);
             System.out.println("age = " + result[1]);
-*/
 
             // Object[] 타입으로 여러 값 조회
-/*            List<Object[]> resultList4 = em.createQuery("select distinct m.username, m.age from Member m").getResultList();
+            List<Object[]> resultList4 = em.createQuery("select distinct m.username, m.age from Member m").getResultList();
             Object[] objects = resultList4.get(0);
             System.out.println("username = " + objects[0]);
-            System.out.println("age = " + objects[1]);*/
+            System.out.println("age = " + objects[1]);
 
             // new 명령어로 여러 값 조회
             List<MemberDTO> resultList5 = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
                     .getResultList();
             MemberDTO memberDTO = resultList5.get(0);
             System.out.println("memberDTO = " + memberDTO.getUsername() + ", " + memberDTO.getAge());
+
+*/
+            // 페이징 API
+
+            for (int i = 0; i < 100; i++) {
+                Member newMember = new Member();
+                newMember.setUsername("member" + (i + 1));
+                newMember.setAge(i + 1);
+                em.persist(newMember);
+
+            }
+
+            em.flush();
+            em.clear();
+
+            String jpql = "select m from Member m order by m.age desc";
+            List<Member> resultList6 = em.createQuery(jpql, Member.class)
+                    .setFirstResult(1)
+                    .setMaxResults(10)
+                    .getResultList();
+
+            System.out.println("result.size = " + resultList6.size());
+            for (Member m : resultList6) {
+                System.out.println("member = " + m);
+            }
 
             tx.commit();
         } catch (Exception e) {

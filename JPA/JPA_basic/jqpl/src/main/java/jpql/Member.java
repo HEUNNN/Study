@@ -21,4 +21,12 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @Override
+    public String toString() { // toString 만들 때 양방향은 지우는게 좋음 , Team
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
