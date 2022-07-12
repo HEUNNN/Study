@@ -74,6 +74,7 @@ public class JpaMain {
 
 */
             // 페이징 API
+/*
 
             for (int i = 0; i < 100; i++) {
                 Member newMember = new Member();
@@ -95,6 +96,56 @@ public class JpaMain {
             System.out.println("result.size = " + resultList6.size());
             for (Member m : resultList6) {
                 System.out.println("member = " + m);
+            }
+*/
+            // Join
+            Team teamA = new Team();
+            teamA.setName("teamA");
+
+            Team teamB = new Team();
+            teamB.setName("teamB");
+
+            em.persist(teamA);
+            em.persist(teamB);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setAge(10);
+            member1.changeTeam(teamA);
+
+            Member member2 = new Member();
+            member2.setUsername("teamB");
+            member2.setAge(20);
+            member2.changeTeam(teamB);
+
+            em.persist(member1);
+            em.persist(member2);
+
+            em.flush();
+            em.clear();
+
+            String innerQuery1 = "select m from Member m inner join m.team t"; // inner 생략 가능
+            String innerQuery2 = "select m from Member m inner join m.team t where t.name = :teamName";
+            String outerQuery1 = "select m from Member m left outer join m.team t"; // outer 생략 가능
+            String setaQuery1 = "select m from Member m, Team t where m.username = t.name";
+
+            // ON 사용
+            // ON - 조인 대상 필터링
+            String onQuery1 = "select m from Member m join m.team t on t.name = 'teamA'";
+            String onQuery2 = "select m from Member m left join m.team t on t.name = 'teamA'";
+            
+            // ON - 연관관계 없는 엔티티 외부 조인
+            String onQuery3 = "select m, t from Member m left join Team t on m.username = t.name"; // 특정 멤버의 이름과, 특정 팀의 이름이 같은지 확인한다.
+
+            List<Member> resultList7 = em.createQuery(onQuery2, Member.class)
+                    .getResultList();
+
+            List<Member> resultList8 = em.createQuery(innerQuery2, Member.class)
+                    .setParameter("teamName", "teamB")
+                    .getResultList();
+
+            for (Member m : resultList7) {
+                System.out.println(m);
             }
 
             tx.commit();

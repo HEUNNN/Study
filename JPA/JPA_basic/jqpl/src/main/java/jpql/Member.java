@@ -17,9 +17,15 @@ public class Member {
     private String username;
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    // 연관 관계 편의 메서드
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
 
     @Override
     public String toString() { // toString 만들 때 양방향은 지우는게 좋음 , Team
