@@ -151,41 +151,44 @@ public class JpaMain {
                 System.out.println(m);
             }
 */
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Team team1 = new Team();
+            team1.setName("팀A");
+            em.persist(team1);
 
             Team team2 = new Team();
-            team.setName("teamB");
+            team2.setName("팀B");
             em.persist(team2);
 
+            Team team3 = new Team();
+            team3.setName("팀C");
+            em.persist(team3);
+
             Member member1 = new Member();
-            member1.setUsername("teamA");
-            member1.setAge(10);
-            member1.setTeam(team);
-            member1.setType(MemberType.ADMIN);
+            member1.setUsername("회원1");
+//            member1.setAge(10);
+            member1.setTeam(team1);
+//            member1.setType(MemberType.ADMIN);
             em.persist(member1);
 
             Member member2 = new Member();
-            member2.setUsername("member2");
-            member2.setAge(20);
-            /*member2.setTeam(team2);*/
-            member2.setType(MemberType.USER);
+            member2.setUsername("회원2");
+//            member2.setAge(20);
+            member2.setTeam(team1);
+//            member2.setType(MemberType.USER);
             em.persist(member2);
 
 
             Member member3 = new Member();
-            member3.setUsername("member3");
-            member3.setAge(70);
-            member3.setTeam(team);
-            member3.setType(MemberType.USER);
+            member3.setUsername("회원3");
+//            member3.setAge(70);
+            member3.setTeam(team2);
+//            member3.setType(MemberType.USER);
             em.persist(member3);
 
             Member member4 = new Member();
-            member4.setUsername(" banana ");
-            member4.setAge(4);
-            member4.setTeam(team2);
-            member4.setType(MemberType.USER);
+            member4.setUsername("회원4");
+//            member4.setAge(4);
+//            member4.setType(MemberType.USER);
             em.persist(member4);
 
             em.flush();
@@ -246,20 +249,34 @@ public class JpaMain {
            */
             // JPQL - 경로 표현식
             // 상태 필드
-            String fieldQ1 = "select m.username from Member m"; // m.username에서 탐색 끝
+/*            String fieldQ1 = "select m.username from Member m"; // m.username에서 탐색 끝
             // 단일 값 연관 경로
             String fieldQ2 = "select m.team from Member m"; // Member와 Team은 N:1 관계이다. m.team은 Member와 연관된 특정 team을 갖고온다. 여기에서 더 탐색할 수 있다. (m.team.name 여기서는 탐색 끝남)
             String fieldQ3 = "select m.team.name from Member m";
             // 컬렉션 값 연관 경로
             String fieldQ4 = "select t.members from Team t"; //Team과 members는 일대다 관계이다.
             // 명시적 조인을 사용하여 별칭을 얻고, 탐색하기
-            String fieldQ5 = "select m.username from Team t join t.members m";
+            String fieldQ5 = "select m.username from Team t join t.members m";*/
+            // 페치 조인
+            // 엔티티 패치 조인
+            String fetchQ1 = "select m from Member m";
+            String fetchQ2 = "select m from Member m join fetch m.team"; // Team은 Lazy 조회
 
-            List<String> resultList10 = em.createQuery(fieldQ5, String.class)
+            // 컬렉션 패치 조인
+            String fetchQ3 = "select t from Team t join fetch t.members";
+
+            // Distinct 사용
+            String fetchQ4 = "select distinct t from Team t join fetch t.members where t.name = '팀A'";
+
+            List<Team> resultList10 = em.createQuery(fetchQ4, Team.class)
                     .getResultList();
 
-            for (String s : resultList10) {
-                System.out.println("s = " + s);
+            for (Team t : resultList10) {
+                System.out.println("team = " + t.getName() + ", " + ", team members size =" + t.getMembers().size());
+
+                for (Member member : t.getMembers()) {
+                    System.out.println("-> username = " + member.getUsername() + ", member = " + member);
+                }
             }
 
             tx.commit();
