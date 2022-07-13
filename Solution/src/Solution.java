@@ -1,57 +1,33 @@
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.stream.IntStream;
 
 public class Solution {
 
     public static void main(String[] args) {
-        int[] nums = {3,3,3,2,2,4};
-        int result = solution(nums);
-        System.out.println(result);
+        int[] a = {1,2,3,4};
+        int[] b = {-3,-1,0,2};
 
+        int res = solution2(a, b);
+        System.out.println(res);
     }
 
-    public static int solution(int[] nums) {
-
+    public static int solution(int[] a, int[] b) {
         int answer = 0;
-        int half = nums.length / 2;
+        int n = a.length;
 
-        Arrays.sort(nums);
-        int diffElem = 1;
-        for (int i = 0; i < nums.length -1; i++) {
-            if (nums[i] != nums[i + 1]) {
-                diffElem++;
-            }
-        }
-
-        if (diffElem >= half) {
-            answer = half;
-        } else {
-            answer = diffElem;
+        for (int i = 0; i < n; i++) {
+            int tmp = a[i] * b[i];
+            answer += tmp;
         }
 
         return answer;
     }
-    
-    public static int solution2(int[] nums) {
-        // hashSet은 중복을 허용하지 않는다.
-        int N = nums.length;
-        HashSet<Integer> hs = new HashSet<>();
-        int answer;
 
-        for (int i = 0; i < N; i++) {
-            hs.add(nums[i]);
-        }
-
-        int size = hs.size();
-
-        if (size >= (N/2)) {
-            answer = (N/2);
-        } else {
-            answer = size;
-        }
-
-        return answer;
+    public static int solution2(int[] a, int[] b) {
+        int result = IntStream.range(0, a.length).map(index -> a[index] * b[index]).sum();
+        IntStream.range(0, a.length).forEach(value -> System.out.println(value));
+        return result;
     }
+
 }
 
 
