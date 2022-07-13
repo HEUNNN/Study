@@ -2,6 +2,7 @@ package jpql;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMain {
@@ -168,7 +169,7 @@ public class JpaMain {
             Member member2 = new Member();
             member2.setUsername("member2");
             member2.setAge(20);
-            member2.setTeam(team2);
+            /*member2.setTeam(team2);*/
             member2.setType(MemberType.USER);
             em.persist(member2);
 
@@ -233,7 +234,7 @@ public class JpaMain {
             }*/
             // JPQL 기본 함수
 
-            String concatQ = "select concat('a', 'b') from Member m";
+/*            String concatQ = "select concat('a', 'b') from Member m";
             String substringQ = "select substring(m.username, 2, 3) from Member m"; // 2번째 부터 3개를 잘라내라, teamA → eam
             String trimQ = "select trim(m.username) from Member m"; // 좌우 공백 제거
             String locateQ = "select locate('de', 'abcdefg') from Member m"; // 'de'가 'abcdefg' 에서 위치하는 곳의 시작지점 (index가 1부터 시작) → Integer Type으로 반환
@@ -242,7 +243,19 @@ public class JpaMain {
             // 사용자 정의 함수 호출
             String userFuncQ = "select function('group_concat', m.username) from Member m"; // member들의 이름을 한줄로 합쳐서 출력해주는 사용자 함수
 
-            List<String> resultList10 = em.createQuery(userFuncQ, String.class)
+           */
+            // JPQL - 경로 표현식
+            // 상태 필드
+            String fieldQ1 = "select m.username from Member m"; // m.username에서 탐색 끝
+            // 단일 값 연관 경로
+            String fieldQ2 = "select m.team from Member m"; // Member와 Team은 N:1 관계이다. m.team은 Member와 연관된 특정 team을 갖고온다. 여기에서 더 탐색할 수 있다. (m.team.name 여기서는 탐색 끝남)
+            String fieldQ3 = "select m.team.name from Member m";
+            // 컬렉션 값 연관 경로
+            String fieldQ4 = "select t.members from Team t"; //Team과 members는 일대다 관계이다.
+            // 명시적 조인을 사용하여 별칭을 얻고, 탐색하기
+            String fieldQ5 = "select m.username from Team t join t.members m";
+
+            List<String> resultList10 = em.createQuery(fieldQ5, String.class)
                     .getResultList();
 
             for (String s : resultList10) {
