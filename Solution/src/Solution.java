@@ -1,4 +1,3 @@
-import javax.imageio.plugins.tiff.TIFFTagSet;
 import java.util.Vector;
 
 public class Solution {
