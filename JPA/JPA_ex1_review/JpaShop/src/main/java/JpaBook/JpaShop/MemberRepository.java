@@ -1,5 +1,7 @@
+/*
 package JpaBook.JpaShop;
 
+import JpaBook.JpaShop.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,12 @@ public class MemberRepository {
 
     public Long save(Member member) {
         em.persist(member);
+
+*/
+/*        em.flush();
+        em.clear();*//*
+
+
         return member.getId();
     }
 
@@ -22,3 +30,4 @@ public class MemberRepository {
         return findMember;
     }
 }
+*/
