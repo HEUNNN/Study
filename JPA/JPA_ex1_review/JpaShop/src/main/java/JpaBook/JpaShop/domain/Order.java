@@ -19,15 +19,24 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     // 연관관계의 주인이다. Order 엔티티를 인스턴스로 생성해서 미리 만들어둔 member 값을 setter 하면 FK인 member_id가 Order 테이블에 생성된다.
     private Member member;
 
-    @OneToMany(mappedBy = "order") // OderItem 테이블의 order 필드가 주인이라는 뜻이다.
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // OderItem 테이블의 order 필드가 주인이라는 뜻이다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    /* CasecadeType.ALL의 이점
+     * em.persist(orderItem1)
+     * em.persist(orderItem2)
+     * em.persiste(orderItem3)
+     * em.persiste(order)
+     * orderItem 1, 2, 3 들을 persist 하고 order를 persist해야 Order 엔티티의 orderItems가 채워진다.
+     * CasecadeType.ALL을 사용하면 orderItem1, 2, 3 을 persist 하지 않아도 된다.
+     */
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id") // Order가 Delivery보다 자주 access 될 것이기에 Order와 Delivery 중 Order에 FK를 설정한다.
     private Delivery delivery;
 
@@ -35,4 +44,20 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    // 연관관계 편의 메서드 → 연관 관계 편의 메서드는 핵심적으로 컨트롤하는 엔티티 쪽에 위치하는 것이 좋다.
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }
