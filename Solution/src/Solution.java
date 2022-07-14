@@ -1,61 +1,32 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.lang.management.ManagementFactory;
+import java.math.BigInteger;
 
 public class Solution {
 
     public static void main(String[] args) {
 
-    }
-    public int solution(String s) {
-        int n = s.length();
-        int answer = n;
-
-        for (int i = 1; i <= n / 2; i++) {
-            String newStr = pressedString(s, i);
-            if (answer > newStr.length()) {
-                answer = newStr.length();
-            }
-        }
-
-        return answer;
+        long result = solution(1, 1);
+        System.out.println(result);
     }
 
-    public String pressedString(String s, int length) {
+    public static long solution(long w, long h) {
 
-        Queue<String> q = new LinkedList<>();
-        String tmp = ""; // 길이: 0
+        long rectCnt = 0;
 
-        // queue에 length 만큼씩 잘라서 넣기
-        for (int i = 0; i < s.length(); i++) {
-            tmp += s.charAt(i);
 
-            if (tmp.length() == length) {
-                q.add(tmp);
-                tmp = "";
-            }
-        }
-        if (tmp.length() >= 1) {
-            q.add(tmp);
+        for (long i = 1; i < w; i++) {
+            double v = (double) h * i;
+            rectCnt += (long) (v / w);
         }
 
-        String res = "";
-        while (!q.isEmpty()) {
-            int cnt = 0;
-            String cur = q.poll(); // 큐에서 한개 뽑기
-            while (!q.isEmpty()) {
-                if (cur.equals(q.peek())) {
-                    cnt++;
-                    q.poll(); // cur 이랑 같으므로 cnt++ 후 큐에서 뽑기
-                } else {
-                    break;
-                }
-            }
-            if (cnt == 0) {
-                res += cur;
-            } else {
-                res += ((cnt + 1) + cur);
-            }
-        }
-        return res;
+        return rectCnt * 2;
+    }
+
+
+    public static long gcd(long x, long y) {
+
+        // x < y 여도 gcd(y, x % y)에 의해 큰 수가 앞으로 오도록 자리를 잡게된다.
+        if (y == 0) return x;
+        else return gcd(y, x % y);
     }
 }
