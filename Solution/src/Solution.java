@@ -1,12 +1,8 @@
-import java.lang.management.ManagementFactory;
-import java.math.BigInteger;
-
 public class Solution {
 
     public static void main(String[] args) {
-
-        long result = solution(1, 1);
-        System.out.println(result);
+        long gcd = gcd(5, 3);
+        System.out.println(gcd);
     }
 
     public static long solution(long w, long h) {
@@ -20,6 +16,12 @@ public class Solution {
         }
 
         return rectCnt * 2;
+    }
+    public static long solution2(long w, long h) {
+        long result = 0L;
+        long gcd = gcd(w, h);
+        result = (w * h) - ((w + h) - gcd);
+        return result;
     }
 
 
