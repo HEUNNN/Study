@@ -1,6 +1,7 @@
 package JpaBook.JpaShop.repository;
 
 import JpaBook.JpaShop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,12 @@ import java.util.List;
 @Repository
 public class MemberRepository {
 
+    // 필드 주입
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
+
+    // 생성자 주입 → 스프링 데이터 JPA를 사용하면 EntityManager도 주입 가능
+//    private final EntityManager em;
 
     public void save(Member member) {
 
@@ -30,7 +35,7 @@ public class MemberRepository {
         return members;
     }
 
-    public List<Member> findMember(String name) {
+    public List<Member> findByName(String name) {
 
         List<Member> findByNameMembers = em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
