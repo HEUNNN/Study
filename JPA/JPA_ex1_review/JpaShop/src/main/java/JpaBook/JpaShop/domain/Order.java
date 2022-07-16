@@ -1,6 +1,8 @@
 package JpaBook.JpaShop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name = "ORDERS")
 @Getter
 @Setter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자를 protected로 한다.
 public class Order {
 
     @Id
@@ -59,6 +62,9 @@ public class Order {
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    protected Order() { // 기본 생성자를 막아줘야한다. protected를 하거나
     }
 
     //=== 생성 메서드 ===//
