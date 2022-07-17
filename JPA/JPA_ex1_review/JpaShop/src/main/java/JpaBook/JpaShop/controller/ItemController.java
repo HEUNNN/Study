@@ -85,7 +85,7 @@ public class ItemController {
 //        itemService.saveItem(book); // itemRepository에서 id의 유무에 따라 persist or merge
 
         // 더 나은 설계
-        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
+         itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
 
     }

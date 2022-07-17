@@ -21,8 +21,9 @@ public class OrderService {
     // 주문
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
+        // 파라미터로 외부에서 넘어오는 엔티티(ex. Member, Item 등)는 Tx 외부에서 조회한 JPA와 관련이 없는, 영속 상태가 아닌 엔티티이다. 그래서 TX 안에서 엔티티를 조회하는게 좋다.
 
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findOne(memberId); // 트랜잭션 안에서 엔티티를 조회해야 영속성이 유지된다.
         Item item = itemRepository.findOne(itemId);
 
         // 배송정보 생성
