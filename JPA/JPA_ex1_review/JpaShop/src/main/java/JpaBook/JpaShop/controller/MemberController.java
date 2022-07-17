@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@ModelAttribute @Valid MemberForm form, BindingResult result) { // @ModelAttribute 생략도 가능하다.
 
         // Member 엔티티를 바로 받지 않고, 회원가입 화면(form)에 적합한 도메인을 따로 만들어서 Member 엔티티에 매핑시킬 것이다.
 
