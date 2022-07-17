@@ -74,15 +74,18 @@ public class ItemController {
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
 
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+//        Book book = new Book();
+//        book.setId(form.getId());
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book); // itemRepository에서 id의 유무에 따라 persist or merge
+//        itemService.saveItem(book); // itemRepository에서 id의 유무에 따라 persist or merge
+
+        // 더 나은 설계
+        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
 
     }
