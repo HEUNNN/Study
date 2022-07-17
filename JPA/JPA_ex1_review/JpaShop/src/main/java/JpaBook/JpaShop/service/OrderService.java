@@ -1,9 +1,6 @@
 package JpaBook.JpaShop.service;
 
-import JpaBook.JpaShop.domain.Delivery;
-import JpaBook.JpaShop.domain.Member;
-import JpaBook.JpaShop.domain.Order;
-import JpaBook.JpaShop.domain.OrderItem;
+import JpaBook.JpaShop.domain.*;
 import JpaBook.JpaShop.domain.item.Item;
 import JpaBook.JpaShop.repository.ItemRepository;
 import JpaBook.JpaShop.repository.MemberRepository;
@@ -31,12 +28,13 @@ public class OrderService {
         // 배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
+        delivery.setStatus(DeliveryStatus.READY);
 
         // 주문 상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count); // OrderItem의 생성 메서드
 
         // 주문 생성
-        Order order = Order.createOrder(member, delivery, orderItem);
+        Order order = Order.createOrder(member, delivery, orderItem); // Order의 생성 메서드
 
         orderRepository.save(order); // delivery가 Cascade ALL 이기 때문에 order만 save 해서 persist 해도 된다.
 
