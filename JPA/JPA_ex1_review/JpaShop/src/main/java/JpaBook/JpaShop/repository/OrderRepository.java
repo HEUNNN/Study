@@ -33,7 +33,7 @@ public class OrderRepository {
     // 검색을 위한 reposiotry 기능
     // 동적 쿼리를 만드는 방식에는 JPQL(그냥 String), Criteria, QueryDSL 이 있다.
 
-    public List<Order> findAllByCriteria(OrderSearch orderSearch) {
+    public List<Order> findAll(OrderSearch orderSearch) {
 
         // 검색 로직
 
@@ -123,5 +123,6 @@ public class OrderRepository {
 
         return query.getResultList();
     }
+
     // 쿼리 DSL을 사용하여 동적 쿼리 생성
 }

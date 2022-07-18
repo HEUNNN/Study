@@ -1,7 +1,9 @@
 package JpaBook.JpaShop.controller;
 
 import JpaBook.JpaShop.domain.Member;
+import JpaBook.JpaShop.domain.Order;
 import JpaBook.JpaShop.domain.item.Item;
+import JpaBook.JpaShop.repository.OrderSearch;
 import JpaBook.JpaShop.service.ItemService;
 import JpaBook.JpaShop.service.MemberService;
 import JpaBook.JpaShop.service.OrderService;
@@ -48,6 +50,22 @@ public class OrderController {
 
         // TX(트랜잭션) 없는 외부인 이곳에서 멤버 엔티티 인스턴스를 조회해서 order로 넘겨주면, 그 엔티티 인스턴스는 JPA와 아무 연관이 없다.
         orderService.order(memberId, itemId, count);
+        return "redirect:/orders";
+    }
+
+    @GetMapping("/orders")
+    public String orderList(@ModelAttribute("orderSearch")OrderSearch orderSearch, Model model) {
+
+        List<Order> orders = orderService.findOrders(orderSearch);
+        model.addAttribute("orders", orders);
+
+        return "order/orderList";
+    }
+
+    @PostMapping("/orders/{orderId}/cancel")
+    public String cancelOrder(@PathVariable("orderId") Long orderId) {
+        orderService.cancelOrder(orderId);
+
         return "redirect:/orders";
     }
 }
