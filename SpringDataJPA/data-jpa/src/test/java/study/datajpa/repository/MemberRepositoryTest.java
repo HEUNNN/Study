@@ -17,6 +17,7 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository; // Spring data JPA의 repository
 
+//    @Transactional // Transactional이 여기 있어도 테스트 통과
     @Test
     public void testMember() {
 
