@@ -23,11 +23,11 @@ public class JpaMain {
 
             Member member1 = new Member();
             member1.setUsername("member1");
-            member1.setHomeAddress(new Address("busan", "gil", "12355"));
+            member1.setHomeAddress(new Address("Busan", "Sasang", "12355"));
 
             Member member2 = new Member();
             member2.setUsername("member2");
-            member2.setHomeAddress(new Address("Ulsan", "ig", "1231243"));
+            member2.setHomeAddress(new Address("Ulsan", "Ulju", "1231243"));
 
             // Collection
             member1.getFavoriteFoods().add("치킨");
@@ -35,8 +35,8 @@ public class JpaMain {
             member1.getFavoriteFoods().add("삼겹살");
 
             member1.getAddressHistory().add(new AddressEntity("부산", "진구", "12998"));
-            member1.getAddressHistory().add(new AddressEntity("울산", "울주군", "129434"));
-            member1.getAddressHistory().add(new AddressEntity("제주도", "뿡", "12334"));
+            member1.getAddressHistory().add(new AddressEntity("울산", "삼산", "129434"));
+            member1.getAddressHistory().add(new AddressEntity("제주도", "성산", "12334"));
 
             em.persist(member1);
             em.persist(member2);
@@ -90,6 +90,20 @@ public class JpaMain {
             // 쿼리 생성
             CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"), "kim"));
             List<Member> result = em.createQuery(cq).getResultList();
+
+            // 엔티티 직접 사용
+            System.out.println("========================");
+            List<Long> resultList = em.createQuery("select count(m.id) from Member m", Long.class).getResultList();
+            for (Long long1 : resultList) {
+                System.out.println(long1);
+            }
+            System.out.println("========================");
+            List<Long> resultList1 = em.createQuery("select count(m) from Member m", Long.class).getResultList();
+            for (Long long2 : resultList1) {
+                System.out.println(long2);
+            }
+            System.out.println("========================");
+
 
             tx.commit();
         } catch (Exception e) {
