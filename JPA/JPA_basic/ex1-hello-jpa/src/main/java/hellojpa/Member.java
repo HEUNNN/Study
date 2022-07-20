@@ -23,6 +23,8 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    private int age;
+
 /*    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TEAM_ID") // TEAM_ID(FK)과 Team 레퍼런스를 매핑해야한다.
     private Team team;*/

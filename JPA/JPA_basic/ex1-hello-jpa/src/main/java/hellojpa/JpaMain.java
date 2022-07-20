@@ -1,9 +1,6 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -23,10 +20,12 @@ public class JpaMain {
 
             Member member1 = new Member();
             member1.setUsername("member1");
+            member1.setAge(12);
             member1.setHomeAddress(new Address("Busan", "Sasang", "12355"));
 
             Member member2 = new Member();
             member2.setUsername("member2");
+            member2.setAge(23);
             member2.setHomeAddress(new Address("Ulsan", "Ulju", "1231243"));
 
             // Collection
@@ -69,10 +68,10 @@ public class JpaMain {
             addressHistory.removeIf(addressEntity -> addressEntity.getId() == 2);
             addressHistory.add(new AddressEntity("aa", "bb", "xx"));
 
-            Member member = new Member();
+/*            Member member = new Member();
             member.setUsername("kim");
 
-            em.persist(member);
+            em.persist(member);*/
 
             // JPQL
 
@@ -92,7 +91,7 @@ public class JpaMain {
             List<Member> result = em.createQuery(cq).getResultList();
 
             // 엔티티 직접 사용
-            System.out.println("========================");
+/*            System.out.println("========================");
             List<Long> resultList = em.createQuery("select count(m.id) from Member m", Long.class).getResultList();
             for (Long long1 : resultList) {
                 System.out.println(long1);
@@ -100,8 +99,28 @@ public class JpaMain {
             System.out.println("========================");
             List<Long> resultList1 = em.createQuery("select count(m) from Member m", Long.class).getResultList();
             for (Long long2 : resultList1) {
-                System.out.println(long2);
+                System.out.println(long2); 
             }
+            System.out.println("========================");*/
+
+            // 벌크 연산 - 모든 멤버의 나이를 100살로 바꾸기
+            System.out.println("========================");
+            String bulkQuery1 = "update Member m set m.age = 20";
+            String bulkQuery2 = "update Member m set m.age = 20 where m.age < 20";
+
+            // Flush 자동 호출
+            // Flush는 commit을 하거나, 쿼리가 나갈 때 flush 된다.
+            int resultCnt = em.createQuery(bulkQuery1).executeUpdate(); // 영향을 받은 count
+
+            // 벌크 연산을 하였지만, 이전에 영속성 컨텍스트에 존재하던 member1의 나이는 변하지 않았다.
+            System.out.println("member1 age: " + member1.getAge()); // 12
+            // 벌크 연산을 하면 flush가 된다. 그러나 clear는 안되었기 때문에 영속성 컨텍스트가 비워진 것은 아니다.
+            // clear를 하고 member1.getAge()를 하는게 아니라 member1을 DB에서 find해와서 영속성 컨텍스트에 두면서 조회해야한다.
+            em.clear();
+            Member findMember = em.find(Member.class, member1.getId());
+            System.out.println("find member1 age: " + findMember.getAge()); // 20
+
+            System.out.println(resultCnt);
             System.out.println("========================");
 
 
