@@ -39,8 +39,8 @@ class MemberJpaRepositoryTest {
 
     @Test
     public void basicCRUD() {
-        Member member1 = new Member("Lee hye");
-        Member member2 = new Member("Lee eun");
+        Member member1 = new Member("kim", 10);
+        Member member2 = new Member("kim", 20);
 
         memberJpaRepository.save(member1);
         memberJpaRepository.save(member2);
@@ -54,6 +54,12 @@ class MemberJpaRepositoryTest {
         // 리스트 조회 검증
         List<Member> members = memberJpaRepository.findAll();
         assertThat(members.size()).isEqualTo(2);
+
+        // 이름과 나이를 기준으로 회원 조회
+        List<Member> result = memberJpaRepository.findByUsernameAndAgeGreaterThan("kim", 15);
+        assertThat(result.get(0).getUsername()).isEqualTo("kim");
+        assertThat(result.get(0).getAge()).isEqualTo(20);
+        assertThat(result.size()).isEqualTo(1);
 
         // JPA의 DirtyCheck
         member1.setUsername("kim");
