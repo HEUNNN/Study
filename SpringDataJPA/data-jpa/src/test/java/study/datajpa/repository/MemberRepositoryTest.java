@@ -221,4 +221,24 @@ class MemberRepositoryTest {
         assertThat(slice.hasNext()).isTrue(); // 다음 페이지가 있는가?
 
     }
+
+    @Test
+    public void bulkUpdate() {
+        memberRepository.save(new Member("member1", 12));
+        memberRepository.save(new Member("member2", 14));
+        memberRepository.save(new Member("member3", 15));
+        memberRepository.save(new Member("member4", 30));
+        memberRepository.save(new Member("member5", 23));
+        memberRepository.save(new Member("member6", 60));
+
+        int age = 20;
+        int i = memberRepository.bulkAgePlus(age);
+
+        Member findMember = memberRepository.findMemberByUsername("member4");
+
+        System.out.println(findMember.getAge());
+
+        assertThat(i).isEqualTo(3);
+        System.out.println(i);
+    }
 }
