@@ -3,6 +3,7 @@ package study.datajpa.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,8 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
 
     // JPA NamedQuery 사용
-//    @Query(name = "Member.findByUsername")
-//    List<Member> findByUsername(@Param("username") String username);
+    @Query(name = "Member.findByUsername")
+    List<Member> findByUsername(@Param("username") String username);
 
     // Repository method에 쿼리 정의하기
     @Query("select m from Member m where m.username = :username and m.age = :age")
@@ -39,6 +40,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNames(@Param("names") List<String> names);
 
     List<Member> findListByUsername(String username); // 컬렉션 반환 타입
+
     Member findMemberByUsername(String username); // 단건 반환 타입
 
 //    Page<Member> findByAge(int age, Pageable pageable);
@@ -46,7 +48,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // count 쿼리를 분리한 page
     @Query(value = "select m from Member m left join m.team",
-            countQuery = "select count(m) from Member m") // count 할 때는 join할 필요 없다. ?
+            countQuery = "select count(m) from Member m")
+    // count 할 때는 join할 필요 없다. ?
     Page<Member> findByAge(int age, Pageable pageable);
 
     // 벌크 수정 쿼리
@@ -54,5 +57,22 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
 
+    //fetch join
+    @Query("select m from Member m left join fetch m.team")
+    List<Member> findMemberFetchJoin();
+
+    // Entity Graph
+    @Override // 재정의
+    @EntityGraph(attributePaths = {"team"})
+    List<Member> findAll();
+
+    // JPQL + Entity graph
+    @EntityGraph(attributePaths = {"team"})
+    @Query("select m from Member m")
+    List<Member> findMemberEntityGraph();
+
+    // 메서드 이름으로 쿼리 짜준다. + fetch join
+    @EntityGraph(attributePaths = {"team"})
+    List<Member> findEntityGraphByUsername(@Param("username") String username); // find다음에 오는 EntityGraph는 아무 의미를 가지지 않는다. find + By 사이에 오는 단어는 스프링 JPA에서 쿼리 만들때 신경쓰지 않음
 }
 

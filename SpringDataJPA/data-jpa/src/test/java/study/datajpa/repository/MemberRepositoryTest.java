@@ -13,6 +13,8 @@ import study.datajpa.domain.Member;
 import study.datajpa.domain.Team;
 import study.datajpa.dto.MemberDto;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +29,8 @@ class MemberRepositoryTest {
     MemberRepository memberRepository; // Spring data JPA의 repository
     @Autowired
     TeamRepository teamRepository;
+    @PersistenceContext // 같은 트랜잭션 안에서는 memberRepository의 em이나 여기서 선언한 em이나 같다.
+    EntityManager em;
 
 //    @Transactional // Transactional이 여기 있어도 테스트 통과
     @Test
@@ -240,5 +244,129 @@ class MemberRepositoryTest {
 
         assertThat(i).isEqualTo(3);
         System.out.println(i);
+    }
+
+    @Test
+    public void findMemberLazy() {
+        // member1 → teamA
+        // member2 → teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1");
+        member1.changeTeam(teamA);
+        Member member2 = new Member("member2");
+        member2.changeTeam(teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass() );
+            System.out.println("member = " + member.getTeam().getName());
+        }
+    }
+
+    @Test
+    public void fetchjoin() {
+        // member1 → teamA
+        // member2 → teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1");
+        member1.changeTeam(teamA);
+        Member member2 = new Member("member2");
+        member2.changeTeam(teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findMemberFetchJoin();
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass() );
+            System.out.println("member = " + member.getTeam().getName());
+        }
+    }
+
+    @Test
+    public void entityGraph() {
+        // member1 → teamA
+        // member2 → teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1");
+        member1.changeTeam(teamA);
+        Member member2 = new Member("member2");
+        member2.changeTeam(teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findAll() ;
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass() );
+            System.out.println("member = " + member.getTeam().getName());
+        }
+    }
+
+    @Test
+    public void findEntityGraphByUsername() {
+        // member1 → teamA
+        // member2 → teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1");
+        member1.changeTeam(teamA);
+        Member member2 = new Member("member1");
+        member2.changeTeam(teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> members = memberRepository.findEntityGraphByUsername("member1") ;
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass() );
+            System.out.println("member = " + member.getTeam().getName());
+        }
     }
 }
