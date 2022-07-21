@@ -369,4 +369,34 @@ class MemberRepositoryTest {
             System.out.println("member = " + member.getTeam().getName());
         }
     }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+
+        em.flush();
+        em.clear();
+
+        // when
+/*        Member findMember1 = memberRepository.findById(member.getId()).get();
+        findMember1.setUsername("member2"); // 변경 감지 동작 → UPDATE 쿼리 나간다.*/
+
+        Member findMember2 = memberRepository.findReadOnlyByUsername("member1"); // Query 힌트를 달아둬서 변경 감지가 안된다. 스냅샷 자체가 없기 때문이다.
+        findMember2.setUsername("aaa");
+
+    }
+
+    @Test
+    public void lock() {
+        // given
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+
+        em.flush();
+        em.clear();
+
+        List<Member> lockMembers = memberRepository.findLockByUsername("member1");
+    }
 }
