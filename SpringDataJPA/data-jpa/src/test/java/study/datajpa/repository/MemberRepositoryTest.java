@@ -155,4 +155,16 @@ class MemberRepositoryTest {
         }
     }
 
+    @Test
+    public void returnType() {
+        Member member1 = new Member("kim", 10);
+        Member member2 = new Member("lee", 20);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> listResult = memberRepository.findListByUsername("kim");
+        System.out.println(listResult.get(0));
+    }
+
 }

@@ -7,7 +7,6 @@ import study.datajpa.domain.Member;
 import study.datajpa.dto.MemberDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     // Spring Data JPA 의 Repository
@@ -34,4 +33,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 컬렉션 파라미터 바인딩
     @Query("select m from Member m where m.username in :names")
     List<Member> findByNames(@Param("names") List<String> names);
+
+    List<Member> findListByUsername(String username); // 컬렉션 반환 타입
+    Member findMemberByUsername(String username); // 단건 반환 타입
 }
