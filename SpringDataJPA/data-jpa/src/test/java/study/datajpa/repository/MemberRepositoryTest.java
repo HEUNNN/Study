@@ -399,4 +399,25 @@ class MemberRepositoryTest {
 
         List<Member> lockMembers = memberRepository.findLockByUsername("member1");
     }
+
+    // 사용자 정의 리포지토리 메서드 사용
+    @Test
+    public void custom() {
+
+        Member member1 = new Member("member1", 10);
+        Member member2 = new Member("member2", 20);
+        Member member3 = new Member("member3", 30);
+        Member member4 = new Member("member4", 40);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+        memberRepository.save(member4);
+
+        List<Member> findMembers = memberRepository.findMemberCustom();
+
+        assertThat(findMembers.size()).isEqualTo(4);
+        assertThat(findMembers.get(0).getUsername()).isEqualTo("member1");
+
+    }
 }
