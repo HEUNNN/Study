@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import study.datajpa.entity.BaseEntity;
 import study.datajpa.entity.JpaBaseEntity;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString(of = {"id", "name"})
-public class Team extends JpaBaseEntity {
+public class Team extends BaseEntity {
 
     @Id
     @GeneratedValue

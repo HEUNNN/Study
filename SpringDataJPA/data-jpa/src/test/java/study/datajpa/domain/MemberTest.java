@@ -58,7 +58,7 @@ class MemberTest {
     }
 
     // 순수 JPA - Auditing test
-    @Test
+/*    @Test
     public void JpaEventBaseEntity() throws Exception {
         // given
         Member member = new Member("member1");
@@ -80,5 +80,5 @@ class MemberTest {
         System.out.println("findMember.updatedDate = " + findMember.getLastModifiedDate());
         System.out.println("findMember.createdBy = " + findMember.getCreatedBy());
         System.out.println("findMember.updatedBy = " + findMember.getLastModifiedBy());
-    }
+    }*/
 }

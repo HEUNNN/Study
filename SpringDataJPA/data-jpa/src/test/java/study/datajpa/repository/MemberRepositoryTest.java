@@ -175,7 +175,7 @@ class MemberRepositoryTest {
         System.out.println(listResult.get(0));
     }
 
-/*    @Test
+    @Test
     public void paging() {
         // given
         memberRepository.save(new Member("member1", 10));
@@ -191,16 +191,19 @@ class MemberRepositoryTest {
         // when
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
 
-        // then
-        List<Member> content = page.getContent(); // 조회된 데이터
-        assertThat(content.size()).isEqualTo(3); // 조회된 데이터 수
-        assertThat(page.getTotalElements()).isEqualTo(5); // 전체 데이터 수
-        assertThat(page.getNumber()).isEqualTo(0); // 페이지 번호
-        assertThat(page.getTotalPages()).isEqualTo(2); // 전체 페이지 번호
-        assertThat(page.isFirst()).isTrue(); // 첫번째 항목인가?
-        assertThat(page.hasNext()).isTrue(); // 다음 페이지가 있는가?
+        Page<MemberDto> toMap = page.map(member -> new MemberDto(member.getId(), member.getUsername(), null));
 
-    }*/
+        // then
+        List<MemberDto> content = toMap.getContent(); // 조회된 데이터
+
+        assertThat(content.size()).isEqualTo(3); // 조회된 데이터 수
+        assertThat(toMap.getTotalElements()).isEqualTo(6); // 전체 데이터 수
+        assertThat(toMap.getNumber()).isEqualTo(0); // 페이지 번호
+        assertThat(toMap.getTotalPages()).isEqualTo(2); // 전체 페이지 번호
+        assertThat(toMap.isFirst()).isTrue(); // 첫번째 항목인가?
+        assertThat(toMap.hasNext()).isTrue(); // 다음 페이지가 있는가?
+
+    }
 
     @Test
     public void slice() {
@@ -213,7 +216,7 @@ class MemberRepositoryTest {
         memberRepository.save(new Member("member6", 20));
 
         int age = 10;
-        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username")); // PrageRequest는 pageable의 구현체, Pageable은 인터페이스.
 
         // when
         Slice<Member> slice = memberRepository.findByAge(age, pageRequest);
