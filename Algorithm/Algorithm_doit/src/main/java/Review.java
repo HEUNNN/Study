@@ -1,39 +1,70 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class Memo {
+public class Review {
+
+    static boolean[] visited; // 방문 배열
+    static ArrayList<Integer>[] adjList; // 인접 리스트
+    static Queue<Integer> queue;
+
     public static void main(String[] args) throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        long min = Long.parseLong(st.nextToken());
-        long max = Long.parseLong(st.nextToken());
-        int length = (int) (max - min + 1);
-        boolean[] check = new boolean[length];
 
-        for (long i = 2; i * i <= max; i++) {
-            long pow = i * i;
-            // pow * num 해서 min, max 사이에 들어가는 숫자의 개수를 count 하면된다.
-            // pow가 2 * 2, 즉 4일 때 곱해서 min과 같거나 클 수 있는 값을 구하였고, i++ 시키면서 구한다.
-            long startIdx = min / pow;
-            if (min % pow != 0) startIdx++; // 나머지가 있으면 1을 더해야 min 보다 큰 수를 탐색할 수 있다.
+        int N = 6;
+        adjList = new ArrayList[N + 1]; // 인접 리스트
+        initAdjList();
+        visited = new boolean[N + 1];
+        queue = new LinkedList<>();
 
-            for (long j = startIdx; pow * j <= max; j++) {
-                check[(int) ((j * pow) - min)] = true;
-            }
+        adjList[1].add(2);
+        adjList[1].add(3);
+        adjList[2].add(5);
 
+        adjList[3].add(4);
+        adjList[4].add(6);
+        adjList[5].add(6);
+
+//        BFS(1);
+        DFS(1);
+
+    }
+
+    private static void initAdjList() {
+        for (int i = 1; i < adjList.length; i++) {
+            adjList[i] = new ArrayList<>();
         }
+    }
 
-        int cnt = 0;
-        for (int i = 0; i < length; i++) {
-            if (!check[i]) {
-                cnt++;
+    private static void BFS(int s) {
+
+        queue.add(s);
+        visited[s] = true;
+
+        while (!queue.isEmpty()) {
+            int curr = queue.poll();
+            System.out.print(curr + " ");
+
+            for (int linked : adjList[curr]) {
+                if (!visited[linked]) {
+                    queue.add(linked);
+                    visited[linked] = true;
+                }
             }
         }
+    }
 
-        System.out.println(cnt);
+    private static void DFS(int start) throws IOException {
+        if (visited[start]) return; // 시작점
 
+        visited[start] = true;
+        System.out.print(start + " ");
+
+        for (int i : adjList[start]) { // 시작점에 연관되어 있는 노드들 ⭐️
+            if (!visited[i]) {
+                DFS(i);
+            }
+        }
     }
 }
