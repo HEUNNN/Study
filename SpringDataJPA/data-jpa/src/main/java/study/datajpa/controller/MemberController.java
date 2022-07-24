@@ -50,7 +50,7 @@ public class MemberController {
         return memberRepository.findAll(request).map(MemberDto::new);
     }
 
-    @PostConstruct // 스프링이 애플리케이션에 올라올때(초기에) 한번 실행 시켜주는 애노테이션이다. → test시에도 적용된다.
+//    @PostConstruct // 스프링이 애플리케이션에 올라올때(초기에) 한번 실행 시켜주는 애노테이션이다. → test시에도 적용된다.
     public void init() {
         for (int i = 0; i < 100; i++) {
             memberRepository.save(new Member("user" + i, i));
