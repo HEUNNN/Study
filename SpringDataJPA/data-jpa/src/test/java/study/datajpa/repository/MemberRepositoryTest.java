@@ -1,12 +1,10 @@
 package study.datajpa.repository;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.domain.Member;
@@ -421,6 +419,33 @@ class MemberRepositoryTest {
 
         assertThat(findMembers.size()).isEqualTo(4);
         assertThat(findMembers.get(0).getUsername()).isEqualTo("member1");
+
+    }
+
+    @Test
+    public void queryByExample() {
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        Member member = new Member("m1"); // 해당 도메인 객체를 갖고 검색 조건을 만든다. 좀 더 상세한 검색 조건을 만들려면 ExampleMatcher를 사용한다.
+//        Example<Member> example = Example.of(member);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("age");
+
+        Example<Member> example = Example.of(member, matcher);
+
+        List<Member> result = memberRepository.findAll(example);
+
+        Assertions.assertThat(result.get(0).getUsername()).isEqualTo("m1");
 
     }
 }
