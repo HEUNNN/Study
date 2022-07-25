@@ -3,7 +3,7 @@ package Ch8_Graph;
 import java.io.*;
 import java.util.*;
 
-public class Q46FindCity {
+public class Q46FindCityDistance {
     static ArrayList<Integer>[] list; // 인접 리스트
     static int[] result; // 출발 노드에서 특정 노드까지 거리 측정 결과
     static ArrayList answerList; // 정답 리스트
@@ -84,11 +84,11 @@ public class Q46FindCity {
         result[startNode] = result[startNode] + 1;
 
         while (!queue.isEmpty()) {
-            int currNode = queue.poll();
+            int prevNode = queue.poll();
 
-            for (int i : list[currNode]) {
+            for (int i : list[prevNode]) {
                 if (result[i] == -1) {
-                    int dis = result[currNode] + 1;
+                    int dis = result[prevNode] + 1;
                     result[i] = dis;
                     queue.add(i);
                 }
