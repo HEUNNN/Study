@@ -1,0 +1,4 @@
+# port 번호 바꾸기
+server:
+  port: 8080
+
