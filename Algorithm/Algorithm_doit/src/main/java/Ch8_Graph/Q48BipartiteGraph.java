@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Q48BipartiteGraph {
     static ArrayList<Integer>[] list;
@@ -42,7 +44,8 @@ public class Q48BipartiteGraph {
 
             for (int j = 1; j <= N; j++) { // 주어진 그래프가 1개로 연결되어 있다는 보장이 없기 때문에 모든 노드에 DFS 탐색을 해봐야한다.
                 if (flag) { // flag가 true일 때
-                    DFS(j);
+//                    DFS(j);
+                    BFS(j);
                 } else {
                     break;
                 }
@@ -62,7 +65,7 @@ public class Q48BipartiteGraph {
 
         visited[startNode] = true;
 
-        for(int a : list[startNode]) {
+        for (int a : list[startNode]) {
             if (!visited[a]) {
                 setCheck[a] = (setCheck[startNode] + 1) % 2;
                 DFS(a);
@@ -72,6 +75,27 @@ public class Q48BipartiteGraph {
             }
         }
 
+    }
+
+    private static void BFS(int startNode) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(startNode);
+        visited[startNode] = true;
+
+        while (!q.isEmpty()) {
+            int prevNode = q.poll();
+            for (int i : list[prevNode]) {
+                if (!visited[i]) {
+                    q.add(i);
+                    visited[i] = true;
+                    setCheck[i] = (setCheck[prevNode] + 1) % 2;
+                } else if (setCheck[i] == setCheck[prevNode]) {
+                    flag = false;
+                }
+
+            }
+
+        }
     }
 
 }
