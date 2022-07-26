@@ -23,14 +23,14 @@ public class HelloWorldController {
     }
 
     // @PathVariable 사용
-    @GetMapping("/hello-world-bean1/{message}")
-    public HelloWorldBean helloWorldBean(@PathVariable String message) { // http://localhost:8080/hello-world-bean1/hello-world
-        return new HelloWorldBean(message);
+    @GetMapping("/hello-world-bean/path-variable/{name}")
+    public HelloWorldBean helloWorldBean(@PathVariable String name) { // http://localhost:8080/hello-world-bean/path-variable/Jenny
+        return new HelloWorldBean(String.format("Hello World, %s", name));
     }
 
     // @RequestParam 사용
-    @GetMapping("/hello-world-bean2")
-    public HelloWorldBean helloWorldBean2(@RequestParam("message") String message) { // http://localhost:8080/hello-world-bean2?message=hello-world
+    @GetMapping("/hello-world-bean/request-param")
+    public HelloWorldBean helloWorldBean2(@RequestParam("message") String message) { // http://localhost:8080/hello-world-bean/request-param?message=hello-world
         return new HelloWorldBean(message);
     }
 }
