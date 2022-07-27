@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import restfulAPI.webservice.exception.UserNotFoundException;
 import restfulAPI.webservice.domain.User;
 import restfulAPI.webservice.service.UserDaoService;
 
@@ -22,8 +23,14 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable("id") int userId) {
+    public User retrieveUser(@PathVariable("id") int userId) throws UserNotFoundException {
         User findUser = userDaoService.findOne(userId);
+
+        // 존재하지 않는 userId가 PathVariable로 넘어온 경우 예외를 발생시켜 Response 응답에 나타내기
+        if (findUser == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", userId));
+        }
+
         return findUser;
     }
 
