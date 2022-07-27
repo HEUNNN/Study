@@ -52,4 +52,14 @@ public class UserDaoService {
         // userId를 갖는 user 객체가 없는 경우
         return null;
     }
+
+    public User deleteById(int userId) {
+        for(User user : users) {
+            if (user.getId() == userId) {
+                users.remove(user);
+                return user;
+            }
+        }
+        return null;
+    }
 }

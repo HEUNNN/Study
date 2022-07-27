@@ -57,4 +57,12 @@ public class UserController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable("id") int userId) {
+        User deletedUser = userDaoService.deleteById(userId);
+        if (deletedUser == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", userId));
+        }
+    }
 }
