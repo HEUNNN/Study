@@ -1,19 +1,18 @@
 package restfulAPI.webservice.service;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import restfulAPI.webservice.domain.User;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 @Getter
 @Setter
-@Component
+@Service // @Component가 포함되어 있음
 public class UserDaoService {
 
     public static List<User> users = new ArrayList<>(); // DB를 아직 연결하여 사용하지 않기 때문에 Collection 을 선언하여 User 객체들을 저장한다.
