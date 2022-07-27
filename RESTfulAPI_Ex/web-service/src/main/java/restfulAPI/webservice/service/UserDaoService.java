@@ -34,6 +34,7 @@ public class UserDaoService {
             user.setId(++userCount);
         }
         users.add(user);
+        userCount++;
         return user;
     }
 
