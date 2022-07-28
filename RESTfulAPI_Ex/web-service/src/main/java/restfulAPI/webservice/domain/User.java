@@ -12,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
     private Integer id;
     private String name;
     private Date joinDate;

@@ -1,9 +1,12 @@
 package restfulAPI.webservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import restfulAPI.webservice.dto.UserEditDto;
 import restfulAPI.webservice.exception.UserNotFoundException;
 import restfulAPI.webservice.domain.User;
 import restfulAPI.webservice.service.UserDaoService;
@@ -62,6 +65,16 @@ public class UserController {
     public void deleteUser(@PathVariable("id") int userId) {
         User deletedUser = userDaoService.deleteById(userId);
         if (deletedUser == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", userId));
+        }
+    }
+
+    @PutMapping("/users/{id}")
+    public void editUserName(@PathVariable("id") int userId, @RequestBody UserEditDto editDto) {
+        String userName = editDto.getName();
+
+        User editUser = userDaoService.editById(userId, userName);
+        if (editUser == null) {
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
         }
     }

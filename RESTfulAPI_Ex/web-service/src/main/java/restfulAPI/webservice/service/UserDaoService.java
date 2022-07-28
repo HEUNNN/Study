@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Service // @Component가 포함되어 있음
-public class UserDaoService {
+public class UserDaoService { // UserRespository라고 보면된다.
 
     public static List<User> users = new ArrayList<>(); // DB를 아직 연결하여 사용하지 않기 때문에 Collection 을 선언하여 User 객체들을 저장한다.
 
@@ -57,6 +57,16 @@ public class UserDaoService {
         for(User user : users) {
             if (user.getId() == userId) {
                 users.remove(user);
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User editById(int userId, String editUserName) { // user의 이름만 병경할 수 있도록 했음
+        for (User user : users) {
+            if (user.getId() == userId) {
+                user.setName(editUserName);
                 return user;
             }
         }
