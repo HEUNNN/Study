@@ -1,7 +1,11 @@
 package restfulAPI.webservice.controller;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import restfulAPI.webservice.domain.User;
@@ -20,12 +24,22 @@ public class UserController {
     private final UserDaoService userDaoService; // 의존성 주입
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
-        return userDaoService.findAll();
+    public MappingJacksonValue retrieveAllUsers() {
+
+        List<User> users = userDaoService.findAll();
+
+        //=== Filtering ===//
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", (filter));
+        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        mapping.setFilters(filters);
+
+        return mapping;
     }
 
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable("id") int userId) throws UserNotFoundException {
+    public MappingJacksonValue retrieveUser(@PathVariable("id") int userId) throws UserNotFoundException {
         User findUser = userDaoService.findOne(userId);
 
         // 존재하지 않는 userId가 PathVariable로 넘어온 경우 예외를 발생시켜 Response 응답에 나타내기
@@ -33,7 +47,14 @@ public class UserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
         }
 
-        return findUser;
+        //=== Filtering ===//
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", (filter));
+        MappingJacksonValue mapping = new MappingJacksonValue(findUser);
+        mapping.setFilters(filters);
+        
+        return mapping;
     }
 
     @PostMapping("/users") // user 객체 service 의 users list 에 저장하기

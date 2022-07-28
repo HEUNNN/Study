@@ -25,8 +25,18 @@ public class AdminUserController {
     private final UserDaoService userDaoService; // 의존성 주입
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
-        return userDaoService.findAll();
+    public MappingJacksonValue retrieveAllUsers() {
+
+        List<User> users = userDaoService.findAll();
+
+        //=== Filtering ===//
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate", "password", "ssn");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", (filter));
+        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        mapping.setFilters(filters);
+
+        return mapping;
     }
 
     @GetMapping("/users/{id}")
@@ -38,6 +48,7 @@ public class AdminUserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
         }
 
+        //=== Filtering ===//
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate", "password", "ssn");
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", (filter));
