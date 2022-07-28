@@ -7,4 +7,4 @@ server:
 #    org.springframework: DEBUG
 spring:
   messages:
-    basename: messaged
+    basename: messages

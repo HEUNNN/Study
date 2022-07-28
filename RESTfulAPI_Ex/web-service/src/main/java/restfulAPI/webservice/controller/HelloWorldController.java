@@ -1,12 +1,16 @@
 package restfulAPI.webservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 @RestController // RestController 는 view 이름을 반환하는 것이 아니다. 그냥 String 이다.
 public class HelloWorldController {
+
+    @Autowired
+    private MessageSource messageSource;
 
     // String을 반환하는 API
     // Method: GET, URI: /hello-world
@@ -32,5 +36,11 @@ public class HelloWorldController {
     @GetMapping("/hello-world-bean/request-param")
     public HelloWorldBean helloWorldBean2(@RequestParam("message") String message) { // http://localhost:8080/hello-world-bean/request-param?message=hello-world
         return new HelloWorldBean(message);
+    }
+
+    @GetMapping("/hello-world-internationalized")
+    public String helloWorldInternationalized(@RequestHeader(name = "Accept-Language", required = false) Locale locale) { // Locale 값은 RequestHeader 값에 의해 전달 받을 수 있다.
+        // MessageSource 객체를 사용해서 메시지 값을 반환할 수 있다.
+        return messageSource.getMessage("greeting.message", null, locale);
     }
 }
