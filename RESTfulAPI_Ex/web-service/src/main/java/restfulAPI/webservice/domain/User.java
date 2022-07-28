@@ -1,5 +1,6 @@
 package restfulAPI.webservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"password", "ssn"})
+//@JsonIgnoreProperties(value = {"password", "ssn"})
+@JsonFilter("UserInfo")
 public class User {
 
     @NotNull
