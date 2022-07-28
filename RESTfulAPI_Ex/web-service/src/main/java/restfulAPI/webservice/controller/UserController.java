@@ -1,16 +1,15 @@
 package restfulAPI.webservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import restfulAPI.webservice.domain.User;
 import restfulAPI.webservice.dto.UserEditDto;
 import restfulAPI.webservice.exception.UserNotFoundException;
-import restfulAPI.webservice.domain.User;
 import restfulAPI.webservice.service.UserDaoService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/users") // user 객체 service 의 users list 에 저장하기
-    public ResponseEntity<User> createUser(@RequestBody User user) { // @RequestBody 는 HTTP 요청 '메시지' 바디에 있는 내용을 조회하는 애노테이션이다.
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) { // @RequestBody 는 HTTP 요청 '메시지' 바디에 있는 내용을 조회하는 애노테이션이다.
         User savedUser = userDaoService.save(user);
 
         // HTTP 요청 메시지는
@@ -70,9 +69,9 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public void editUserName(@PathVariable("id") int userId, @RequestBody UserEditDto editDto) {
+    public void editUserName(@PathVariable("id") int userId, @Valid @RequestBody UserEditDto editDto) {
+        // @RequestBody는 JSON으로 넘어오는 HTTP 요청 메시지 바디 내용을 Java 객체와 매핑해준다.
         String userName = editDto.getName();
-
         User editUser = userDaoService.editById(userId, userName);
         if (editUser == null) {
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
