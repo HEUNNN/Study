@@ -38,7 +38,8 @@ public class AdminUserController {
 
     // version 관리
 //    @GetMapping("/v1/users/{id}") // URI를 사용하여 version관리
-    @GetMapping(value = "/users/{id}/", params = "version=1") // Request Parameter와 Header를 이용한 API version 관리
+//    @GetMapping(value = "/users/{id}/", params = "version=1") /// Request Parameter를 이용한 API version 관리
+    @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=1") // headers를 이용한 API version 관리
     public MappingJacksonValue retrieveUserV1(@PathVariable("id") int userId) throws UserNotFoundException {
         User findUser = userDaoService.findOne(userId);
 
@@ -58,7 +59,8 @@ public class AdminUserController {
     }
 
     //    @GetMapping("/v2/users/{id}") // URI를 사용하여 version 관리
-    @GetMapping(value = "/users/{id}/", params = "version=2") // Request Parameter와 Header를 이용한 API version 관리
+//    @GetMapping(value = "/users/{id}/", params = "version=2") // Request Parameter를 이용한 API version 관리
+    @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=2") // headers를 이용한 API version 관리
     public MappingJacksonValue retrieveUserV2(@PathVariable("id") int userId) throws UserNotFoundException {
         User findUser = userDaoService.findOne(userId);
 
