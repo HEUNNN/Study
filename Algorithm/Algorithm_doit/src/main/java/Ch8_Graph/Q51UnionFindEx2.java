@@ -5,11 +5,9 @@ import java.util.StringTokenizer;
 
 public class Q51UnionFindEx2 {
     static int[] nodeArr; // 대표 노드 표시할 배열
-    static boolean flag;
 
     public static void main(String[] args) throws IOException, NumberFormatException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         int N = Integer.parseInt(br.readLine()); // 도시 개수
         int M = Integer.parseInt(br.readLine()); // 여행 계획에 속한 도시들의 수
@@ -24,17 +22,11 @@ public class Q51UnionFindEx2 {
             for (int j = 1; j <= N; j++) {
                 int tmp = Integer.parseInt(st.nextToken());
                 if (tmp == 1) {
-                    if (i > j) {
-                        union(j, i);
-                    } else {
-                        union(i, j);
-                    }
+                    union(i, j);
                 }
             }
         }
-        // 여행할 경로
-        // 대표 노드를 찾을 때는 find 메서드 항상 사용하기
-        flag = true;
+        // 여행할 경로 → 대표 노드를 찾을 때는 find 메서드 항상 사용하기
         st = new StringTokenizer(br.readLine());
         int start = find(Integer.parseInt(st.nextToken()));
         for (int i = 1; i < M; i++) {
@@ -52,14 +44,10 @@ public class Q51UnionFindEx2 {
         int node1 = find(a); // a의 대표 노드
         int node2 = find(b); // b의 대표 노드
 
-        if (node1 == node2) {
-            return;
-        } else {
-            if (a < b) {
-                nodeArr[node2] = node1;
-            } else {
-                nodeArr[node1] = node2;
-            }
+        if (node1 > node2) {
+            nodeArr[node2] = node1;
+        } else if (node1 < node2) {
+            nodeArr[node1] = node2;
         }
     }
 
