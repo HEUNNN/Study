@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ import restfulAPI.webservice.service.UserDaoService;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,13 +52,24 @@ public class UserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
         }
 
+        // HATEOAS 적용
+        EntityModel<User> model = EntityModel.of(findUser); // EntityModel은 protected라 바로 사용할 수 없어 이렇게 사용한다.
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers()); // linkTo, methodOn import 해서 사용
+        model.add(linkTo.withRel("all-users")); //linkTo와 URI 값을 연결 시켜서 model에 넣어준다.
+
+        // HATEOAS를 적용한 EntityModel<User> model을 filtering 해서 반환한다.
+        /*
+         * MappingJacksonValue로 반환하되, MappingJacksonValue를 생성하는 파라미터로 user데이터가 아닌,
+         * Resource<User>가 전달되면 filter된 값과 hateoas가 추가된 형태의 반환 값이 전달될 것입니다.
+         */
+
         //=== Filtering ===//
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate");
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", (filter));
-        MappingJacksonValue mapping = new MappingJacksonValue(findUser);
+        MappingJacksonValue mapping = new MappingJacksonValue(model);
         mapping.setFilters(filters);
-        
+
         return mapping;
     }
 
