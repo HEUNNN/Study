@@ -32,7 +32,7 @@ public class MemberServiceTest {
     public void 회원가입() throws Exception {
 
         Member member = new Member();
-        member.setUserName("kim apple");
+        member.setName("kim apple");
 
         Long savedId = memberService.join(member);
 
@@ -45,10 +45,10 @@ public class MemberServiceTest {
     @Test(expected = IllegalStateException.class)
     public void 중복_회원_예외() throws Exception {
         Member member1 = new Member();
-        member1.setUserName("kim");
+        member1.setName("kim");
 
         Member member2 = new Member();
-        member2.setUserName("kim");
+        member2.setName("kim");
 
         memberService.join(member1);
         memberService.join(member2); // 여기서 예외 발생
