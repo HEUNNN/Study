@@ -83,5 +83,16 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 
     // 전체 엔티티가 아니라 회원 이름만 조회
     List<UsernameOnly> findProjectionByUsername(@Param("username") String username);
+
+    // 네이티브 쿼리 → 사용하지 않는게 좋다.
+    @Query(value = "select * from member where username = ?", nativeQuery = true)
+    Member findByNativeQuery(String username);
+
+    // DTO로 조회할 때 NativeQuery 대신 Projection 활용
+/*    @Query(name = "SELECT m.member_id as id, m.username, t.name as teamName " +
+            "FROM member m left join team t",
+            countQuery = "SELECT count(*) from member",
+            nativeQuery = true)
+    Page<MemberProjection> findByNativeProjection(Pageable pageable);*/
 }
 
