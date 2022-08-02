@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 //@JsonIgnoreProperties(value = {"password", "ssn"})
-@JsonFilter("UserInfo")
+//@JsonFilter("UserInfo") // 일단 필터링 끔
 @ApiModel(description = "사용자 상세 정보를 위한 domain 객체")
 @Entity
 public class User {
@@ -50,4 +50,11 @@ public class User {
     //    @JsonIgnore
     @ApiModelProperty(notes = "사용자의 주민번호를 입력해주세요.")
     private String ssn;
+
+    public User(String name, Date joinDate, String password, String ssn) {
+        this.name = name;
+        this.joinDate = joinDate;
+        this.password = password;
+        this.ssn = ssn;
+    }
 }
