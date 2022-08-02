@@ -11,10 +11,15 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  security:
-    user:
-      name: username
-      password: passw0rd
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+#  security:
+#    user:
+#      name: username
+#      password: passw0rd
 management:
   endpoints:
     web:
