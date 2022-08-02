@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -22,9 +25,12 @@ import java.util.Date;
 //@JsonIgnoreProperties(value = {"password", "ssn"})
 @JsonFilter("UserInfo")
 @ApiModel(description = "사용자 상세 정보를 위한 domain 객체")
+@Entity
 public class User {
 
     @NotNull
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @NotNull
